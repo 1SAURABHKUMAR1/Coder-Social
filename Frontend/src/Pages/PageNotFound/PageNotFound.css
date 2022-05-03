@@ -1,0 +1,43 @@
+.page-not-found {
+    justify-content: center;
+    align-items: center;
+}
+
+.error-numbers {
+    display: flex;
+    font-size: 8rem;
+    font-weight: 800;
+    color: var(--color-primary);
+}
+
+.error-numbers>h1 {
+    padding: 0rem 1rem;
+}
+
+h1:first-child {
+    -webkit-transform: rotate(-60deg);
+    transform: rotate(-60deg);
+    margin-top: 2rem;
+    font-size: 10rem;
+}
+
+h1:nth-child(3) {
+    -webkit-transform: rotate(60deg);
+    transform: rotate(60deg);
+    margin-top: 2rem;
+    font-size: 10rem;
+}
+
+.page-not-found-header {
+    font-size: 2.2rem;
+    color: var(--color-mid-gray);
+    font-weight: 800;
+}
+
+.page-not-found-home {
+    font-size: 1.3rem;
+    color: var(--color-primary);
+    margin: 0.5rem 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+}

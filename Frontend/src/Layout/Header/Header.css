@@ -1,0 +1,143 @@
+header {
+    position: relative;
+    background-color: var(--color-white);
+    padding: 0.55rem 1rem;
+}
+
+.container-navbar {
+    display: flex;
+    max-width: 80rem;
+}
+
+.header-logo-search {
+    display: flex;
+    align-items: center;
+    gap: 1.35rem;
+}
+
+.header-logo {
+    color: var(--color-black);
+}
+
+.header-login-signup {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.header-login-link {
+    margin-left: 2rem;
+    display: none;
+    padding: 0.65rem 0.65rem;
+}
+
+.header-login-link:hover {
+    background-color: rgba(49, 62, 190, .2);
+    border-radius: 7px;
+}
+
+.header-signup-link {
+    padding: 0.65rem 0.65rem;
+    margin-left: 1.2rem;
+    border: 1px solid var(--color-primary);
+    border-radius: 7px;
+    color: var(--color-primary);
+}
+
+.header-signup-link:hover {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+}
+
+.header-hamburger-menu {
+    background-color: var(--color-black);
+    cursor: pointer;
+    height: 2.5px;
+    margin-right: 1rem;
+    width: 1.6rem;
+    margin-top: 1.25rem;
+}
+
+
+.header-hamburger-menu::before {
+    background-color: var(--color-black);
+    content: "";
+    cursor: pointer;
+    display: block;
+    height: 2px;
+    width: 1.6rem;
+}
+
+.header-hamburger-menu::after {
+    background-color: var(--color-black);
+    content: "";
+    margin-top: 4px;
+    cursor: pointer;
+    display: block;
+    height: 3px;
+    width: 1.6rem;
+}
+
+.header-hamburger-menu::before {
+    transform: translateY(-6px);
+    -webkit-transform: translateY(-6px);
+}
+
+
+.search-bar {
+    background-color: var(--color-white);
+    border-image: initial;
+    padding: 0.6rem;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 0.5rem;
+}
+
+.search-bar:focus,
+.search-bar:focus-visible {
+    border: var(--color-primary) 1px solid;
+}
+
+.mobile-search-bar {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.desktop-search-bar {
+    display: none;
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+    header {
+        padding: 0.55rem 1.5rem;
+    }
+
+    .header-logo-search {
+        width: 42%;
+    }
+
+    .header-login-link {
+        display: inline-block;
+    }
+
+    .desktop-search-bar {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .search-mobile-container {
+        display: none;
+    }
+
+    .header-hamburger-menu,
+    .search-icon {
+        display: none;
+    }
+}

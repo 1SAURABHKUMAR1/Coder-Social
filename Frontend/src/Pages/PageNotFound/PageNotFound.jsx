@@ -10,7 +10,7 @@ const PageNotFound = () => {
                 <h1>0</h1>
                 <h1>4</h1>
             </div>
-            <h2 className="page-not-found-header">Page Not found</h2>
+            <h2 className="page-not-found-header">Page not found</h2>
             <Link to="/" className="page-not-found-home">
                 Back To Home
             </Link>

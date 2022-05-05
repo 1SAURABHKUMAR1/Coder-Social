@@ -14,7 +14,7 @@ const NavBar = ({ children, searchMobileIconHandler }) => {
             </div>
             <nav className="header-login-signup">
                 <div className="search-icon" onClick={searchMobileIconHandler}>
-                    <FiSearch size={'1.7rem'} />
+                    <FiSearch size={'1.7rem'} style={{ cursor: 'pointer' }} />
                 </div>
                 <NavLink to="/login" className="header-login-link">
                     Log in

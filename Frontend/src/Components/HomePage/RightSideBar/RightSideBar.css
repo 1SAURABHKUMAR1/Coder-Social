@@ -1,0 +1,27 @@
+.right-sidebar-menu {
+    background-color: var(--color-white);
+    border-radius: 7px;
+}
+
+.right-sidebar-menu>h2 {
+    padding: 0.8rem 1.3rem;
+    font-weight: 800;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-bottom: 2px solid var(--color-border-primary);
+}
+
+.right-sidebar-menu>h2:hover {
+    color: var(--color-primary);
+}
+
+.right-sidebar-menu>ul>li {
+    border-bottom: 1px solid var(--color-border-primary);
+    padding: 0.6rem 1.3rem;
+    font-size: 0.86rem;
+    line-height: 1.45rem;
+}
+
+.right-sidebar-menu>ul>li:hover {
+    color: var(--color-primary);
+}

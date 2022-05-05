@@ -34,8 +34,10 @@ header {
 }
 
 .header-login-link:hover {
-    background-color: rgba(49, 62, 190, .2);
+    background-color: var(--color-hover-blue);
+    color: var(--color-primary);
     border-radius: 7px;
+    text-decoration: underline;
 }
 
 .header-signup-link {
@@ -49,6 +51,7 @@ header {
 .header-signup-link:hover {
     color: var(--color-white);
     background-color: var(--color-primary);
+    text-decoration: underline;
 }
 
 .header-hamburger-menu {

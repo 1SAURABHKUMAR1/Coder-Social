@@ -11,11 +11,6 @@ body {
 
 }
 
-body {
-  height: 100vh;
-  width: 100vw;
-}
-
 h1,
 h2,
 h3,
@@ -63,7 +58,9 @@ button {
 
 menu,
 ol,
-ul {
+ul,
+div,
+a {
   list-style: none;
   margin: 0;
   padding: 0
@@ -95,6 +92,7 @@ body::-webkit-scrollbar-track {
 }
 
 #root {
+  box-sizing: border-box;
   margin: 0px auto;
   min-width: 0px;
   height: 100%;
@@ -102,7 +100,6 @@ body::-webkit-scrollbar-track {
   font-family: 'Open Sans', 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--color-black);
 }
 
 /* colors  */
@@ -113,18 +110,25 @@ body::-webkit-scrollbar-track {
   --color-white: #fff;
   --color-gray: #404040;
   --color-mid-gray: #6b7280;
+  --color-half-gray: rgba(82, 82, 82, 1);
   --color-background: rgb(243 244 246);
+  --color-hover-blue: rgba(59, 73, 223, 0.1);
+  --color-hover-grey: rgba(0, 0, 0, 0.035);
+  --color-light-green: rgba(26, 214, 67, 0.10);
+  --color-mid-green: #1ad643;
   --bg-primary: #f5f5f5;
-  --bg-secondary: #fff;
   --btn-bg-secondary: #bdbdbd;
+  --btn-bg-third: #d6d6d7;
   --btn-bg-secondary-hover: #3d3d3d;
   --btn-bg-red: #b91c1b;
+  --icon-color: rgb(64, 64, 64);
   --icon-color-like: #dc2625;
   --icon-color-unicorn: #169668;
   --icon-color-bookmark: #4f45e5;
   --icon-bg-hover-like: #f4e2e1;
   --icon-bg-hover-unicorn: #e1ece7;
   --icon-bg-hover-bookmark: #f5f5f5;
+  --color-border-primary: #efefef;
   --border-radius: 7px;
   --border-radius-big: 10px;
   --border-radius-circle: 50%;

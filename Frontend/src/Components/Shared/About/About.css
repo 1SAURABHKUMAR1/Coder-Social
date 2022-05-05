@@ -1,0 +1,62 @@
+.home-sidebar-about {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    gap: 1.3rem;
+    padding: 1.3rem;
+    border-radius: 0.6rem;
+    border: 2px solid var(--color-border-primary);
+}
+
+p {
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+}
+
+.about-bold {
+    font-size: 1.3rem;
+    font-weight: 900;
+}
+
+.about-bold-highlight {
+    color: var(--color-primary);
+}
+
+.about-bold-highlight:hover {
+    text-decoration: underline;
+}
+
+.about-login-signup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.about-login {
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0.65rem 0.65rem;
+}
+
+.about-login:hover {
+    background-color: var(--color-hover-blue);
+    color: var(--color-primary);
+    border-radius: 7px;
+    text-decoration: underline;
+}
+
+.about-signup {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 0.65rem 0.65rem;
+    border: 1px solid var(--color-primary);
+    border-radius: 7px;
+    color: var(--color-primary);
+}
+
+.about-signup:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-decoration: underline;
+}

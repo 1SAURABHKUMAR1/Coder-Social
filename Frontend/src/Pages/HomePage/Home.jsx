@@ -1,12 +1,17 @@
+import LeftSideBar from '../../Components/HomePage/LeftSideBar/LeftSideBar';
+import RightSideBar from '../../Components/HomePage/RightSideBar/RightSideBar';
+import PostContainer from '../../Components/Shared/PostsContainer/PostContainer';
+
 const Home = () => {
     return (
         <div className="component">
-            <div className="container-sidebar sidebar sidebar-left">
-                <div className="home-sidebar-about">about</div>
-                <div className="home-sidebar-tags">home</div>
+            <div className="container-layout">
+                <div className="container-sidebar">
+                    <LeftSideBar />
+                </div>
+                <PostContainer />
+                <RightSideBar />
             </div>
-            <div className="container-post container">homepost</div>
-            <div className="sidebar sidebar-right">home right side</div>
         </div>
     );
 };

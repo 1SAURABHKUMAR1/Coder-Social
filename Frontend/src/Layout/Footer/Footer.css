@@ -3,12 +3,8 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     background-color: #e5e5e5;
     font-size: 0.91rem;
     gap: 0.4rem;
-}
-
-.footer-link {
-    margin: 0 0.3rem;
-    color: var(--color-primary);
 }

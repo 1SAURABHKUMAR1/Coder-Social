@@ -1,0 +1,49 @@
+.oauth-form {
+    margin: 2rem 0rem 1.2rem 0rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+
+@media screen and (min-width:463px) {
+    .oauth-form {
+        margin: 2rem 1rem;
+    }
+}
+
+.oauth-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--bg-primary);
+    color: var(--color-gray);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    cursor: pointer;
+    padding: 1.05rem 2rem;
+    font-weight: 500;
+}
+
+.oauth-btn:focus-visible,
+.oauth-btn:focus-within,
+.oauth-btn:focus {
+    border: none;
+    outline: none;
+}
+
+.oauth-icon {
+    font-size: 1.4rem;
+}
+
+.oauth-github {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.oauth-twitter {
+    background-color: #1da1f2;
+    color: var(--color-white);
+}

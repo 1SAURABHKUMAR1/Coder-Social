@@ -12,11 +12,16 @@ header {
 .header-logo-search {
     display: flex;
     align-items: center;
-    gap: 1.35rem;
+    gap: 1.7rem;
+
 }
+
 
 .header-logo {
     color: var(--color-black);
+    height: 2.7rem;
+    width: 2.7rem;
+    display: flex;
 }
 
 .header-login-signup {
@@ -114,8 +119,71 @@ header {
 .search-icon {
     display: flex;
     align-items: center;
-    margin-right: 0.5rem;
+    margin-right: 1rem;
 }
+
+.notification-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 0.3rem;
+    margin-left: 0.4rem;
+}
+
+.header-post-link {
+    margin-right: 1.5rem;
+    display: none;
+}
+
+aside {
+    cursor: default;
+    opacity: 1;
+}
+
+.mobile-side-drawer {
+    background: rgba(0, 0, 0, 0.75);
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    height: 100%;
+}
+
+.mobile-side-drawer-content {
+    width: 50%;
+    background-color: var(--color-white);
+    height: 100%;
+    max-width: 40rem;
+}
+
+.mobile-side-drawer-top {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+}
+
+.mobile-side-drawer-top>h3 {
+    font-weight: 700;
+}
+
+.mobile-side-drawer-top>i {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
+.mobile-side-drawer-list {
+    padding: 0rem 0.7rem !important;
+    gap: 0.4rem !important;
+}
+
+.mobile-side-drawer-socials {
+    padding: 0rem 0.8rem !important;
+}
+
 
 @media screen and (min-width: 768px) {
     header {
@@ -142,5 +210,18 @@ header {
     .header-hamburger-menu,
     .search-icon {
         display: none;
+    }
+
+    .notification-icon {
+        margin-left: 0.3rem;
+        margin-left: 0rem;
+    }
+
+    .header-post-link {
+        display: inline-block;
+    }
+
+    .logo {
+        width: 125%;
     }
 }

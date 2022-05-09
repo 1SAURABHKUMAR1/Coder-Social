@@ -107,6 +107,7 @@ body::-webkit-scrollbar-track {
 :root {
   --color-primary: #3b49df;
   --color-black: #000;
+  --color-black-800: rgb(75 85 99);
   --color-white: #fff;
   --color-gray: #404040;
   --color-mid-gray: #6b7280;
@@ -129,9 +130,6 @@ body::-webkit-scrollbar-track {
   --icon-bg-hover-unicorn: #e1ece7;
   --icon-bg-hover-bookmark: #f5f5f5;
   --color-border-primary: #efefef;
-  --border-radius: 7px;
-  --border-radius-big: 10px;
-  --border-radius-circle: 50%;
   --border-color: #e5e5e5;
   --box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   --box-shadow-2: 0 0 0 1px rgba(0, 0, 0, 0.15);

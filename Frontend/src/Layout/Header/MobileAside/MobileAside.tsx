@@ -8,16 +8,11 @@ import { GrClose } from 'react-icons/gr';
 import { AsideProps } from '../../../Types';
 
 const MobileAside = ({ showAside, handleToggleAside }: AsideProps) => {
-    const handle = () => {
-        console.log('clocked');
-    };
-
     return (
         <>
             <aside
                 className="mobile-side-drawer"
                 style={{ display: `${showAside ? 'block' : 'none'}` }}
-                onClick={handle}
             >
                 <div className="mobile-side-drawer-content">
                     <div className="mobile-side-drawer-top">

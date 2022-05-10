@@ -224,4 +224,8 @@ aside {
     .logo {
         width: 125%;
     }
+
+    .mobile-side-drawer {
+        display: none !important;
+    }
 }

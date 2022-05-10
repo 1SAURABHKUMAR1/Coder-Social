@@ -72,7 +72,6 @@ const SignupForm = () => {
             }
 
             setLoading(false);
-            setProfilePhoto(avatar);
         }
     };
 

@@ -66,19 +66,27 @@ const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
                     style={{ display: `${navbarOpen ? 'block' : 'none'}` }}
                 >
                     <NavLink
-                        to="/account/profile"
+                        to="/user/profile"
                         onClick={NavHandle}
                         className="sidenav-menu-items"
                     >
-                        Account Settings
+                        View Profile
                     </NavLink>
 
                     <NavLink
-                        to="/account/orders"
+                        to="/user/profile/edit"
                         onClick={NavHandle}
                         className="sidenav-menu-items"
                     >
-                        My Orders
+                        Edit Profile
+                    </NavLink>
+
+                    <NavLink
+                        to="/user/reading"
+                        onClick={NavHandle}
+                        className="sidenav-menu-items"
+                    >
+                        Reading List
                     </NavLink>
 
                     <NavLink

@@ -1,28 +1,28 @@
 require('dotenv').config();
-require('./passport/passport');
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+const nocache = require('nocache');
+const passportConfig = require('./passport/passport');
+const passport = require('passport');
 
 // middlewares
 app.use(morgan('tiny'));
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 const corsOption = {
     origin: process.env.CLIENT_URL,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 };
 app.use(cors(corsOption));
+app.use(nocache());
 
 app.use(cookieParser());
-
-app.set('trust proxy', 1);
 
 app.use(
     fileUpload({
@@ -30,6 +30,8 @@ app.use(
         tempFileDir: '/tmp/',
     }),
 );
+
+app.use(passport.initialize());
 
 app.set('view engine', 'ejs');
 
@@ -41,9 +43,11 @@ app.get('/', (req, res) => {
 // router
 const home = require('./Routes/home');
 const user = require('./Routes/user');
+const oauth = require('./Routes/oauth');
 
 // router middleware
 app.use('/api/v1', home);
 app.use('/api/v1', user);
+app.use('/api/v1', oauth);
 
 module.exports = app;

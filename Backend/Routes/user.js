@@ -3,8 +3,6 @@ const router = require('express').Router();
 const { isLoggedIn } = require('../Middleware/isLoggedIn');
 const { customRole } = require('../Middleware/CustomRole');
 
-const passport = require('passport');
-
 const {
     signup,
     login,
@@ -18,7 +16,6 @@ const {
     profileDelete,
     updateProfile,
     getAccessToken,
-    googleOAuth,
 } = require('../Controllers/userController');
 
 router.route('/signup').post(signup);

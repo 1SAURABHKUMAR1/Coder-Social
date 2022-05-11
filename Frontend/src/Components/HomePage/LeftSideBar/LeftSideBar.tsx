@@ -55,13 +55,28 @@ const LeftSideBar = () => {
                     </li>
                 </ul>
                 <div className="home-socials">
-                    <a href="/" target="_blank" className="home-socials-single">
+                    <a
+                        href="https://twitter.com/1SAURABHKUMAR1"
+                        target="_blank"
+                        className="home-socials-single"
+                        rel="noreferrer"
+                    >
                         <FaTwitter className="icons-home" />
                     </a>
-                    <a href="/" target="_blank" className="home-socials-single">
+                    <a
+                        href="https://github.com/1SAURABHKUMAR1"
+                        target="_blank"
+                        className="home-socials-single"
+                        rel="noreferrer"
+                    >
                         <FaGithub className="icons-home" />
                     </a>
-                    <a href="/" target="_blank" className="home-socials-single">
+                    <a
+                        href="https://www.linkedin.com/in/1saurabhkumar1/"
+                        target="_blank"
+                        className="home-socials-single"
+                        rel="noreferrer"
+                    >
                         <FaLinkedin className="icons-home" />
                     </a>
                 </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { useAuthProvider } from '../../../Context/Auth/AuthProvider';
 
@@ -19,6 +19,7 @@ const NavBar = ({
     const [navBarOpen, setNavbarOpen] = useState(false);
 
     const [profilePhoto, setProfilePhoto] = useState('');
+    const location = useLocation();
     const { userAuthState } = useAuthProvider();
 
     const toggleSearchMobile = () => {
@@ -91,10 +92,18 @@ const NavBar = ({
 
                 {!userAuthState.login && (
                     <>
-                        <NavLink to="/login" className="header-login-link">
+                        <NavLink
+                            to="/login"
+                            state={{ from: location.pathname }}
+                            className="header-login-link"
+                        >
                             Log in
                         </NavLink>
-                        <NavLink to="/signup" className="header-signup-link">
+                        <NavLink
+                            to="/signup"
+                            state={{ from: location.pathname }}
+                            className="header-signup-link"
+                        >
                             Create Account
                         </NavLink>
                     </>

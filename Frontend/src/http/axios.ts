@@ -11,31 +11,31 @@ const axiosOptions: AxiosRequestConfig = {
 
 const Axios: AxiosInstance = axios.create(axiosOptions);
 
-// Axios.interceptors.response.use(
-//     (response) => {
-//         return response;
-//     },
-//     async (error) => {
-//         const originalRequest = error.config;
+Axios.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    async (error) => {
+        const originalRequest = error.config;
 
-//         if (
-//             error.response.status === 401 &&
-//             originalRequest &&
-//             !originalRequest._isRetry
-//         ) {
-//             originalRequest.isRetry = true;
-//             try {
-//                 await axios.get(`${process.env.REACT_APP_API_URL}/refresh`, {
-//                     withCredentials: true,
-//                 });
+        if (
+            error.response.status === 401 &&
+            originalRequest &&
+            !originalRequest._isRetry
+        ) {
+            originalRequest.isRetry = true;
+            try {
+                await axios.get(`${process.env.REACT_APP_API_URL}/refresh`, {
+                    withCredentials: true,
+                });
 
-//                 return Axios.request(originalRequest);
-//             } catch (error) {
-//                 console.log(error);
-//             }
-//         }
-//         throw error;
-//     },
-// );
+                return Axios.request(originalRequest);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        throw error;
+    },
+);
 
 export default Axios;

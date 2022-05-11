@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ const SignupForm = () => {
 
     const [loading, setLoading] = useState(false);
 
-    const { userAuthState, userAuthDispatch } = useAuthProvider();
+    const { userAuthDispatch } = useAuthProvider();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -65,8 +65,7 @@ const SignupForm = () => {
             navigate(redirectedFrom, { replace: true });
         } catch (error) {
             if (error.response as Error) {
-                error.response.status === 403 &&
-                    ErrorToast(error.response.data.message);
+                ErrorToast(error.response.data.message);
             } else {
                 ErrorToast('Signup Failed');
             }
@@ -88,13 +87,6 @@ const SignupForm = () => {
             ErrorToast('Fill All Details');
         }
     };
-
-    useEffect(() => {
-        if (userAuthState.login) {
-            navigate('/');
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <>

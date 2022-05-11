@@ -40,19 +40,35 @@ const SideInfoMobile = ({ navbarOpen, handleShowMenu }: HeaderShortProps) => {
                             }}
                         >
                             <NavLink
-                                to="/account/profile"
+                                to="/user/profile"
                                 onClick={handleShowMenu}
                                 className="sidenav-mobile-menu-items"
                             >
-                                Account Settings
+                                View Profile
                             </NavLink>
 
                             <NavLink
-                                to="/account/orders"
+                                to="/user/profile/edit"
                                 onClick={handleShowMenu}
                                 className="sidenav-mobile-menu-items"
                             >
-                                My Orders
+                                Edit Profile
+                            </NavLink>
+
+                            <NavLink
+                                to="/user/post/new"
+                                onClick={handleShowMenu}
+                                className="sidenav-mobile-menu-items"
+                            >
+                                Create new Post
+                            </NavLink>
+
+                            <NavLink
+                                to="/user/reading"
+                                onClick={handleShowMenu}
+                                className="sidenav-mobile-menu-items"
+                            >
+                                Reading List
                             </NavLink>
 
                             <NavLink

@@ -7,7 +7,6 @@ const cloudinary = require('cloudinary').v2;
 const emailSender = require('../Utils/EmailSender');
 const crypto = require('crypto');
 const verifyRefreshToken = require('../Middleware/verifyRefreshToken');
-const passport = require('passport-google-oauth20');
 
 // signup
 exports.signup = BigPromise(async (req, res, next) => {
@@ -71,6 +70,10 @@ exports.login = BigPromise(async (req, res, next) => {
 
     if (!user) {
         return next(CustomError(res, 'Email or Password is Invalid', 401));
+    }
+
+    if (!user.password) {
+        return next(CustomError(res, 'Login via Google', 401));
     }
 
     const validPassword = await user.isPasswordValid(password);

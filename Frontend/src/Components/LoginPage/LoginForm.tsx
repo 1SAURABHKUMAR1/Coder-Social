@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { FormState } from '../../Types';
@@ -17,7 +17,7 @@ const LoginForm = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
-    const { userAuthState, userAuthDispatch } = useAuthProvider();
+    const { userAuthDispatch } = useAuthProvider();
 
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -53,8 +53,7 @@ const LoginForm = () => {
             navigate(redirectedFrom, { replace: true });
         } catch (error) {
             if (error.response) {
-                error.response.status === 403 &&
-                    ErrorToast(error.response.data.message);
+                ErrorToast(error.response.data.message);
             } else {
                 ErrorToast('Login Failed');
             }
@@ -70,13 +69,6 @@ const LoginForm = () => {
             ? handleLogin()
             : ErrorToast('Fill All Details');
     };
-
-    useEffect(() => {
-        if (userAuthState.login) {
-            navigate('/');
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <div className="auth-form-component">

@@ -587,9 +587,9 @@
 
 .profile-edit-form-header {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   font-weight: 900;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 }
 
 .profile-component {
@@ -649,6 +649,15 @@
 
 .delete-button {
   background-color: var(--btn-bg-red);
+}
+
+.button-margin-2rem {
+  margin-top: 2rem;
+}
+
+.change-password-password-field {
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes spin {

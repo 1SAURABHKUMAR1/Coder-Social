@@ -56,6 +56,14 @@ const SideInfoMobile = ({ navbarOpen, handleShowMenu }: HeaderShortProps) => {
                             </NavLink>
 
                             <NavLink
+                                to="/user/profile/password"
+                                onClick={handleShowMenu}
+                                className="sidenav-menu-items"
+                            >
+                                Change Password
+                            </NavLink>
+
+                            <NavLink
                                 to="/user/post/new"
                                 onClick={handleShowMenu}
                                 className="sidenav-mobile-menu-items"

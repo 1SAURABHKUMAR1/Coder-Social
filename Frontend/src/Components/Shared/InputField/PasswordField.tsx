@@ -56,12 +56,12 @@ const PasswordField = ({
                     <input
                         type={passwordHide ? 'password' : 'text'}
                         id={id}
-                        placeholder="12345"
                         value={value}
                         onChange={handleChange}
                         required={required}
                         aria-required={required}
                         className="input-text"
+                        autoComplete={autoFill}
                     />
                 </div>
             </div>

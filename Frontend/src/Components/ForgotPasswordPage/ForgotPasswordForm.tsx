@@ -60,6 +60,7 @@ const ForgotPasswordForm = () => {
                         labelTitle="Email"
                         value={email}
                         setValue={setEmail}
+                        required={true}
                     />
                     {loading ? (
                         <LoaderButton />

@@ -3,7 +3,15 @@ import React, { useState } from 'react';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 import { PasswordFileProps } from '../../../Types';
 
-const PasswordField = ({ value, setValue }: PasswordFileProps) => {
+const PasswordField = ({
+    value,
+    setValue,
+    required,
+    label = '',
+    htmlFor = 'password',
+    id = 'password',
+    autoFill = 'on',
+}: PasswordFileProps) => {
     const [passwordHide, setPasswordHide] = useState(true);
 
     const handleChange = (event: React.FormEvent) => {
@@ -13,8 +21,8 @@ const PasswordField = ({ value, setValue }: PasswordFileProps) => {
     return (
         <>
             <div className="input-component">
-                <label className="input-label" htmlFor="password">
-                    Password
+                <label className="input-label" htmlFor={htmlFor}>
+                    {label}
                 </label>
                 <div style={{ position: 'relative' }}>
                     <div className="input-password-icon">
@@ -47,12 +55,12 @@ const PasswordField = ({ value, setValue }: PasswordFileProps) => {
                     </div>
                     <input
                         type={passwordHide ? 'password' : 'text'}
-                        id="password"
+                        id={id}
                         placeholder="12345"
                         value={value}
                         onChange={handleChange}
-                        required
-                        aria-required
+                        required={required}
+                        aria-required={required}
                         className="input-text"
                     />
                 </div>

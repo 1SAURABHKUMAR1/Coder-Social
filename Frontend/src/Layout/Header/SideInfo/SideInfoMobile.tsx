@@ -9,7 +9,7 @@ import SuccessToast from '../../../Toast/Success';
 import { HeaderShortProps } from '../../../Types';
 
 const SideInfoMobile = ({ navbarOpen, handleShowMenu }: HeaderShortProps) => {
-    const { userAuthDispatch } = useAuthProvider();
+    const { userAuthState, userAuthDispatch } = useAuthProvider();
     const navigate = useNavigate();
 
     const logoutUser = async () => {
@@ -40,7 +40,7 @@ const SideInfoMobile = ({ navbarOpen, handleShowMenu }: HeaderShortProps) => {
                             }}
                         >
                             <NavLink
-                                to="/user/profile"
+                                to={`/user/profile/${userAuthState.username}`}
                                 onClick={handleShowMenu}
                                 className="sidenav-mobile-menu-items"
                             >

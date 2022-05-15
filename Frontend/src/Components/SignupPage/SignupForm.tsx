@@ -43,17 +43,18 @@ const SignupForm = () => {
 
             const { data } = await Axios.post('/signup', formData);
 
-            setTimeout(() => {
-                userAuthDispatch({
-                    type: 'LOGIN',
-                    payload: {
-                        user_id: data?.user.user_id,
-                        name: data?.user.name,
-                        email: data?.user.email,
-                        photo: data?.user.profile_photo.secure_url,
-                    },
-                });
+            userAuthDispatch({
+                type: 'LOGIN',
+                payload: {
+                    user_id: data?.user.user_id,
+                    username: data?.user.username,
+                    name: data?.user.name,
+                    email: data?.user.email,
+                    photo: data?.user.profile_photo.secure_url,
+                },
+            });
 
+            setTimeout(() => {
                 setFullName('');
                 setEmail('');
                 setPassword('');
@@ -64,8 +65,8 @@ const SignupForm = () => {
 
             navigate(redirectedFrom, { replace: true });
         } catch (error) {
-            if (error.response as Error) {
-                ErrorToast(error.response.data.message);
+            if (error.response?.data as Error) {
+                ErrorToast(error?.response?.data?.message);
             } else {
                 ErrorToast('Signup Failed');
             }
@@ -100,6 +101,7 @@ const SignupForm = () => {
                         inputId="name"
                         value={fullName}
                         setValue={setFullName}
+                        required={true}
                     />
                     <TextField
                         htmlFor="email"
@@ -108,12 +110,18 @@ const SignupForm = () => {
                         inputId="email"
                         value={email}
                         setValue={setEmail}
+                        required={true}
                     />
                     <SetAvatar
                         image={profilePhoto}
                         setImage={setProfilePhoto}
                     />
-                    <PasswordField value={password} setValue={setPassword} />
+                    <PasswordField
+                        value={password}
+                        setValue={setPassword}
+                        required={true}
+                        label="Password"
+                    />
                     {loading ? (
                         <LoaderButton />
                     ) : (

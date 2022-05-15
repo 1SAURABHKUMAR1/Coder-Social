@@ -147,7 +147,7 @@ aside {
     right: 0;
     position: fixed;
     width: 100%;
-    z-index: 100;
+    z-index: 5000;
     height: 100%;
 }
 

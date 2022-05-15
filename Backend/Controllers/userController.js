@@ -238,11 +238,14 @@ exports.updatePassword = BigPromise(async (req, res, next) => {
 });
 
 //update profile
+// required -> name , email , user_ID , username
+// extra -> bio , portfolio_link , work , skills , education , location , githubUrl, twitterUrl
 exports.updateProfile = BigPromise(async (req, res, next) => {
-    const { name, email, username, password, photo } = req.body;
+    const { name, email, user_ID, username, photo } = req.body;
+
     const { user_id, profile_photo } = req.user;
 
-    if (!(name && email && username && password)) {
+    if (!(name && email && username && user_ID)) {
         return next(CustomError(res, 'Name and Email is mandatory', 401));
     }
 
@@ -250,12 +253,36 @@ exports.updateProfile = BigPromise(async (req, res, next) => {
         return next(CustomError(res, 'Email is not valid', 401));
     }
 
-    const userDB = await User.findOne({ user_id }).select('+password');
+    if (req.body?.githubUrl && !validator.isURL(req.body.githubUrl)) {
+        return next(CustomError(res, 'Github Url is not valid', 401));
+    }
 
-    const validPassword = await userDB.isPasswordValid(password);
+    if (req.body?.portfolio_link && !validator.isURL(req.body.portfolio_link)) {
+        return next(CustomError(res, 'Portfolio Url is not valid', 401));
+    }
 
-    if (!validPassword) {
-        return next(CustomError(res, 'Password is invalid', 401));
+    if (req.body?.twitterUrl && !validator.isURL(req.body.twitterUrl)) {
+        return next(CustomError(res, 'Twitter Url is not valid', 401));
+    }
+
+    if (user_id !== user_ID) {
+        return next(CustomError(res, 'You are not authorized', 401));
+    }
+
+    if (username !== req.user.username) {
+        const userName = await User.findOne({ username });
+
+        if (userName) {
+            return next(CustomError(res, 'Username already exists!', 203));
+        }
+    }
+
+    if (email !== req.user.email) {
+        const emailChanged = await User.findOne({ email });
+
+        if (emailChanged) {
+            return next(CustomError(res, 'Email Already exits!', 203));
+        }
     }
 
     const newData = {
@@ -266,6 +293,10 @@ exports.updateProfile = BigPromise(async (req, res, next) => {
         portfolio_link: req.body?.portfolio_link,
         work: req.body?.work,
         skills: req.body?.skills,
+        education: req.body?.education,
+        location: req.body?.location,
+        githubUrl: req.body?.githubUrl,
+        twitterUrl: req.body?.twitterUrl,
     };
 
     if (photo) {
@@ -287,7 +318,7 @@ exports.updateProfile = BigPromise(async (req, res, next) => {
         };
     }
 
-    const user = await User.findOneAndUpdate(user_id, newData, {
+    const user = await User.findOneAndUpdate({ user_id }, newData, {
         new: true,
         runValidators: true,
     });
@@ -322,6 +353,26 @@ exports.profileDelete = BigPromise(async (req, res, next) => {
             success: true,
             message: 'Logout Successfull',
         });
+});
+
+// admin single user
+exports.singleUserViaId = BigPromise(async (req, res, next) => {
+    const { username } = req.params;
+
+    if (!username) {
+        return next(CustomError(res, 'All Fields are required', 401));
+    }
+
+    const user = await User.findOne({ username });
+
+    if (!user) {
+        return next(CustomError(res, 'User doesnot exists', 401));
+    }
+
+    res.status(200).json({
+        success: true,
+        user,
+    });
 });
 
 // admin single user

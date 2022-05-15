@@ -15,14 +15,14 @@
     padding: 0rem 1rem;
 }
 
-h1:first-child {
+.error-numbers>h1:first-child {
     -webkit-transform: rotate(-60deg);
     transform: rotate(-60deg);
     margin-top: 2rem;
     font-size: 10rem;
 }
 
-h1:nth-child(3) {
+.error-numbers>h1:nth-child(3) {
     -webkit-transform: rotate(60deg);
     transform: rotate(60deg);
     margin-top: 2rem;

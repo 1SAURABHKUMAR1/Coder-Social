@@ -5,13 +5,19 @@ const PostContainer = () => {
         <>
             <div className="container-post container">
                 <ul>
-                    <Posts />
-                    <Posts />
-                    <Posts />
-                    <Posts />
-                    <Posts />
-                    <Posts />
-                    <Posts />
+                    <Posts
+                        image={''}
+                        heading={''}
+                        id={''}
+                        authorImage={''}
+                        authorName={''}
+                        authorUsername={''}
+                        postDate={''}
+                        numberOfComments={0}
+                        numberOfLikes={0}
+                        postDescription={''}
+                        key={''}
+                    />
                 </ul>
             </div>
         </>

@@ -108,6 +108,8 @@ body::-webkit-scrollbar-track {
   --color-primary: #3b49df;
   --color-black: #000;
   --color-black-800: rgb(75 85 99);
+  --color-black-900: #242424;
+  --color-svg: #717171;
   --color-white: #fff;
   --color-gray: #404040;
   --color-mid-gray: #6b7280;

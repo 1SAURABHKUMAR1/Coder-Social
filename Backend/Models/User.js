@@ -68,6 +68,18 @@ const userSchema = new mongoose.Schema({
     skills: {
         type: String,
     },
+    education: {
+        type: String,
+    },
+    location: {
+        type: String,
+    },
+    githubUrl: {
+        type: String,
+    },
+    twitterUrl: {
+        type: String,
+    },
     total_followers: {
         type: Number,
         default: 0,

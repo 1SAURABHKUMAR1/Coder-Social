@@ -25,6 +25,7 @@ const useSetAuthWithRefresh = () => {
                         type: 'LOGIN',
                         payload: {
                             user_id: data?.user.user_id,
+                            username: data?.user.username,
                             name: data?.user.name,
                             email: data?.user.email,
                             photo: data?.user.profile_photo.secure_url,

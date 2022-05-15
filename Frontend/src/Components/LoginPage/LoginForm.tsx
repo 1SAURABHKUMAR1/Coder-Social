@@ -34,16 +34,18 @@ const LoginForm = () => {
                 password,
             });
 
+            userAuthDispatch({
+                type: 'LOGIN',
+                payload: {
+                    user_id: data?.user.user_id,
+                    username: data?.user.username,
+                    name: data?.user.name,
+                    email: data?.user.email,
+                    photo: data?.user.profile_photo.secure_url,
+                },
+            });
+
             setTimeout(() => {
-                userAuthDispatch({
-                    type: 'LOGIN',
-                    payload: {
-                        user_id: data?.user.user_id,
-                        name: data?.user.name,
-                        email: data?.user.email,
-                        photo: data?.user.profile_photo.secure_url,
-                    },
-                });
                 setEmail('');
                 setPassword('');
                 setLoading(false);
@@ -52,8 +54,8 @@ const LoginForm = () => {
 
             navigate(redirectedFrom, { replace: true });
         } catch (error) {
-            if (error.response) {
-                ErrorToast(error.response.data.message);
+            if (error.response?.data as Error) {
+                ErrorToast(error?.response?.data?.message);
             } else {
                 ErrorToast('Login Failed');
             }
@@ -81,8 +83,14 @@ const LoginForm = () => {
                     inputId="email"
                     value={email}
                     setValue={setEmail}
+                    required={true}
                 />
-                <PasswordField value={password} setValue={setPassword} />
+                <PasswordField
+                    value={password}
+                    setValue={setPassword}
+                    required={true}
+                    label="Password"
+                />
                 {loading ? (
                     <LoaderButton />
                 ) : (

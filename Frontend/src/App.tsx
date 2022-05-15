@@ -12,6 +12,10 @@ import Login from './Pages/LoginPage/Login';
 import Signup from './Pages/SignupPage/Signup';
 import PageNotFound from './Pages/PageNotFound/PageNotFound';
 import ForgotPassword from './Pages/ForgotPassword/ForgotPassword';
+import Profile from './Pages/ProfilePage/Profile';
+import EditProfile from './Pages/EditProfile/EditProfile';
+
+import PrivateRoute from './Hooks/PrivateRoute';
 
 import useSetAuthWithRefresh from './Hooks/useSetAuthWithRefresh';
 
@@ -29,6 +33,14 @@ const App = () => {
                     <Route
                         path="/forgotpassword"
                         element={<ForgotPassword />}
+                    />
+                    <Route
+                        path="/user/profile/:username"
+                        element={<Profile />}
+                    />
+                    <Route
+                        path="/user/profile/edit"
+                        element={<PrivateRoute element={<EditProfile />} />}
                     />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>

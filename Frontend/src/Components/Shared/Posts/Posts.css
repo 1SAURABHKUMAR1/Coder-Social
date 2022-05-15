@@ -1,8 +1,7 @@
 .post-single {
     border-radius: 0.5rem;
     background-color: var(--color-white);
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 0 0 1px rgba(25, 25, 25, 0.2);
 }
 
 .post-single:focus-within {

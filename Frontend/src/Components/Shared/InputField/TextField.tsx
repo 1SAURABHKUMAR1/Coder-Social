@@ -8,6 +8,8 @@ const TextField = ({
     inputId,
     value,
     setValue,
+    required,
+    handleFunction,
 }: TextFieldProps) => {
     const handleChange = (event: React.FormEvent) => {
         setValue((event.target as HTMLButtonElement).value);
@@ -22,11 +24,15 @@ const TextField = ({
                 type="text"
                 placeholder={inputPlaceHolder}
                 id={inputId}
-                value={value}
-                onChange={handleChange}
-                required
-                aria-required
+                value={value ?? ''}
+                onChange={
+                    handleFunction
+                        ? (event) => handleFunction(htmlFor, event)
+                        : handleChange
+                }
                 className="input-text"
+                required={required}
+                aria-required={required}
             />
         </div>
     );

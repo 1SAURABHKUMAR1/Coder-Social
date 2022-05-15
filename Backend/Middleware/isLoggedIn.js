@@ -15,7 +15,13 @@ exports.isLoggedIn = BigPromise(async (req, res, next) => {
         return CustomError(res, 'Login to procced', 401);
     }
 
-    const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_TOKEN);
+    let decoded;
+
+    try {
+        decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_TOKEN);
+    } catch (error) {
+        return CustomError(res, 'Login to procced', 401);
+    }
 
     if (!decoded) {
         return CustomError(res, 'Login to procced', 401);

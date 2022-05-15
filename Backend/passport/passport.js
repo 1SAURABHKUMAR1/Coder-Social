@@ -47,26 +47,19 @@ passport.use(
                     next(null, user);
                 } catch (error) {
                     console.log(error);
+                    next(null, null);
                 }
             }
         },
     ),
 );
 
-passport.serializeUser((user, done) => {
-    if (user) {
-        done(null, user.email);
-    } else {
-        done(null, null);
-    }
+passport.serializeUser(function (user, done) {
+    done(null, user.email);
 });
 
-passport.deserializeUser((email, done) => {
-    if (email) {
-        User.findOne(email, function (err, user) {
-            done(err, user);
-        });
-    } else {
-        done(null, null);
-    }
+passport.deserializeUser(function (email, done) {
+    User.findOne(email, function (err, user) {
+        done(err, user);
+    });
 });

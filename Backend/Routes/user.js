@@ -16,6 +16,7 @@ const {
     profileDelete,
     updateProfile,
     getAccessToken,
+    singleUserViaId,
 } = require('../Controllers/userController');
 
 router.route('/signup').post(signup);
@@ -23,7 +24,8 @@ router.route('/login').post(login);
 router.route('/logout').get(logout);
 router.route('/forgotpassword').post(forgotPassword);
 router.route('/password/reset/:token').post(resetPassword);
-router.route('/profile').get(isLoggedIn, LoggedInUserDetails);
+router.route('/user/profile').get(isLoggedIn, LoggedInUserDetails);
+router.route('/profile/:username').get(singleUserViaId);
 router.route('/password/update').post(isLoggedIn, updatePassword);
 router.route('/profile/update').post(isLoggedIn, updateProfile);
 router.route('/profile/delete').delete(isLoggedIn, profileDelete);

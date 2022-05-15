@@ -2,16 +2,36 @@ import './Posts.css';
 
 import { Link } from 'react-router-dom';
 
-import { RiHeart2Line, RiChat1Line } from 'react-icons/ri';
+import PostsActions from './PostsActions';
+import PostAuthor from './PostAuthor';
 
-const Posts = () => {
+import { PostProps } from '../../../Types';
+import ConvertDate from '../../../Utils/ConvertDate';
+import CalculateTimeRead from '../../../Utils/CalculateTimeRead';
+
+const Posts = ({
+    image,
+    heading,
+    id,
+    authorImage,
+    authorName,
+    postDate,
+    numberOfComments,
+    numberOfLikes,
+    authorUsername,
+    postDescription,
+}: PostProps) => {
+    const [dateOnPosted] = ConvertDate(postDate, 'DD MMM');
+
+    const [timeToRead] = CalculateTimeRead(postDescription);
+
     return (
         <>
             <li className="post-single">
                 <div className="post-image">
-                    <Link to="/">
+                    <Link to={`/post/${id}`}>
                         <img
-                            src={'../../../Data/images/postimage.png'}
+                            src={image}
                             alt="post-green"
                             className="image post-image-single"
                         />
@@ -19,66 +39,30 @@ const Posts = () => {
                 </div>
                 <div className="post-description">
                     <div className="post-author">
-                        <div className="post-author-image">
-                            <Link to="/">
-                                <img
-                                    src={
-                                        '../../../Data/images/postauthorimage.jpg'
-                                    }
-                                    alt="autor-single"
-                                    className="image image-round"
-                                />
-                            </Link>
-                        </div>
-                        <div className="post-author-description">
-                            <div className="post-author-name">
-                                <Link to="/">Ben Halpern</Link>
-                            </div>
-                            <div className="post-author-date">May 4</div>
-                        </div>
+                        <PostAuthor
+                            authorImage={authorImage}
+                            authorName={authorName}
+                            postDate={dateOnPosted}
+                            authorUsername={authorUsername}
+                        />
                     </div>
                     <div className="post-about">
                         <div className="post-title">
-                            <Link to="/">
-                                What tools would you choose to create a personal
-                                portfolio site if starting from scratch?
-                            </Link>
+                            <Link to={`/post/${id}`}>{heading}</Link>
                         </div>
                         <div className="post-tag">
+                            {/* TODO: tags */}
                             <Link to="/">
                                 <span className="post-tag-hashtag">#</span>
                                 discuss
                             </Link>
                         </div>
                         <div className="post-actions">
-                            <div className="post-like-comment">
-                                <div className="post-like">
-                                    <RiHeart2Line
-                                        style={{ fontSize: '1.25rem' }}
-                                    />
-                                    <div className="post-number">
-                                        28
-                                        <span className="post-text">
-                                            reactions
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="post-comment">
-                                    <RiChat1Line
-                                        style={{ fontSize: '1.25rem' }}
-                                    />
-                                    <div className="post-number">
-                                        11
-                                        <span className="post-text">
-                                            reactions
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="post-read-save">
-                                <div className="post-read-time">1 min read</div>
-                                <div className="post-save">Save</div>
-                            </div>
+                            <PostsActions
+                                numberOfComments={numberOfComments}
+                                numberOfLikes={numberOfLikes}
+                                timeToRead={timeToRead}
+                            />
                         </div>
                     </div>
                 </div>

@@ -7,6 +7,7 @@ import AuthReducer from './AuthReducer';
 const initalState: AuthStateType = {
     login: false,
     userId: '',
+    username: '',
     name: '',
     email: '',
     photo: '',

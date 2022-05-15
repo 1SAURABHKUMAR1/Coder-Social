@@ -4,7 +4,7 @@ import { AvatarProps } from '../../../Types';
 
 import './Avatar.css';
 
-const SetAvatar = ({ image, setImage }: AvatarProps) => {
+const SetAvatar = ({ image, setImage, extraClass }: AvatarProps) => {
     const captureImage = (event: React.FormEvent<EventTarget>) => {
         const file = (event.target as HTMLFormElement).files[0];
 
@@ -17,9 +17,15 @@ const SetAvatar = ({ image, setImage }: AvatarProps) => {
 
     return (
         <>
-            <div className="avatar-wrapper">
-                <div className="avatar-photo-wrapper">
-                    <img className="avatar-image" src={image} alt="" />
+            <div className="avatar-wrapper" style={{ fontSize: '1rem' }}>
+                <div className={`avatar-photo-wrapper ${extraClass}`}>
+                    <img
+                        className="avatar-image"
+                        src={image}
+                        alt=""
+                        width="128"
+                        height="128"
+                    />
                 </div>
                 <div>
                     <input

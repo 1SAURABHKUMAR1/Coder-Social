@@ -183,3 +183,8 @@ export interface EditProfileInitalData {
     };
     profilePhoto?: string;
 }
+
+export interface DeleteModalProps {
+    showModal: boolean;
+    handleDeleteModal: () => void;
+}

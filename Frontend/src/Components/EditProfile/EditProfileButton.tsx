@@ -11,12 +11,14 @@ import { useAuthProvider } from '../../Context/Auth/AuthProvider';
 import Axios from '../../http/axios';
 
 import { EditProfileInitalData } from '../../Types';
+import DeleteAccountModal from './DeleteAccountModal';
 
 const EditProfileButton = ({
     userIntialData,
     profilePhoto,
 }: EditProfileInitalData) => {
     const [loading, setLoading] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const { userAuthState, userAuthDispatch } = useAuthProvider();
     const navigate = useNavigate();
 
@@ -98,28 +100,36 @@ const EditProfileButton = ({
         handleEditProfile();
     };
 
+    const handleShowDeleteModal = () => {
+        setShowDeleteModal(!showDeleteModal);
+    };
+
     return (
         <>
             <div className="button-secondary button-profile-show-more profile-sub-component button-width-full button-profile-subcomponent">
                 {loading ? (
                     <LoaderButton />
                 ) : (
-                    <div className="button-filled-profile">
-                        <button
-                            className="button-primary profile-button"
-                            onClick={handleSubmit}
-                        >
-                            Save Changes
-                        </button>
-                        <button
-                            className="button-primary delete-button profile-button"
-                            onClick={() => {
-                                console.log('delete');
-                            }}
-                        >
-                            Delete Account
-                        </button>
-                    </div>
+                    <>
+                        <DeleteAccountModal
+                            showModal={showDeleteModal}
+                            handleDeleteModal={handleShowDeleteModal}
+                        />
+                        <div className="button-filled-profile">
+                            <button
+                                className="button-primary profile-button"
+                                onClick={handleSubmit}
+                            >
+                                Save Changes
+                            </button>
+                            <button
+                                className="button-primary delete-button profile-button"
+                                onClick={handleShowDeleteModal}
+                            >
+                                Delete Account
+                            </button>
+                        </div>
+                    </>
                 )}
             </div>
         </>

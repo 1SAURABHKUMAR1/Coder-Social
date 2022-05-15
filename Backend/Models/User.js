@@ -36,8 +36,8 @@ const userSchema = new mongoose.Schema({
     },
     social_id: {
         type: String,
-        select: false,
-        unique: true,
+        // unique: true,
+        // default: '',
     },
     profile_photo: {
         id: {

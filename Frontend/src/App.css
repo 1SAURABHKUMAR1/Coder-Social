@@ -116,7 +116,7 @@
   background-color: var(--color-black-800);
   opacity: 0.4;
   display: block;
-  z-index: 9999;
+  z-index: 9998;
 }
 
 .sidenav-menu {
@@ -128,7 +128,7 @@
   border-radius: 0.4rem;
   background-color: var(--color-white);
   padding: 0.5rem;
-  z-index: 10000;
+  z-index: 9999;
 }
 
 .sidenav-menu-items {
@@ -140,6 +140,75 @@
 .sidenav-menu-items:hover {
   border-radius: 0.4rem;
   background-color: var(--color-hover-blue);
+}
+
+.modal-wrapper {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.75);
+  bottom: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 5000;
+  height: 100%;
+}
+
+.modal-box {
+  position: absolute;
+  height: 11rem;
+  width: 22rem;
+  background-color: var(--color-white);
+  left: calc(50vw - 11rem);
+  right: calc(50vw - 11rem);
+  top: calc(50vh - 5.5rem);
+  bottom: calc(50vh - 5.5rem);
+  z-index: 10000;
+  border-radius: 0.4rem;
+  padding: 1rem;
+  cursor: default;
+}
+
+.modal-box:hover {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.modal-wrapper:hover {
+  cursor: default;
+  color: var(--color-black);
+}
+
+.modal-side {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.modal-flex {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.modal-heading {
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.modal-button {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-white);
+  padding: 0.7rem 1rem;
+  background-color: var(--btn-bg-red);
+  border-radius: 0.3rem;
+  width: 90%;
+  cursor: pointer;
 }
 
 .image {

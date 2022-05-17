@@ -34,7 +34,6 @@ const ChangePassword = () => {
             ErrorToast('Failed!');
 
             setLoading(false);
-            console.log(error);
         }
     };
 

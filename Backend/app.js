@@ -44,10 +44,12 @@ app.get('/', (req, res) => {
 const home = require('./Routes/home');
 const user = require('./Routes/user');
 const oauth = require('./Routes/oauth');
+const post = require('./Routes/post');
 
 // router middleware
 app.use('/api/v1', home);
 app.use('/api/v1', user);
 app.use('/api/v1', oauth);
+app.use('/api/v1', post);
 
 module.exports = app;

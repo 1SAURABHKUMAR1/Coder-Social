@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import EditProfileButton from './EditProfileButton';
 import TextField from '../Shared/InputField/TextField';
-import SetAvatar from '../SignupPage/SetAvatar/SetAvatar';
+import SetAvatar from '../Shared/InputField/SetAvatar/SetAvatar';
 
 import { EditProfileInitalData } from '../../Types';
 
@@ -53,6 +53,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="name"
                     />
                     <TextField
                         htmlFor="email"
@@ -63,6 +64,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="email"
                     />
                     <TextField
                         htmlFor="username"
@@ -73,6 +75,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="username"
                     />
 
                     <SetAvatar
@@ -93,6 +96,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="bio"
                     />
                     <TextField
                         htmlFor="portfolio_link"
@@ -103,6 +107,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="portfolio_link"
                     />
                     <TextField
                         htmlFor="work"
@@ -113,6 +118,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="work"
                     />
                     <TextField
                         htmlFor="skills"
@@ -123,6 +129,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="skills"
                     />
                 </div>
             </section>
@@ -138,6 +145,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="education"
                     />
                     <TextField
                         htmlFor="location"
@@ -148,6 +156,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="location"
                     />
                     <TextField
                         htmlFor="githubUrl"
@@ -158,6 +167,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="githubUrl"
                     />
                     <TextField
                         htmlFor="twitterUrl"
@@ -168,6 +178,7 @@ const EditProfileForm = ({ userIntialData }: EditProfileInitalData) => {
                         setValue={setValue}
                         required={false}
                         handleFunction={handleChange}
+                        key="twitterUrl"
                     />
                 </div>
             </section>

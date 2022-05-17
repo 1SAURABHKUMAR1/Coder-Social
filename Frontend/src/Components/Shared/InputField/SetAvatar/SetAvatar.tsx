@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AvatarProps } from '../../../Types';
+import { AvatarProps } from '../../../../Types';
 
 import './Avatar.css';
 

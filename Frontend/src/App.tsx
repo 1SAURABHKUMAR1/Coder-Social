@@ -15,6 +15,7 @@ import ForgotPassword from './Pages/ForgotPassword/ForgotPassword';
 import Profile from './Pages/ProfilePage/Profile';
 import EditProfile from './Pages/EditProfile/EditProfile';
 import ChangePassword from './Pages/ChangePassword/ChangePassword';
+import CreatePost from './Pages/CreatePost/CreatePost';
 
 import PrivateRoute from './Hooks/PrivateRoute';
 
@@ -46,6 +47,10 @@ const App = () => {
                     <Route
                         path="/user/profile/password"
                         element={<PrivateRoute element={<ChangePassword />} />}
+                    />
+                    <Route
+                        path="/post/new"
+                        element={<PrivateRoute element={<CreatePost />} />}
                     />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>

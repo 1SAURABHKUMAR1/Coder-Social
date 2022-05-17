@@ -42,9 +42,10 @@ const SideInfoMobile = ({ navbarOpen, handleShowMenu }: HeaderShortProps) => {
                             <NavLink
                                 to={`/user/profile/${userAuthState.username}`}
                                 onClick={handleShowMenu}
-                                className="sidenav-mobile-menu-items"
+                                className="sidenav-mobile-menu-items username-header"
                             >
-                                View Profile
+                                <span>View Profile</span>
+                                <span>@{userAuthState.username}</span>
                             </NavLink>
 
                             <NavLink
@@ -64,7 +65,7 @@ const SideInfoMobile = ({ navbarOpen, handleShowMenu }: HeaderShortProps) => {
                             </NavLink>
 
                             <NavLink
-                                to="/user/post/new"
+                                to="/post/new"
                                 onClick={handleShowMenu}
                                 className="sidenav-mobile-menu-items"
                             >

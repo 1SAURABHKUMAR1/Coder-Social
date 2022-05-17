@@ -363,7 +363,14 @@ exports.singleUserViaId = BigPromise(async (req, res, next) => {
         return next(CustomError(res, 'All Fields are required', 401));
     }
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username }).populate({
+        path: 'posts',
+        select: 'title image description post_id tags comments likes author createdAt',
+        populate: {
+            path: 'tags author',
+            select: 'name username name profile_photo',
+        },
+    });
 
     if (!user) {
         return next(CustomError(res, 'User doesnot exists', 401));

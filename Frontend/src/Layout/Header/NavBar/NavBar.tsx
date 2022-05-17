@@ -43,7 +43,7 @@ const NavBar = ({
 
                 {userAuthState.login && (
                     <NavLink
-                        to="/user/post/new"
+                        to="/post/new"
                         className="header-signup-link header-post-link"
                     >
                         Create Post

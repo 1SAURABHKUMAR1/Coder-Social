@@ -17,6 +17,7 @@ const SearchBar = ({ showSearchBox }: SearchBarProps) => {
                 }`}
                 name="searchBox"
                 value={searchValue}
+                type="text"
                 // onKeyDown={}
                 onChange={handleValueChange}
                 placeholder="Search....."

@@ -11,7 +11,16 @@
 }
 
 .post-image {
-    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    background-position: center center;
+}
+
+.padding-42 {
+    padding-bottom: 42%;
+
 }
 
 .post-image-single {
@@ -64,6 +73,12 @@
     font-size: 1.7rem;
     font-weight: 800;
     line-height: 2rem;
+}
+
+.post-tag-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .post-tag {

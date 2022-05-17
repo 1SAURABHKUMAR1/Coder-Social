@@ -126,6 +126,8 @@ const Profile = () => {
                                 <ProfileExtra
                                     work={userData.work}
                                     education={userData.education}
+                                    following={userData.total_followers}
+                                    followers={userData.total_following}
                                 />
                             </header>
                         </div>

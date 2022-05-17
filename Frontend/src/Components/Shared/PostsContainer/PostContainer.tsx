@@ -17,6 +17,7 @@ const PostContainer = () => {
                         numberOfLikes={0}
                         postDescription={''}
                         key={''}
+                        tagsArray={[]}
                     />
                 </ul>
             </div>

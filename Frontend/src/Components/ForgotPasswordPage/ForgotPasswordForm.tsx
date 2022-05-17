@@ -61,6 +61,7 @@ const ForgotPasswordForm = () => {
                         value={email}
                         setValue={setEmail}
                         required={true}
+                        key="email"
                     />
                     {loading ? (
                         <LoaderButton />

@@ -68,9 +68,10 @@ const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
                     <NavLink
                         to={`/user/profile/${userAuthState.username}`}
                         onClick={NavHandle}
-                        className="sidenav-menu-items"
+                        className="sidenav-menu-items username-header"
                     >
-                        View Profile
+                        <span>View Profile</span>
+                        <span>@{userAuthState.username}</span>
                     </NavLink>
 
                     <NavLink

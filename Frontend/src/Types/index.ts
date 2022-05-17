@@ -1,4 +1,4 @@
-import React, { SetStateAction } from 'react';
+import React from 'react';
 
 import { Location } from 'react-router-dom';
 
@@ -87,6 +87,8 @@ export interface AsideProps {
 export interface UserInfoProps {
     education: string;
     work: string;
+    following: number;
+    followers: number;
 }
 
 export interface PostAuthorProps {
@@ -102,6 +104,11 @@ export interface PostActionsProps {
     timeToRead: number;
 }
 
+export interface PostTag {
+    name: string;
+    _id: string;
+}
+
 export interface PostProps {
     image: string;
     heading: string;
@@ -113,6 +120,7 @@ export interface PostProps {
     numberOfLikes: number;
     authorUsername: string;
     postDescription: string;
+    tagsArray: Array<PostTag>;
 }
 
 export interface ProfileNameProps {
@@ -187,4 +195,30 @@ export interface EditProfileInitalData {
 export interface DeleteModalProps {
     showModal: boolean;
     handleDeleteModal: () => void;
+}
+
+export interface SingleTag {
+    text: string;
+    id: string;
+}
+
+export interface TagProp extends Array<SingleTag> {}
+
+export interface TagInputProp {
+    htmlFor: string;
+    labelTitle: string;
+    inputPlaceHolder: string;
+    inputId: string;
+    tags: TagProp;
+    setTags: React.Dispatch<React.SetStateAction<TagProp>>;
+}
+
+export interface CreatePostFieldProp {
+    title: string;
+    setTitle: React.Dispatch<React.SetStateAction<string>>;
+    setTagArray: React.Dispatch<React.SetStateAction<string[]>>;
+    picture: string;
+    setPicture: React.Dispatch<React.SetStateAction<string>>;
+    content: string;
+    setContent: React.Dispatch<React.SetStateAction<string>>;
 }

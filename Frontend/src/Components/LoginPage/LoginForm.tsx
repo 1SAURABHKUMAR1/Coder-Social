@@ -84,6 +84,7 @@ const LoginForm = () => {
                     value={email}
                     setValue={setEmail}
                     required={true}
+                    key="email"
                 />
                 <PasswordField
                     value={password}

@@ -1,9 +1,13 @@
 import React from 'react';
 
-const LoaderButton = () => {
+export interface LaoderPorps {
+    classExtra?: string;
+}
+
+const LoaderButton = ({ classExtra }: LaoderPorps) => {
     return (
         <>
-            <button disabled className="loader-button">
+            <button disabled className={`loader-button ${classExtra}`}>
                 <svg
                     role="status"
                     className="loader-button-svg"

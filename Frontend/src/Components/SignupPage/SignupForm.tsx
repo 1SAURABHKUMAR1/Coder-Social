@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import TextField from '../Shared/InputField/TextField';
 import PasswordField from '../Shared/InputField/PasswordField';
 import LoaderButton from '../Shared/Loader/LoaderButton';
-import SetAvatar from './SetAvatar/SetAvatar';
+import SetAvatar from '../Shared/InputField/SetAvatar/SetAvatar';
 
 import { useAuthProvider } from '../../Context/Auth/AuthProvider';
 
@@ -102,6 +102,7 @@ const SignupForm = () => {
                         value={fullName}
                         setValue={setFullName}
                         required={true}
+                        key="name"
                     />
                     <TextField
                         htmlFor="email"
@@ -111,6 +112,7 @@ const SignupForm = () => {
                         value={email}
                         setValue={setEmail}
                         required={true}
+                        key="email"
                     />
                     <SetAvatar
                         image={profilePhoto}

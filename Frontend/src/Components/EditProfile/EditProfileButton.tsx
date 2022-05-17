@@ -35,31 +35,36 @@ const EditProfileButton = ({
                 photo:
                     profilePhoto !== userIntialData.photo
                         ? userIntialData.photo
-                        : null,
-                bio: userIntialData.bio !== '' ? userIntialData.bio : null,
+                        : undefined,
+                bio: userIntialData.bio !== '' ? userIntialData.bio : undefined,
                 portfolio_link:
                     userIntialData.portfolio_link !== ''
                         ? userIntialData.portfolio_link
-                        : null,
-                work: userIntialData.work !== '' ? userIntialData.work : null,
+                        : undefined,
+                work:
+                    userIntialData.work !== ''
+                        ? userIntialData.work
+                        : undefined,
                 skills:
-                    userIntialData.skills !== '' ? userIntialData.skills : null,
+                    userIntialData.skills !== ''
+                        ? userIntialData.skills
+                        : undefined,
                 education:
                     userIntialData.education !== ''
                         ? userIntialData.education
-                        : null,
+                        : undefined,
                 location:
                     userIntialData.location !== ''
                         ? userIntialData.location
-                        : null,
+                        : undefined,
                 githubUrl:
                     userIntialData.githubUrl !== ''
                         ? userIntialData.githubUrl
-                        : null,
+                        : undefined,
                 twitterUrl:
                     userIntialData.twitterUrl !== ''
                         ? userIntialData.twitterUrl
-                        : null,
+                        : undefined,
             });
 
             userIntialData.photo !== profilePhoto &&

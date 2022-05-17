@@ -17,6 +17,25 @@
   padding: 1rem;
 }
 
+.sub-component {
+  background-color: var(--color-white);
+  border-radius: 0.4rem;
+  padding: 0.75rem;
+  width: 100%;
+  max-width: 53rem;
+  border: 1px solid var(--border-color);
+}
+
+.gap-5 {
+  row-gap: 1.25rem;
+}
+
+.flex-gap-5 {
+  row-gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
   margin-left: auto;
   margin-right: auto;
@@ -328,6 +347,10 @@
   background-color: var(--color-hover-blue);
   color: var(--color-primary);
   text-decoration: underline;
+}
+
+.button-padding-small {
+  padding: 0.8rem 1rem !important;
 }
 
 .auth-form-component {
@@ -660,6 +683,60 @@
   flex-direction: column;
 }
 
+.tags-input-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  border: 1px solid var(--border-color);
+  border-radius: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style: none;
+  padding: 0.5rem 1.2rem;
+  width: 100%;
+}
+
+.tag-input-item {
+  align-items: center;
+  background: var(--color-primary);
+  border-radius: 0.4rem;
+  color: var(--color-white);
+  display: flex;
+  gap: .8rem;
+  min-height: 1.8rem;
+  justify-content: center;
+  padding: 0rem 0.5rem;
+  word-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.6rem;
+}
+
+.tag-input-item i {
+  background: var(--color-white);
+  color: var(--color-primary);
+  cursor: pointer;
+  border-radius: 50%;
+  margin: 0;
+}
+
+.input-text-tags {
+  width: 100%;
+  border-radius: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  outline: none;
+}
+
+.input-text-tags:focus-within,
+.input-text-tags:focus-visible,
+.input-text-tags:focus {
+  border: none;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -778,6 +855,9 @@
     gap: 0.7rem;
   }
 
+  .sub-component {
+    padding: 1.5rem;
+  }
 
 }
 

@@ -9,17 +9,18 @@ const PostContainer = ({ postArray }: PostContainerProps) => {
                 <ul>
                     {postArray.map((post) => (
                         <Posts
-                            image={post.image.secure_url}
+                            image={post?.image?.secure_url}
                             heading={post.title}
-                            id={post.postId}
-                            authorImage={post.author.image.secure_url}
+                            id={post.post_id}
+                            authorImage={post.author.profile_photo.secure_url}
                             authorName={post.author.name}
                             authorUsername={post.author.username}
                             postDate={post.createdAt}
                             numberOfComments={post.comments.length}
                             numberOfLikes={post.likes.length}
                             postDescription={post.description}
-                            key={post.postId}
+                            key={post.post_id}
+                            tagsArray={post.tags}
                         />
                     ))}
                 </ul>

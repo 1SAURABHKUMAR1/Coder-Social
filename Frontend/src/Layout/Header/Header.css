@@ -17,6 +17,11 @@ header {
 }
 
 
+.username-header {
+    display: flex;
+    gap: 1rem;
+}
+
 .header-logo {
     color: var(--color-black);
     height: 2.7rem;
@@ -227,5 +232,16 @@ aside {
 
     .mobile-side-drawer {
         display: none !important;
+    }
+
+
+    .username-header {
+        gap: 0.2rem;
+        font-size: 0.9rem;
+        flex-direction: column;
+    }
+
+    .username-header>span:nth-child(2) {
+        font-size: 0.8rem;
     }
 }

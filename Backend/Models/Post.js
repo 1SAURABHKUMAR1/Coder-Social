@@ -6,7 +6,6 @@ const postSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'Post Title is required'],
-        maxlength: [50, 'Title max length can be only 50'],
     },
     image: {
         id: {
@@ -19,7 +18,6 @@ const postSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, 'Post Description is required'],
-        maxlength: [300, 'Description can only be 400 characters '],
     },
     post_id: {
         type: String,

@@ -14,8 +14,9 @@
     display: block;
     width: 100%;
     height: auto;
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .padding-42 {

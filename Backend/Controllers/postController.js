@@ -32,8 +32,8 @@ exports.createPost = BigPromise(async (req, res, next) => {
         const cloudinaryPhoto = await cloudinary.uploader.upload(photo, {
             folder: 'codersocial',
             height: 420,
-            width: 1000,
-            crop: 'fit',
+            width: 980,
+            crop: 'pad',
         });
         postData.image = {
             id: cloudinaryPhoto.public_id,
@@ -49,6 +49,34 @@ exports.createPost = BigPromise(async (req, res, next) => {
     );
 
     await createTag(tags, post, next);
+
+    res.status(200).json({
+        success: true,
+        post,
+    });
+});
+
+exports.getAllPosts = BigPromise(async (req, res, next) => {
+    const post = await Post.find()
+        .populate('tags', 'name')
+        .populate('author', 'name username profile_photo');
+
+    res.status(200).json({
+        success: true,
+        post,
+    });
+});
+
+exports.getSinglePost = BigPromise(async (req, res, next) => {
+    const { postId } = req.params;
+
+    const post = await Post.findOne({ post_id: postId })
+        .populate('tags', 'name')
+        .populate('author', 'name username profile_photo');
+
+    if (!post) {
+        return next(CustomError(res, 'No Post Found', 201));
+    }
 
     res.status(200).json({
         success: true,

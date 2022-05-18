@@ -19,8 +19,8 @@ const TagsInput = ({
         const singleTagValue = (event.target as HTMLButtonElement).value;
 
         if (
-            event.code === 'Enter' ||
-            (event.key === 'Enter' && singleTagValue !== '')
+            (event.code === 'Enter' || event.key === 'Enter') &&
+            singleTagValue !== ''
         ) {
             setTags((oldTag) => [
                 ...oldTag,

@@ -18,11 +18,12 @@ const CreatePostFields = ({
     content,
     setContent,
 }: CreatePostFieldProp) => {
-    const [tags, setTags] = useState<TagProp>([{ id: 'test', text: 'test' }]);
+    const [tags, setTags] = useState<TagProp>([{ id: '', text: '' }]);
 
     useEffect(() => {
-        const tag = tags.map((tag) => tag.text);
-        tags.length > 1 && setTagArray(tag);
+        let tag = tags.map((tag) => tag.text).slice(1);
+        setTagArray(tag);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tags]);
 

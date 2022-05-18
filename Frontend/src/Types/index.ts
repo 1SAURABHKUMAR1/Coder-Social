@@ -142,7 +142,7 @@ export interface SideBarPortfolioProps {
 }
 
 export interface PostContainerProps {
-    postArray: Array<any>;
+    postArray: Array<Post>;
 }
 
 export interface UserData {
@@ -221,4 +221,27 @@ export interface CreatePostFieldProp {
     setPicture: React.Dispatch<React.SetStateAction<string>>;
     content: string;
     setContent: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface Post {
+    image: {
+        id: string;
+        secure_url: string;
+    };
+    _id: string;
+    title: string;
+    description: string;
+    tags: [];
+    comments: [];
+    likes: [];
+    author: {
+        profile_photo: {
+            id: string;
+            secure_url: string;
+        };
+        name: string;
+        username: string;
+    };
+    post_id: string;
+    createdAt: string;
 }

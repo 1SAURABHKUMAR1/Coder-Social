@@ -1,6 +1,6 @@
 import LeftSideBar from '../../Components/HomePage/LeftSideBar/LeftSideBar';
 import RightSideBar from '../../Components/HomePage/RightSideBar/RightSideBar';
-import PostContainer from '../../Components/Shared/PostsContainer/PostContainer';
+import PostContainer from '../../Components/HomePage/PostsContainer/PostContainer';
 
 import useScrollToTop from '../../Hooks/useScrollToTop';
 

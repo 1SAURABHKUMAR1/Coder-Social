@@ -27,8 +27,6 @@ const Posts = ({
 
     const [timeToRead] = CalculateTimeRead(postDescription);
 
-    console.log(tagsArray);
-
     return (
         <>
             <li className="post-single">

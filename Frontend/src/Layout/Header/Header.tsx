@@ -26,7 +26,7 @@ const Header = () => {
     };
 
     return (
-        <header>
+        <header className="sticky-header">
             <div className="container container-navbar">
                 {/* hamburgr  */}
                 <div

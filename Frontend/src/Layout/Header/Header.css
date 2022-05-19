@@ -9,6 +9,12 @@ header {
     max-width: 80rem;
 }
 
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
 .header-logo-search {
     display: flex;
     align-items: center;

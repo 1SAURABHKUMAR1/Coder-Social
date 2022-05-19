@@ -1,56 +1,49 @@
-import './Posts.css';
-
 import { Link } from 'react-router-dom';
 
-import PostsActions from './PostsActions';
-import PostAuthor from './PostAuthor';
+import PostAuthor from '../Shared/Posts/PostAuthor';
 
-import ConvertDate from '../../../Utils/ConvertDate';
-import CalculateTimeRead from '../../../Utils/CalculateTimeRead';
+import ConvertDate from '../../Utils/ConvertDate';
 
-import { PostProps } from '../../../Types';
+import { PostSectionProps } from '../../Types';
+import PostEditDelete from './PostEditDelete';
 
-const Posts = ({
+const PostSection = ({
     image,
     heading,
-    id,
     authorImage,
     authorName,
-    postDate,
-    numberOfComments,
-    numberOfLikes,
     authorUsername,
+    postDate,
     postDescription,
     tagsArray,
-}: PostProps) => {
+    children,
+}: PostSectionProps) => {
     const [dateOnPosted] = ConvertDate(postDate, 'DD MMM');
 
-    const [timeToRead] = CalculateTimeRead(postDescription);
-
     return (
-        <>
-            <li className="post-single">
+        <main className="post-section">
+            <li className="post-single border-desktop">
                 {image && (
-                    <Link
-                        to={`/post/${id}`}
+                    <div
                         className="post-image padding-42"
                         style={{
                             backgroundImage: `url(${image})`,
                         }}
-                    ></Link>
+                    ></div>
                 )}
-                <div className="post-description">
-                    <div className="post-author">
+                <div className="post-description post-single-padding">
+                    <div className="post-author margin-small-profile justify-between row-m-col-d">
                         <PostAuthor
                             authorImage={authorImage}
                             authorName={authorName}
                             postDate={dateOnPosted}
                             authorUsername={authorUsername}
                         />
+                        <PostEditDelete />
                     </div>
-                    <div className="post-about">
+                    <div className="post-about margin-small-profile">
                         <div className="post-title">
-                            <Link to={`/post/${id}`}>{heading}</Link>
+                            <div>{heading}</div>
                         </div>
                         {tagsArray.length >= 1 && (
                             <div className="post-tag-wrapper">
@@ -58,11 +51,11 @@ const Posts = ({
                                     <Link
                                         to={`/tag/${tag?.name}`}
                                         className="post-tag"
-                                        key={tag._id}
+                                        key={tag.tag_id}
                                     >
                                         <span
                                             className="post-tag-hashtag"
-                                            key={tag._id}
+                                            key={tag.tag_id}
                                         >
                                             #
                                         </span>
@@ -71,19 +64,20 @@ const Posts = ({
                                 ))}
                             </div>
                         )}
-                        <div className="post-actions">
-                            <PostsActions
-                                numberOfComments={numberOfComments}
-                                numberOfLikes={numberOfLikes}
-                                timeToRead={timeToRead}
-                                postId={id}
-                            />
-                        </div>
+                    </div>
+                    <div className="margin-small-profile post-description-single">
+                        {postDescription}
                     </div>
                 </div>
+                <div
+                    id="paddding-top-3"
+                    className="post-single-padding border-top"
+                >
+                    {children}
+                </div>
             </li>
-        </>
+        </main>
     );
 };
 
-export default Posts;
+export default PostSection;

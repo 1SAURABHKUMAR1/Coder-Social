@@ -43,14 +43,16 @@ textarea {
 }
 
 button,
-select {
+select,
+textarea {
   text-transform: none
 }
 
 [type=button],
 [type=reset],
 [type=submit],
-button {
+button,
+textarea {
   -webkit-appearance: button;
   background-color: transparent;
   background-image: none
@@ -68,7 +70,11 @@ a {
 
 input:focus,
 input:focus-visible,
-input:focus-within {
+input:focus-within,
+textarea,
+textarea:focus,
+textarea:focus-visible,
+textarea:focus-within {
   outline: none;
 }
 
@@ -107,6 +113,7 @@ body::-webkit-scrollbar-track {
 :root {
   --color-primary: #3b49df;
   --color-black: #000;
+  --color-black-600: rgb(113, 113, 113);
   --color-black-800: rgb(75 85 99);
   --color-black-900: #242424;
   --color-svg: #717171;
@@ -126,13 +133,18 @@ body::-webkit-scrollbar-track {
   --btn-bg-red: #b91c1b;
   --icon-color: rgb(64, 64, 64);
   --icon-color-like: #dc2625;
+  --icon-background-like: rgb(220, 38, 38, 0.1);
   --icon-color-unicorn: #169668;
+  --icon-background-unicorn: rgb(5, 150, 105, 0.1);
   --icon-color-bookmark: #4f45e5;
+  --icon-background-bookmark: rgb(79, 70, 229, 0.1);
   --icon-bg-hover-like: #f4e2e1;
   --icon-bg-hover-unicorn: #e1ece7;
   --icon-bg-hover-bookmark: #f5f5f5;
   --color-border-primary: #efefef;
   --border-color: #e5e5e5;
+  --button-hover: rgb(245, 236, 222);
+  --button-edit-delete: rgba(245, 158, 11, 0.1);
   --box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   --box-shadow-2: 0 0 0 1px rgba(0, 0, 0, 0.15);
 }

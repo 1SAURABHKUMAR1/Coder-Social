@@ -102,6 +102,7 @@ export interface PostActionsProps {
     numberOfLikes: number;
     numberOfComments: number;
     timeToRead: number;
+    postId: string;
 }
 
 export interface PostTag {
@@ -244,4 +245,84 @@ export interface Post {
     };
     post_id: string;
     createdAt: string;
+}
+
+export interface PostProfileProps {
+    image_secure_url: string;
+    user_id: string;
+    bio: string;
+    location: string;
+    education: string;
+    work: string;
+    joinedDate: string;
+    name: string;
+    username: string;
+}
+
+export interface PostSectionProps {
+    image: string;
+    heading: string;
+    authorImage: string;
+    authorName: string;
+    postDate: string;
+    authorUsername: string;
+    postDescription: string;
+    tagsArray: [
+        {
+            name: string;
+            _id: string;
+            tag_id: string;
+        },
+    ];
+    children: React.ReactNode;
+}
+
+export interface PostReactionProps {
+    likeCount: number;
+    unicornCount: number;
+    bookmarkCount: number;
+}
+
+// TODO: remove ?
+export interface PostCommentsProps {
+    noOfComments?: number;
+    commentArray?: [];
+}
+
+export interface PostData {
+    author: {
+        name: string;
+        profile_photo: {
+            id: string;
+            secure_url: string;
+        };
+        username: string;
+        _id: string;
+        bio: string;
+        education: string;
+        createdAt: string;
+        location: string;
+        user_id: string;
+        work: string;
+    };
+    bookmarks: [];
+    comments: [];
+    createdAt: string;
+    description: string;
+    image: {
+        id: string;
+        secure_url: string;
+    };
+    likes: [];
+    post_id: string;
+    tags: [
+        {
+            name: string;
+            tag_id: string;
+            _id: string;
+        },
+    ];
+    title: string;
+    unicorns: [];
+    _id: string;
 }

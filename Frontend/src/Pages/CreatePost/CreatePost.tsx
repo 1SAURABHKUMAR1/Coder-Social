@@ -57,8 +57,6 @@ const CreatePost = () => {
             : ErrorToast('Fill All Details');
     };
 
-    // /* TODO: check for image if changes add post */
-
     return (
         <>
             <div className="component component-center gap-5">

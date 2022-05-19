@@ -80,7 +80,7 @@ const Profile = () => {
 
     return (
         <>
-            {userData.user_id !== '' ? (
+            {userData.user_id ? (
                 <main className="profile-page component">
                     <div className="profile-user-info">
                         <div className="user-info-profile">

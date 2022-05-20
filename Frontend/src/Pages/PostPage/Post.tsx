@@ -73,8 +73,6 @@ const Post = () => {
 
         getPostInfo(controller, unMounted);
 
-        console.log(postData);
-
         return () => {
             controller.abort();
             unMounted = true;
@@ -94,7 +92,7 @@ const Post = () => {
                         />
                         <div className="post-about-section">
                             <PostSection
-                                image={postData.image.secure_url}
+                                image={postData.image?.secure_url}
                                 heading={postData.title}
                                 authorImage={
                                     postData.author.profile_photo.secure_url
@@ -102,8 +100,10 @@ const Post = () => {
                                 authorName={postData.author.name}
                                 authorUsername={postData.author.username}
                                 postDate={postData.createdAt}
+                                postId={postData.post_id}
                                 postDescription={postData.description}
                                 tagsArray={postData.tags}
+                                authorUserId={postData.author.user_id}
                             >
                                 <PostComments />
                             </PostSection>
@@ -111,12 +111,12 @@ const Post = () => {
                                 image_secure_url={
                                     postData.author.profile_photo.secure_url
                                 }
-                                bio={postData.author.bio}
-                                education={postData.author.education}
+                                bio={postData.author?.bio}
+                                education={postData.author?.education}
                                 joinedDate={postData.author.createdAt}
-                                location={postData.author.location}
-                                user_id={postData.author.user_id}
-                                work={postData.author.work}
+                                location={postData.author?.location}
+                                user_id={postData.author?.user_id}
+                                work={postData.author?.work}
                                 username={postData.author.username}
                                 name={postData.author.name}
                             />

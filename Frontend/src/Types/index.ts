@@ -264,7 +264,9 @@ export interface PostSectionProps {
     heading: string;
     authorImage: string;
     authorName: string;
+    authorUserId: string;
     postDate: string;
+    postId: string;
     authorUsername: string;
     postDescription: string;
     tagsArray: [
@@ -325,4 +327,13 @@ export interface PostData {
     title: string;
     unicorns: [];
     _id: string;
+}
+export interface showModalProps {
+    showModal: boolean;
+    handleModal: () => void;
+    postId: string;
+}
+
+export interface postEditProps {
+    postId: string;
 }

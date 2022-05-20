@@ -4,7 +4,7 @@ const Post = require('../Models/Post');
 const User = require('../Models/User');
 const cloudinary = require('cloudinary').v2;
 const validator = require('validator');
-const { createTag } = require('../Controllers/tagController');
+const { createTag, deleteTags } = require('../Controllers/tagController');
 
 // title , image , description  , tags , author
 exports.createPost = BigPromise(async (req, res, next) => {
@@ -82,5 +82,38 @@ exports.getSinglePost = BigPromise(async (req, res, next) => {
     res.status(200).json({
         success: true,
         post,
+    });
+});
+
+exports.deletePost = BigPromise(async (req, res, next) => {
+    const { postId } = req.params;
+
+    const { user_id, _id } = req.user;
+
+    const post = await Post.findOne({ post_id: postId }).populate(
+        'author tags',
+        'user_id name',
+    );
+
+    if (!post) {
+        return next(CustomError(res, 'Post Not Found', 401));
+    }
+
+    if (post.author.user_id !== user_id) {
+        return next(CustomError(res, 'Post Not Found', 401));
+    }
+
+    if (post.image.id) {
+        await cloudinary.uploader.destroy(post.image.id);
+    }
+
+    await User.findByIdAndUpdate(_id, { $pull: { posts: post._id } });
+
+    await deleteTags(post.tags, post);
+
+    await post.remove();
+
+    res.status(200).json({
+        success: true,
     });
 });

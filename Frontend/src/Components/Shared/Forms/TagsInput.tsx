@@ -48,9 +48,10 @@ const TagsInput = ({
                                 <></>
                             ) : (
                                 <li className="tag-input-item" key={tag.id}>
-                                    <span>#{tag.text}</span>
+                                    <span key={tag.id}>#{tag.text}</span>
                                     <i>
                                         <GrFormClose
+                                            key={tag.id}
                                             onClick={() => removeTag(tag.id)}
                                         />
                                     </i>

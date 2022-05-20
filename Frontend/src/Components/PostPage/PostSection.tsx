@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 
 import PostAuthor from '../Shared/Posts/PostAuthor';
+import PostEditDelete from './PostEditDelete';
+
+import { useAuthProvider } from '../../Context/Auth/AuthProvider';
 
 import ConvertDate from '../../Utils/ConvertDate';
 
 import { PostSectionProps } from '../../Types';
-import PostEditDelete from './PostEditDelete';
 
 const PostSection = ({
     image,
@@ -13,12 +15,15 @@ const PostSection = ({
     authorImage,
     authorName,
     authorUsername,
+    authorUserId,
     postDate,
+    postId,
     postDescription,
     tagsArray,
     children,
 }: PostSectionProps) => {
     const [dateOnPosted] = ConvertDate(postDate, 'DD MMM');
+    const { userAuthState } = useAuthProvider();
 
     return (
         <main className="post-section">
@@ -39,7 +44,10 @@ const PostSection = ({
                             postDate={dateOnPosted}
                             authorUsername={authorUsername}
                         />
-                        <PostEditDelete />
+                        {userAuthState.login &&
+                            userAuthState.userId === authorUserId && (
+                                <PostEditDelete postId={postId} />
+                            )}
                     </div>
                     <div className="post-about margin-small-profile">
                         <div className="post-title">

@@ -457,6 +457,8 @@ exports.getAccessToken = BigPromise(async (req, res, next) => {
             Date.now() + process.env.ACCESS_COOKIE_EXPIRE_DAY * 60 * 1000,
         ),
         httpOnly: true,
+        secure: true,
+        sameSite: 'none',
     };
 
     user.password = undefined;

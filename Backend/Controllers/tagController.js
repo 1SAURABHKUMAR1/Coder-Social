@@ -17,3 +17,11 @@ exports.createTag = async (tags, post, next) => {
     }
     next();
 };
+
+exports.deleteTags = async (tags, post) => {
+    for (const tag of tags) {
+        await Tag.findByIdAndUpdate(tag._id, {
+            $pull: { posts: post._id },
+        });
+    }
+};

@@ -8,6 +8,8 @@ import PostReaction from '../../Components/PostPage/PostReaction';
 import PostSection from '../../Components/PostPage/PostSection';
 import PostUserInfo from '../../Components/PostPage/PostUserInfo';
 
+import useScrollToTop from '../../Hooks/useScrollToTop';
+
 import { PostData } from '../../Types';
 
 import Axios from '../../http/axios';
@@ -46,6 +48,8 @@ const Post = () => {
         unicorns: [],
         _id: '',
     });
+
+    useScrollToTop();
 
     const getPostInfo = async (
         controller: AbortController,

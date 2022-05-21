@@ -9,6 +9,8 @@ import EditCreatePostFields from '../../Components/EditCreatePost/EditCreatePost
 import ErrorToast from '../../Toast/Error';
 import SuccessToast from '../../Toast/Success';
 
+import useScrollToTop from '../../Hooks/useScrollToTop';
+
 import Axios from '../../http/axios';
 
 import { TagProp } from '../../Types';
@@ -25,6 +27,8 @@ const EditPost = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const navigate = useNavigate();
+
+    useScrollToTop();
 
     const handlePost = async () => {
         try {

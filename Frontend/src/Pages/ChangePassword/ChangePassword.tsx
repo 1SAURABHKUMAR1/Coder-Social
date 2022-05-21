@@ -8,6 +8,8 @@ import LoaderButton from '../../Components/Shared/Loader/LoaderButton';
 import ErrorToast from '../../Toast/Error';
 import SuccessToast from '../../Toast/Success';
 
+import useScrollToTop from '../../Hooks/useScrollToTop';
+
 import Axios from '../../http/axios';
 
 const ChangePassword = () => {
@@ -15,6 +17,8 @@ const ChangePassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    useScrollToTop();
 
     const handleChangePassword = async () => {
         try {

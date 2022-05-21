@@ -10,6 +10,8 @@ import LoaderButton from '../../Components/Shared/Loader/LoaderButton';
 import ErrorToast from '../../Toast/Error';
 import SuccessToast from '../../Toast/Success';
 
+import useScrollToTop from '../../Hooks/useScrollToTop';
+
 import Axios from '../../http/axios';
 
 import { TagProp } from '../../Types';
@@ -22,6 +24,8 @@ const CreatePost = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const { userAuthState } = useAuthProvider();
     const navigate = useNavigate();
+
+    useScrollToTop();
 
     const handlePost = async () => {
         try {

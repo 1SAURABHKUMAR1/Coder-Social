@@ -4,7 +4,11 @@ const Post = require('../Models/Post');
 const User = require('../Models/User');
 const cloudinary = require('cloudinary').v2;
 const validator = require('validator');
-const { createTag, deleteTags } = require('../Controllers/tagController');
+const {
+    createTag,
+    deleteTags,
+    updateTags,
+} = require('../Controllers/tagController');
 
 // title , image , description  , tags , author
 exports.createPost = BigPromise(async (req, res, next) => {
@@ -46,7 +50,7 @@ exports.createPost = BigPromise(async (req, res, next) => {
         { $addToSet: { posts: post._id } },
     );
 
-    await createTag(tags, post, next);
+    await createTag(tags, post);
 
     res.status(200).json({
         success: true,
@@ -115,5 +119,70 @@ exports.deletePost = BigPromise(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+    });
+});
+
+// required => tags , title , description
+// extra => photo
+exports.updatePost = BigPromise(async (req, res, next) => {
+    const { title, tags, description, photo } = req.body;
+
+    const { postId } = req.params;
+
+    const { user_id } = req.user;
+
+    if (!(title && tags && description)) {
+        return next(CustomError(res, 'All Fields are mandatory', 401));
+    }
+
+    const post = await Post.findOne({ post_id: postId }).populate(
+        'author tags',
+        'user_id name',
+    );
+
+    if (!post) {
+        return next(CustomError(res, 'Post not found', 401));
+    }
+
+    if (post.author.user_id !== user_id) {
+        return next(CustomError(res, 'You are not authorized', 401));
+    }
+
+    const newData = {
+        title,
+        description,
+    };
+
+    if (photo) {
+        if (!validator.isDataURI(photo)) {
+            return next(CustomError(res, 'Photo is not valid', 401));
+        }
+
+        if (post.image.id) {
+            await cloudinary.uploader.destroy(post.image.id);
+        }
+
+        const cloudinaryPhoto = await cloudinary.uploader.upload(photo, {
+            folder: 'codersocial',
+            crop: 'pad',
+        });
+
+        newData.image = {
+            id: cloudinaryPhoto.public_id,
+            secure_url: cloudinaryPhoto.secure_url,
+        };
+    }
+
+    await updateTags(tags, post.tags, post);
+
+    post.title = newData.title;
+    post.description = newData.description;
+    photo && (post.image = newData.image);
+
+    await post.save();
+
+    res.status(200).json({
+        success: true,
+        post,
     });
 });

@@ -8,10 +8,12 @@ interface PrivateProp {
 }
 
 const PrivateRoute = ({ element }: PrivateProp): JSX.Element => {
-    const { userAuthState } = useAuthProvider();
+    const {
+        userAuthState: { login },
+    } = useAuthProvider();
     const location = useLocation();
 
-    if (userAuthState.login) {
+    if (login) {
         return <>{element}</>;
     } else {
         return <Navigate to="/login" state={{ from: location }} />;

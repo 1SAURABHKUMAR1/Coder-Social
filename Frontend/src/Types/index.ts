@@ -214,10 +214,11 @@ export interface TagInputProp {
     setTags: React.Dispatch<React.SetStateAction<TagProp>>;
 }
 
-export interface CreatePostFieldProp {
+export interface EditPostFieldProps {
     title: string;
     setTitle: React.Dispatch<React.SetStateAction<string>>;
-    setTagArray: React.Dispatch<React.SetStateAction<string[]>>;
+    tagArray: TagProp;
+    setTagArray: React.Dispatch<React.SetStateAction<TagProp>>;
     picture: string;
     setPicture: React.Dispatch<React.SetStateAction<string>>;
     content: string;

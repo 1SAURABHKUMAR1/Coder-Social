@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAuthProvider } from '../../Context/Auth/AuthProvider';
 
-import CreatePostFields from '../../Components/CreatePost/CreatePostFields';
+import EditCreatePostFields from '../../Components/EditCreatePost/EditCreatePostFields';
 import LoaderButton from '../../Components/Shared/Loader/LoaderButton';
 
 import ErrorToast from '../../Toast/Error';
@@ -12,9 +12,11 @@ import SuccessToast from '../../Toast/Success';
 
 import Axios from '../../http/axios';
 
+import { TagProp } from '../../Types';
+
 const CreatePost = () => {
     const [title, setTitle] = useState<string>('');
-    const [tagArray, setTagArray] = useState<Array<string>>([]);
+    const [tagArray, setTagArray] = useState<TagProp>([]);
     const [picture, setPicture] = useState<string>('');
     const [content, setContent] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
@@ -25,13 +27,17 @@ const CreatePost = () => {
         try {
             setLoading(true);
 
+            let finalTagArray = tagArray.map((tag) => tag.text);
+
             const { data } = await Axios.post('/post/create', {
                 title,
                 photo: picture !== '' ? picture : undefined,
                 body: content,
-                tags: tagArray,
+                tags: finalTagArray,
                 userId: userAuthState.userId,
             });
+
+            setLoading(false);
 
             !data.success && ErrorToast('Post Publish Failed');
             data.success && SuccessToast('Post Published!');
@@ -39,8 +45,6 @@ const CreatePost = () => {
             setTimeout(() => {
                 navigate(`/post/${data.post.post_id}`);
             }, 1000);
-
-            setLoading(false);
         } catch (error) {
             error.response?.data.message
                 ? ErrorToast(error?.response?.data?.message)
@@ -49,6 +53,7 @@ const CreatePost = () => {
             setLoading(false);
             console.log(error);
         }
+        setLoading(false);
     };
 
     const handleSubmit = () => {
@@ -62,9 +67,10 @@ const CreatePost = () => {
             <div className="component component-center gap-5">
                 <h1 className="user-info-header-name">Create Post</h1>
                 <div className="sub-component flex-gap-5">
-                    <CreatePostFields
+                    <EditCreatePostFields
                         title={title}
                         setTitle={setTitle}
+                        tagArray={tagArray}
                         setTagArray={setTagArray}
                         picture={picture}
                         setPicture={setPicture}

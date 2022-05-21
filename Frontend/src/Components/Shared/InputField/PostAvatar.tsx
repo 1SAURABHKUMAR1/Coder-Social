@@ -38,6 +38,7 @@ const PostAvatar = ({ image, setImage, extraClass }: AvatarProps) => {
                         required
                         aria-required
                         className="avatar-input"
+                        accept="image/png ,image/jpg, image/jpeg, image/gif, image/webp , image/svg"
                     />
                     <label
                         className="avatar-label button-secondary post-label"

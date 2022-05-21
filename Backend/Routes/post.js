@@ -7,10 +7,15 @@ const {
     getAllPosts,
     getSinglePost,
     deletePost,
+    updatePost,
 } = require('../Controllers/postController');
 
 router.route('/post/create').post(isLoggedIn, createPost);
 router.route('/post').get(getAllPosts);
-router.route('/post/:postId').get(getSinglePost).delete(isLoggedIn, deletePost);
+router
+    .route('/post/:postId')
+    .get(getSinglePost)
+    .delete(isLoggedIn, deletePost)
+    .put(isLoggedIn, updatePost);
 
 module.exports = router;

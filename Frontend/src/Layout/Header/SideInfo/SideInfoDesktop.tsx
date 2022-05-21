@@ -27,7 +27,7 @@ const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
 
         setTimeout(() => {
             navigate('/');
-        }, 1500);
+        }, 2500);
     };
 
     const NavHandle = () => {

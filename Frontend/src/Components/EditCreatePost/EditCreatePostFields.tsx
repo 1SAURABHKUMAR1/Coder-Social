@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-
 import TextField from '../Shared/InputField/TextField';
 import TagsInput from '../Shared/Forms/TagsInput';
 import PostAvatar from '../Shared/InputField/PostAvatar';
@@ -7,26 +5,18 @@ import PostAvatar from '../Shared/InputField/PostAvatar';
 import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 
-import { CreatePostFieldProp, TagProp } from '../../Types';
+import { EditPostFieldProps } from '../../Types';
 
-const CreatePostFields = ({
+const EditCreatePostFields = ({
     title,
     setTitle,
+    tagArray,
     setTagArray,
     picture,
     setPicture,
     content,
     setContent,
-}: CreatePostFieldProp) => {
-    const [tags, setTags] = useState<TagProp>([{ id: '', text: '' }]);
-
-    useEffect(() => {
-        let tag = tags.map((tag) => tag.text).slice(1);
-        setTagArray(tag);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tags]);
-
+}: EditPostFieldProps) => {
     const handle = (name: string) => {
         setContent(name);
     };
@@ -49,8 +39,8 @@ const CreatePostFields = ({
                     labelTitle="Tags"
                     inputId="tag"
                     inputPlaceHolder="Enter tags for posts...."
-                    tags={tags}
-                    setTags={setTags}
+                    tags={tagArray}
+                    setTags={setTagArray}
                 />
 
                 <PostAvatar image={picture} setImage={setPicture} />
@@ -60,4 +50,4 @@ const CreatePostFields = ({
     );
 };
 
-export default CreatePostFields;
+export default EditCreatePostFields;

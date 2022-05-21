@@ -25,7 +25,7 @@ const SideInfoMobile = ({ navbarOpen, handleShowMenu }: HeaderShortProps) => {
 
         setTimeout(() => {
             navigate('/');
-        }, 1500);
+        }, 2500);
     };
 
     return (

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { postEditProps } from '../../Types';
 
 import DeleteModal from './DeleteModal';
@@ -19,10 +21,12 @@ const PostEditDelete = ({ postId }: postEditProps) => {
                     handleModal={toggleModal}
                     postId={postId}
                 />
-                <button className="margin-0 edit-delete-button padding-button border-2">
-                    {/* TODO: */}
+                <Link
+                    to={`/post/${postId}/edit`}
+                    className="margin-0 edit-delete-button padding-button border-2"
+                >
                     Edit
-                </button>
+                </Link>
                 <button
                     className="margin-0 edit-delete-button padding-button border-2"
                     onClick={toggleModal}

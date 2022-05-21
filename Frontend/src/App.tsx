@@ -17,6 +17,7 @@ import EditProfile from './Pages/EditProfile/EditProfile';
 import ChangePassword from './Pages/ChangePassword/ChangePassword';
 import CreatePost from './Pages/CreatePost/CreatePost';
 import Post from './Pages/PostPage/Post';
+import EditPost from './Pages/EditPost/EditPost';
 
 import PrivateRoute from './Hooks/PrivateRoute';
 
@@ -54,6 +55,10 @@ const App = () => {
                         element={<PrivateRoute element={<CreatePost />} />}
                     />
                     <Route path="/post/:postId" element={<Post />} />
+                    <Route
+                        path="/post/:postId/edit"
+                        element={<PrivateRoute element={<EditPost />} />}
+                    />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
                 <Footer />

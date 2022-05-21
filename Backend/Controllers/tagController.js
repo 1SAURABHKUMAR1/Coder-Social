@@ -3,7 +3,7 @@ const BigPromise = require('../Middleware/bigPromise');
 const CustomError = require('../Utils/CustomError');
 const Post = require('../Models/Post');
 
-exports.createTag = async (tags, post, next) => {
+const createTag = async (tags, post) => {
     for (const tag of tags) {
         const tagSingle = await Tag.findOneAndUpdate(
             { name: tag },
@@ -15,13 +15,30 @@ exports.createTag = async (tags, post, next) => {
             { $addToSet: { tags: tagSingle._id } },
         );
     }
-    next();
 };
 
-exports.deleteTags = async (tags, post) => {
+const deleteTags = async (tags, post) => {
     for (const tag of tags) {
         await Tag.findByIdAndUpdate(tag._id, {
             $pull: { posts: post._id },
         });
     }
 };
+
+const updateTags = async (tags, postTags, post) => {
+    for (const tag of postTags) {
+        const tagSingle = await Tag.findByIdAndUpdate(tag._id, {
+            $pull: { posts: post._id },
+        });
+
+        await Post.findByIdAndUpdate(post._id, {
+            $pull: { tags: tagSingle._id },
+        });
+    }
+
+    await createTag(tags, post);
+};
+
+exports.createTag = createTag;
+exports.deleteTags = deleteTags;
+exports.updateTags = updateTags;

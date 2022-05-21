@@ -41,23 +41,19 @@ const TagsInput = ({
             </label>
 
             <div className="tags-input-wrapper">
-                {tags.length > 1 ? (
+                {tags.length >= 1 ? (
                     <ul className="tags-list">
-                        {tags.map((tag: SingleTag, index: Number) =>
-                            index === 0 ? (
-                                <></>
-                            ) : (
-                                <li className="tag-input-item" key={tag.id}>
-                                    <span key={tag.id}>#{tag.text}</span>
-                                    <i>
-                                        <GrFormClose
-                                            key={tag.id}
-                                            onClick={() => removeTag(tag.id)}
-                                        />
-                                    </i>
-                                </li>
-                            ),
-                        )}
+                        {tags.map((tag: SingleTag) => (
+                            <li className="tag-input-item" key={tag.id}>
+                                <span key={tag.id}>#{tag.text}</span>
+                                <i>
+                                    <GrFormClose
+                                        key={tag.id}
+                                        onClick={() => removeTag(tag.id)}
+                                    />
+                                </i>
+                            </li>
+                        ))}
                     </ul>
                 ) : (
                     <></>

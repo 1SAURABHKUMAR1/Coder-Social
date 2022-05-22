@@ -38,6 +38,7 @@ export interface AuthStateType {
     name: string | undefined;
     email: string | undefined;
     photo: string | undefined;
+    id: string | undefined;
 }
 
 export interface AuthActionType {
@@ -48,6 +49,7 @@ export interface AuthActionType {
         username: string;
         email: string;
         photo: string;
+        id: string;
     };
 }
 
@@ -281,9 +283,10 @@ export interface PostSectionProps {
 }
 
 export interface PostReactionProps {
-    likeCount: number;
-    unicornCount: number;
-    bookmarkCount: number;
+    likes: Array<string>;
+    unicorns: Array<string>;
+    bookmarks: Array<string>;
+    setPostData: React.Dispatch<React.SetStateAction<PostData>>;
 }
 
 // TODO: remove ?
@@ -316,7 +319,7 @@ export interface PostData {
         id: string;
         secure_url: string;
     };
-    likes: [];
+    likes: Array<string>;
     post_id: string;
     tags: [
         {

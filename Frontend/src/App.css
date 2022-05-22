@@ -890,21 +890,135 @@
   line-height: 1.5rem;
 }
 
-.post-single-bookmark:hover {
-  background-color: var(--icon-background-bookmark);
-  color: var(--icon-color-bookmark);
+
+/* Like */
+.post-single-heart {
+  border: 2px solid transparent;
 }
 
 .post-single-heart:hover {
   background-color: var(--icon-background-like);
   color: var(--icon-color-like);
+  position: relative;
+  transition: all 0.4s;
+}
+
+.post-single-heart:hover::after {
+  content: '';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 99%;
+  width: 99%;
+  border-radius: 50%;
+  padding: 1.2rem;
+  position: absolute;
+  top: -1.2rem;
+  left: -1.2rem;
+  z-index: -1;
+  transition: all 0.4s;
+}
+
+.clicked-like {
+  color: var(--icon-color-like);
+}
+
+.post-single-heart-liked {
+  border: 2px solid var(--icon-color-like);
+}
+
+.post-single-heart-liked::after {
+  transform: scaleX(1.2) scaleY(1.2);
+  opacity: 0;
+  background: var(--icon-color-like);
+}
+
+
+/* unicorn */
+.post-single-unicorn {
+  border: 2px solid transparent;
 }
 
 .post-single-unicorn:hover {
   background-color: var(--icon-background-unicorn);
   color: var(--icon-color-unicorn);
+  position: relative;
+  transition: all 0.4s;
 }
 
+.post-single-unicorn:hover::after {
+  content: '';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 99%;
+  width: 99%;
+  border-radius: 50%;
+  padding: 1.2rem;
+  position: absolute;
+  top: -1.2rem;
+  left: -1.2rem;
+  z-index: -1;
+  transition: all 0.4s;
+}
+
+.clicked-unicorn {
+  color: var(--icon-color-unicorn);
+}
+
+.post-single-unicorn-liked {
+  border-color: var(--icon-color-unicorn);
+}
+
+.post-single-unicorn-liked::after {
+  transform: scaleX(1.2) scaleY(1.2);
+  opacity: 0;
+  background: #4a5853;
+}
+
+/* bookmark */
+.post-single-bookmark {
+  border: 2px solid transparent;
+}
+
+.post-single-bookmark:hover {
+  background-color: var(--icon-background-bookmark);
+  color: var(--icon-color-bookmark);
+  position: relative;
+  transition: all 0.4s;
+}
+
+.post-single-bookmark:hover::after {
+  content: '';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 99%;
+  width: 99%;
+  border-radius: 50%;
+  padding: 1.2rem;
+  position: absolute;
+  top: -1.2rem;
+  left: -1.2rem;
+  z-index: -1;
+  transition: all 0.4s;
+}
+
+.clicked-bookmark {
+  color: var(--icon-color-bookmark);
+}
+
+.post-single-bookmark-liked {
+  border-color: var(--icon-color-bookmark);
+}
+
+.post-single-bookmark-liked::after {
+  transform: scaleX(1.2) scaleY(1.2);
+  opacity: 0;
+  background: var(--icon-color-bookmark);
+}
+
+/* all css */
 .icons-p-2 {
   padding: 0.4rem;
 }
@@ -1052,6 +1166,8 @@
 .color-mid-gray {
   color: var(--color-black-600);
 }
+
+
 
 @keyframes spin {
   to {

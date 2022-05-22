@@ -11,6 +11,7 @@ const initalState: AuthStateType = {
     name: '',
     email: '',
     photo: '',
+    id: '',
 };
 
 const AuthContext = createContext<AuthContextType>({

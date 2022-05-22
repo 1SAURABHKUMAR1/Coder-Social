@@ -14,6 +14,7 @@ const AuthReducer = (
                 name: action.payload?.name,
                 email: action.payload?.email,
                 photo: action.payload?.photo,
+                id: action.payload?.id,
             };
 
         case 'LOGOUT':
@@ -25,6 +26,7 @@ const AuthReducer = (
                 name: '',
                 email: '',
                 photo: '',
+                id: '',
             };
 
         default:

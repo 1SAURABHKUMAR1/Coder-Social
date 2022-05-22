@@ -42,6 +42,7 @@ const LoginForm = () => {
                     name: data?.user.name,
                     email: data?.user.email,
                     photo: data?.user.profile_photo.secure_url,
+                    id: data?.user._id,
                 },
             });
 

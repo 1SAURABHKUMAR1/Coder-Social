@@ -186,3 +186,92 @@ exports.updatePost = BigPromise(async (req, res, next) => {
         post,
     });
 });
+
+exports.likeUnlikePost = BigPromise(async (req, res, next) => {
+    const { postId } = req.params;
+
+    const { _id } = req.user;
+
+    const post = await Post.findOne({ post_id: postId });
+
+    if (!post) {
+        return next(CustomError(res, 'Post Not found', 403));
+    }
+
+    if (!post.likes.includes(_id.toString())) {
+        post.likes.push(_id);
+    } else if (post.likes.includes(_id.toString())) {
+        post.likes = post.likes.filter(
+            (user) => user.toString() !== _id.toString(),
+        );
+    }
+
+    await post.save();
+
+    res.status(200).json({
+        success: true,
+        post,
+    });
+});
+
+exports.unicronUnunicornPost = BigPromise(async (req, res, next) => {
+    const { postId } = req.params;
+
+    const { _id } = req.user;
+
+    const post = await Post.findOne({ post_id: postId });
+
+    if (!post) {
+        return next(CustomError(res, 'Post Not found', 403));
+    }
+
+    if (!post.unicorns.includes(_id.toString())) {
+        post.unicorns.push(_id);
+    } else if (post.unicorns.includes(_id.toString())) {
+        post.unicorns = post.unicorns.filter(
+            (user) => user.toString() !== _id.toString(),
+        );
+    }
+
+    await post.save();
+
+    res.status(200).json({
+        success: true,
+        post,
+    });
+});
+
+exports.bookmarkUnBookmarkPost = BigPromise(async (req, res, next) => {
+    const { postId } = req.params;
+
+    const { _id } = req.user;
+
+    const post = await Post.findOne({ post_id: postId });
+
+    if (!post) {
+        return next(CustomError(res, 'Post Not found', 403));
+    }
+
+    if (!post.bookmarks.includes(_id.toString())) {
+        post.bookmarks.push(_id);
+
+        await User.findByIdAndUpdate(_id, {
+            $addToSet: { bookmarks: post._id },
+        });
+    } else if (post.bookmarks.includes(_id.toString())) {
+        post.bookmarks = post.bookmarks.filter(
+            (user) => user.toString() !== _id.toString(),
+        );
+
+        await User.findByIdAndUpdate(_id, {
+            $pull: { bookmarks: post._id },
+        });
+    }
+
+    await post.save();
+
+    res.status(200).json({
+        success: true,
+        post,
+    });
+});

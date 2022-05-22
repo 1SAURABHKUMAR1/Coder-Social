@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import { RiHeart2Line, RiChat1Line } from 'react-icons/ri';
@@ -9,27 +11,26 @@ const PostsActions = ({
     timeToRead,
     postId,
 }: PostActionsProps) => {
+    // const [bookmarked, setBookmarked] = useState(false);
+    // TODO: - setBookmarked useEffect , change text and add api
+
     return (
         <>
             <div className="post-like-comment">
-                <div className="post-like">
-                    {/*TODO:  */}
+                <Link to={`/post/${postId}`} className="post-like">
                     <RiHeart2Line style={{ fontSize: '1.25rem' }} />
                     <div className="post-number">
                         {numberOfLikes ? numberOfLikes : '0'}
                         <span className="post-text">reactions</span>
                     </div>
-                </div>
-                <div className="post-comment">
+                </Link>
+                <Link to={`/post/${postId}#comment`} className="post-comment">
                     <RiChat1Line style={{ fontSize: '1.25rem' }} />
-                    <Link
-                        to={`/post/${postId}#comment`}
-                        className="post-number"
-                    >
+                    <div className="post-number">
                         {numberOfComments ? numberOfComments : '0'}
                         <span className="post-text">comments</span>
-                    </Link>
-                </div>
+                    </div>
+                </Link>
             </div>
             <div className="post-read-save">
                 <div className="post-read-time">

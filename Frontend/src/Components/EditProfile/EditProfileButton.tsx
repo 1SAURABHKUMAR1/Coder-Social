@@ -77,6 +77,7 @@ const EditProfileButton = ({
                         username: data.user.username,
                         email: data.user.email,
                         photo: data.user.profile_photo.secure_url,
+                        id: data.user._id,
                     },
                 });
 

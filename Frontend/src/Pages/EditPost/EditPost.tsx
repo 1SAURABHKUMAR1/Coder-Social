@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import PostNotFound from '../../Components/PostPage/PostNotFound';
 import LoaderButton from '../../Components/Shared/Loader/LoaderButton';
 import EditCreatePostFields from '../../Components/EditCreatePost/EditCreatePostFields';
+
+import { useAuthProvider } from '../../Context/Auth/AuthProvider';
 
 import ErrorToast from '../../Toast/Error';
 import SuccessToast from '../../Toast/Success';
@@ -18,11 +20,16 @@ import { TagProp } from '../../Types';
 const EditPost = () => {
     const { postId } = useParams();
     const [isPostValid, setIsPostValid] = useState<boolean>(false);
+    const [isAuthEdit, setIsAuthEdit] = useState<boolean>(false);
 
     const [title, setTitle] = useState<string>('');
     const [tagArray, setTagArray] = useState<TagProp>([]);
     const [picture, setPicture] = useState<string>('');
     const [content, setContent] = useState<string>('');
+
+    const {
+        userAuthState: { userId },
+    } = useAuthProvider();
 
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -39,7 +46,7 @@ const EditPost = () => {
 
             const { data } = await Axios.put(`/post/${postId}`, {
                 title,
-                photo: imageChanged ? picture : '',
+                photo: imageChanged ? picture : undefined,
                 description: content,
                 tags: finalTagArray,
             });
@@ -82,6 +89,8 @@ const EditPost = () => {
             !data.success && setIsPostValid(false);
 
             if (!unMounted && data.success) {
+                setIsAuthEdit(data.post.author.user_id === userId);
+
                 setTitle(data.post.title);
                 setContent(data.post.description);
                 setTagArray(
@@ -117,33 +126,37 @@ const EditPost = () => {
     return (
         <>
             {isPostValid ? (
-                <div className="component component-center gap-5">
-                    <h1 className="user-info-header-name">Edit Post</h1>
-                    <div className="sub-component flex-gap-5">
-                        <EditCreatePostFields
-                            title={title}
-                            setTitle={setTitle}
-                            tagArray={tagArray}
-                            setTagArray={setTagArray}
-                            picture={picture}
-                            setPicture={setPicture}
-                            content={content}
-                            setContent={setContent}
-                        />
-                        <div>
-                            {loading ? (
-                                <LoaderButton classExtra="button-padding-small" />
-                            ) : (
-                                <button
-                                    className="button-primary button-padding-small"
-                                    onClick={handleSubmit}
-                                >
-                                    Publish Post
-                                </button>
-                            )}
+                isAuthEdit ? (
+                    <div className="component component-center gap-5">
+                        <h1 className="user-info-header-name">Edit Post</h1>
+                        <div className="sub-component flex-gap-5">
+                            <EditCreatePostFields
+                                title={title}
+                                setTitle={setTitle}
+                                tagArray={tagArray}
+                                setTagArray={setTagArray}
+                                picture={picture}
+                                setPicture={setPicture}
+                                content={content}
+                                setContent={setContent}
+                            />
+                            <div>
+                                {loading ? (
+                                    <LoaderButton classExtra="button-padding-small" />
+                                ) : (
+                                    <button
+                                        className="button-primary button-padding-small"
+                                        onClick={handleSubmit}
+                                    >
+                                        Publish Post
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
+                ) : (
+                    <Navigate to={'/'} />
+                )
             ) : (
                 <>
                     <PostNotFound />

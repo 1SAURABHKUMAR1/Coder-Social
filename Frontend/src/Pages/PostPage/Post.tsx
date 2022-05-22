@@ -90,9 +90,10 @@ const Post = () => {
                 <div className="component component-no-p-m">
                     <div className="container-layout post-layout">
                         <PostReaction
-                            likeCount={postData.likes.length}
-                            unicornCount={postData.unicorns.length}
-                            bookmarkCount={postData.bookmarks.length}
+                            likes={postData.likes}
+                            unicorns={postData.unicorns}
+                            bookmarks={postData.bookmarks}
+                            setPostData={setPostData}
                         />
                         <div className="post-about-section">
                             <PostSection

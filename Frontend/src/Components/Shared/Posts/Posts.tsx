@@ -22,6 +22,7 @@ const Posts = ({
     authorUsername,
     postDescription,
     tagsArray,
+    bookmarkArray,
 }: PostProps) => {
     const [dateOnPosted] = ConvertDate(postDate, 'DD MMM');
 
@@ -77,6 +78,7 @@ const Posts = ({
                                 numberOfLikes={numberOfLikes}
                                 timeToRead={timeToRead}
                                 postId={id}
+                                bookmarkArray={bookmarkArray}
                             />
                         </div>
                     </div>

@@ -105,8 +105,8 @@ export interface PostActionsProps {
     numberOfComments: number;
     timeToRead: number;
     postId: string;
+    bookmarkArray: Array<string>;
 }
-
 export interface PostTag {
     name: string;
     _id: string;
@@ -124,6 +124,7 @@ export interface PostProps {
     authorUsername: string;
     postDescription: string;
     tagsArray: Array<PostTag>;
+    bookmarkArray: string[];
 }
 
 export interface ProfileNameProps {
@@ -238,6 +239,7 @@ export interface Post {
     tags: [];
     comments: [];
     likes: [];
+    bookmarks: [];
     author: {
         profile_photo: {
             id: string;

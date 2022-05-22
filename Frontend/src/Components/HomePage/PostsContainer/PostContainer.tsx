@@ -57,6 +57,7 @@ const PostContainer = () => {
                                 postDescription={post.description}
                                 key={post.post_id}
                                 tagsArray={post.tags}
+                                bookmarkArray={post.bookmarks}
                             />
                         ))}
                 </ul>

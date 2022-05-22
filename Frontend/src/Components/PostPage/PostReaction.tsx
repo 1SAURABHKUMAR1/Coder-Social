@@ -64,8 +64,6 @@ const PostReaction = ({
             handlePostData(reactionName, array);
         }
 
-        // update type for unicorn and bookmark on backend then forntend
-        // redirect to login if not logged in
         try {
             const { data } = await Axios.put(`/post/${postId}/${apiAddress}`);
 

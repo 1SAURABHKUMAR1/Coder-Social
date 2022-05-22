@@ -365,7 +365,7 @@ exports.singleUserViaId = BigPromise(async (req, res, next) => {
 
     const user = await User.findOne({ username }).populate({
         path: 'posts',
-        select: 'title image description post_id tags comments likes author createdAt',
+        select: 'title image description post_id tags comments likes author createdAt bookmarks',
         populate: {
             path: 'tags author',
             select: 'name username name profile_photo',

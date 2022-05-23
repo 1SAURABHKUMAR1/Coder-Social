@@ -45,7 +45,7 @@ const ReadingList = () => {
 
     return (
         <>
-            {isAvailable && posts.length >= 0 ? (
+            {isAvailable && posts.length > 0 ? (
                 <>
                     <main className="component component-center component-no-p-m profile-component">
                         <div className="profile-edit-form-header margin-mobile">

@@ -471,3 +471,26 @@ exports.getAccessToken = BigPromise(async (req, res, next) => {
             user,
         });
 });
+
+// user bookmarks
+exports.readingList = BigPromise(async (req, res, next) => {
+    const { user_id } = req.user;
+
+    const user = await User.findOne({ user_id }).populate({
+        path: 'bookmarks',
+        select: 'title image description post_id tags comments likes author createdAt bookmarks',
+        populate: {
+            path: 'tags author',
+            select: 'name username name profile_photo',
+        },
+    });
+
+    if (!user) {
+        return next(CustomError(res, 'User doesnot exists', 401));
+    }
+
+    res.status(200).json({
+        success: true,
+        bookmarks: user.bookmarks,
+    });
+});

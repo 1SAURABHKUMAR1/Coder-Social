@@ -18,6 +18,7 @@ import ChangePassword from './Pages/ChangePassword/ChangePassword';
 import CreatePost from './Pages/CreatePost/CreatePost';
 import Post from './Pages/PostPage/Post';
 import EditPost from './Pages/EditPost/EditPost';
+import ReadingList from './Pages/ReadingList/ReadingList';
 
 import PrivateRoute from './Hooks/PrivateRoute';
 
@@ -58,6 +59,10 @@ const App = () => {
                     <Route
                         path="/post/:postId/edit"
                         element={<PrivateRoute element={<EditPost />} />}
+                    />
+                    <Route
+                        path="/user/readinglist"
+                        element={<PrivateRoute element={<ReadingList />} />}
                     />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>

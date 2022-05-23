@@ -870,6 +870,15 @@
   margin-top: 0.75rem;
 }
 
+.margin-mobile {
+  margin-top: 0.75rem !important;
+  margin-bottom: 1.5rem !important
+}
+
+.max-w-53 {
+  max-width: 53rem;
+}
+
 .small-text {
   font-size: 0.88rem;
   color: var(--color-black-800);
@@ -1167,7 +1176,13 @@
   color: var(--color-black-600);
 }
 
+.mb-8 {
+  margin-bottom: 1.5rem !important;
+}
 
+.max-w-50 {
+  max-width: 50rem;
+}
 
 @keyframes spin {
   to {
@@ -1359,6 +1374,11 @@
   .margin-small-profile {
     margin: 1.1rem 0rem;
   }
+
+  .mb-8 {
+    margin-bottom: 2.5rem !important;
+  }
+
 }
 
 @media screen and (min-width :980px) {

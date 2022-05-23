@@ -2,12 +2,19 @@ import { Link } from 'react-router-dom';
 
 import About from '../../../Components/Shared/About/About';
 
+import { useAuthProvider } from '../../../Context/Auth/AuthProvider';
+
 import { FaGithub, FaLinkedin, FaTags, FaTwitter } from 'react-icons/fa';
 import { FcAbout, FcHome, FcReading, FcSupport } from 'react-icons/fc';
 import { GrClose } from 'react-icons/gr';
+
 import { AsideProps } from '../../../Types';
 
 const MobileAside = ({ showAside, handleToggleAside }: AsideProps) => {
+    const {
+        userAuthState: { login },
+    } = useAuthProvider();
+
     return (
         <>
             <aside
@@ -32,17 +39,19 @@ const MobileAside = ({ showAside, handleToggleAside }: AsideProps) => {
                                     <span>Home</span>
                                 </Link>
                             </li>
-                            <li className="list-item hover-list-home">
-                                <Link
-                                    to="/user/readinglist"
-                                    onClick={handleToggleAside}
-                                >
-                                    <i>
-                                        <FcReading />
-                                    </i>
-                                    <span>Reading List</span>
-                                </Link>
-                            </li>
+                            {login && (
+                                <li className="list-item hover-list-home">
+                                    <Link
+                                        to="/user/readinglist"
+                                        onClick={handleToggleAside}
+                                    >
+                                        <i>
+                                            <FcReading />
+                                        </i>
+                                        <span>Reading List</span>
+                                    </Link>
+                                </li>
+                            )}
                             <li className="list-item hover-list-home">
                                 <Link to="/tags" onClick={handleToggleAside}>
                                     <i>

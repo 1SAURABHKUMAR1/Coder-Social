@@ -73,7 +73,7 @@ const SideInfoMobile = ({ navbarOpen, handleShowMenu }: HeaderShortProps) => {
                             </NavLink>
 
                             <NavLink
-                                to="/user/reading"
+                                to="/user/readinglist"
                                 onClick={handleShowMenu}
                                 className="sidenav-mobile-menu-items"
                             >

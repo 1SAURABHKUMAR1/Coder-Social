@@ -18,8 +18,6 @@ const PostsActions = ({
 }: PostActionsProps) => {
     const [bookmarked, setBookmarked] = useState<boolean>(false);
 
-    console.log(bookmarkArray);
-
     const {
         userAuthState: { id, login },
     } = useAuthProvider();
@@ -49,10 +47,6 @@ const PostsActions = ({
         setBookmarked(bookmarkArray.includes(id));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        console.log(bookmarkArray);
-    }, [bookmarkArray]);
 
     return (
         <>

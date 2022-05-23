@@ -91,7 +91,7 @@ const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
                     </NavLink>
 
                     <NavLink
-                        to="/user/reading"
+                        to="/user/readinglist"
                         onClick={NavHandle}
                         className="sidenav-menu-items"
                     >

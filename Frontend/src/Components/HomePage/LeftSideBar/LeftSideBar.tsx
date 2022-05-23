@@ -4,10 +4,16 @@ import About from '../../Shared/About/About';
 
 import { Link } from 'react-router-dom';
 
+import { useAuthProvider } from '../../../Context/Auth/AuthProvider';
+
 import { FcHome, FcAbout, FcReading, FcSupport } from 'react-icons/fc';
 import { FaGithub, FaLinkedin, FaTags, FaTwitter } from 'react-icons/fa';
 
 const LeftSideBar = () => {
+    const {
+        userAuthState: { login },
+    } = useAuthProvider();
+
     return (
         <>
             <div className="sidebar-left">
@@ -21,14 +27,16 @@ const LeftSideBar = () => {
                             <span>Home</span>
                         </Link>
                     </li>
-                    <li className="list-item hover-list-home">
-                        <Link to="/user/readinglist">
-                            <i>
-                                <FcReading />
-                            </i>
-                            <span>Reading List</span>
-                        </Link>
-                    </li>
+                    {login && (
+                        <li className="list-item hover-list-home">
+                            <Link to="/user/readinglist">
+                                <i>
+                                    <FcReading />
+                                </i>
+                                <span>Reading List</span>
+                            </Link>
+                        </li>
+                    )}
                     <li className="list-item hover-list-home">
                         <Link to="/tags">
                             <i>

@@ -1174,7 +1174,7 @@
 }
 
 .color-mid-gray {
-  color: var(--color-black-600);
+  color: var(--color-black-800);
 }
 
 .mb-8 {
@@ -1196,6 +1196,11 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.height-45 {
+  height: 5.5rem;
+}
+
 
 @keyframes spin {
   to {

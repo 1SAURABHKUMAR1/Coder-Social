@@ -363,11 +363,44 @@ export interface postEditProps {
 }
 
 export interface SingleCommentProps {
-    commentBody: string;
-    authorAvatar: string;
-    authorUserName: string;
-    commentDate: string;
-    authorName: string;
-    likesArray: [];
+    comment_body: string;
+    author_avatar: string;
+    author_username: string;
+    author_user_id: string;
+    comment_date: string;
+    author_name: string;
+    likes_array: [];
     comment_id: string;
+    updateComment: React.Dispatch<React.SetStateAction<PostData>>;
+}
+
+export interface CommentEditProps {
+    commentBody: string;
+    showCommentEdit: boolean;
+    setShowCommentEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    updateComment: React.Dispatch<React.SetStateAction<PostData>>;
+    comment_id: string;
+    setCommentBody: React.Dispatch<React.SetStateAction<string>>;
+    oldCommentBody: string;
+}
+
+export interface deleteCommentProps {
+    showModal: boolean;
+    handleModal: () => void;
+    commentId: string;
+    updateComment: React.Dispatch<React.SetStateAction<PostData>>;
+}
+
+export interface CommentBodyProps {
+    comment_body: string;
+    author_username: string;
+    comment_date: string;
+    author_name: string;
+    commentDescription: string;
+    setCommentDescription: React.Dispatch<React.SetStateAction<string>>;
+    showCommentEdit: boolean;
+}
+
+export interface CommentLikeReplyProps {
+    likes_array: [];
 }

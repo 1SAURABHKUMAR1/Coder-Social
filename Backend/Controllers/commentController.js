@@ -84,3 +84,32 @@ exports.updateComment = BigPromise(async (req, res, next) => {
         comment,
     });
 });
+
+exports.deleteComment = BigPromise(async (req, res, next) => {
+    const { commentId } = req.params;
+
+    const { user_id, _id } = req.user;
+
+    const comment = await Comment.findOne({ comment_id: commentId }).populate(
+        'author post parent_comment',
+    );
+
+    if (!comment) {
+        return next(CustomError(res, 'Comment Not Found', 401));
+    }
+
+    if (comment.author.user_id !== user_id) {
+        return next(CustomError(res, 'Post Not Found', 401));
+    }
+
+    await User.findByIdAndUpdate(_id, { $pull: { comments: comment._id } });
+    await Post.findByIdAndUpdate(comment.post._id, {
+        $pull: { comments: comment._id },
+    });
+
+    await comment.remove();
+
+    res.status(200).json({
+        success: true,
+    });
+});

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import PostComments from '../../Components/PostPage/PostComments';
+import PostComments from '../../Components/Comment/PostComments';
 import PostNotFound from '../../Components/PostPage/PostNotFound';
 import PostReaction from '../../Components/PostPage/PostReaction';
 import PostSection from '../../Components/PostPage/PostSection';

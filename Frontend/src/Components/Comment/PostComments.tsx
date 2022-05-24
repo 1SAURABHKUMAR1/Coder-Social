@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import LoaderButton from '../Shared/Loader/LoaderButton';
+import SingleComment from './SingleComment';
 
 import { useAuthProvider } from '../../Context/Auth/AuthProvider';
 
@@ -11,7 +12,6 @@ import ErrorToast from '../../Toast/Error';
 import Axios from '../../http/axios';
 
 import { PostCommentsProps } from '../../Types';
-import SingleComment from './SingleComment';
 
 const PostComments = ({ commentArray, updateComment }: PostCommentsProps) => {
     const {
@@ -97,18 +97,24 @@ const PostComments = ({ commentArray, updateComment }: PostCommentsProps) => {
 
                 {commentArray?.length > 0 &&
                     commentArray.map((comment) => (
-                        <div className="padding-top-7">
-                            <div className="post-author width-100 align-start">
+                        <div className="padding-top-7" key={comment.comment_id}>
+                            <div
+                                className="post-author width-100 align-start"
+                                key={comment.comment_id}
+                            >
                                 <SingleComment
-                                    authorAvatar={
+                                    author_avatar={
                                         comment.author.profile_photo.secure_url
                                     }
-                                    authorName={comment.author.name}
-                                    authorUserName={comment.author.username}
-                                    commentBody={comment.body}
-                                    commentDate={comment.createdAt}
-                                    comment_id={comment._id}
-                                    likesArray={comment.likes}
+                                    author_name={comment.author.name}
+                                    author_username={comment.author.username}
+                                    author_user_id={comment.author.user_id}
+                                    comment_body={comment.body}
+                                    comment_date={comment.createdAt}
+                                    comment_id={comment.comment_id}
+                                    likes_array={comment.likes}
+                                    updateComment={updateComment}
+                                    key={comment.comment_id}
                                 />
                             </div>
                         </div>

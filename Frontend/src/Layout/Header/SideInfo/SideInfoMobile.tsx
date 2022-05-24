@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { useAuthProvider } from '../../../Context/Auth/AuthProvider';
 
@@ -10,7 +10,6 @@ import { HeaderShortProps } from '../../../Types';
 
 const SideInfoMobile = ({ navbarOpen, handleShowMenu }: HeaderShortProps) => {
     const { userAuthState, userAuthDispatch } = useAuthProvider();
-    const navigate = useNavigate();
 
     const logoutUser = async () => {
         await Axios.get('/logout');
@@ -22,10 +21,6 @@ const SideInfoMobile = ({ navbarOpen, handleShowMenu }: HeaderShortProps) => {
         handleShowMenu?.();
 
         SuccessToast('Logout Success');
-
-        setTimeout(() => {
-            navigate('/');
-        }, 2500);
     };
 
     return (

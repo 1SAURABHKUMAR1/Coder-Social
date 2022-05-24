@@ -45,11 +45,13 @@ const home = require('./Routes/home');
 const user = require('./Routes/user');
 const oauth = require('./Routes/oauth');
 const post = require('./Routes/post');
+const comment = require('./Routes/comment');
 
 // router middleware
 app.use('/api/v1', home);
 app.use('/api/v1', user);
 app.use('/api/v1', oauth);
 app.use('/api/v1', post);
+app.use('/api/v1', comment);
 
 module.exports = app;

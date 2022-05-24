@@ -1,0 +1,86 @@
+const BigPromise = require('../Middleware/bigPromise');
+const CustomError = require('../Utils/CustomError');
+const Comment = require('../Models/Comment');
+const Post = require('../Models/Post');
+const User = require('../Models/User');
+
+// required -> post_id ,body , parent_comment_id
+exports.createComment = BigPromise(async (req, res, next) => {
+    const { post_id, comment_body, parent_comment_id } = req.body;
+    const { user_id, _id } = req.user;
+
+    if (!(post_id && comment_body)) {
+        return next(CustomError(res, 'All Details are mandatory', 401));
+    }
+
+    const post = await Post.findOne({ post_id });
+
+    if (!post) {
+        return next(CustomError(res, 'Post not found', 401));
+    }
+
+    let parent_comment;
+
+    if (parent_comment_id) {
+        parent_comment = await Comment.findOne({
+            comment_id: parent_comment_id,
+        });
+
+        if (!parent_comment) {
+            return next(CustomError(res, 'Comment not found', 401));
+        }
+    }
+
+    let comment = await Comment.create({
+        body: comment_body,
+        author: _id,
+        post: post._id,
+        parent_comment: parent_comment?._id,
+    });
+
+    comment = await comment.populate(
+        'author likes parent_comment',
+        'name username profile_photo user_id comment_id',
+    );
+
+    await User.findOneAndUpdate(
+        { user_id },
+        { $addToSet: { comments: comment._id } },
+    );
+
+    await Post.findOneAndUpdate(
+        { post_id },
+        { $addToSet: { comments: comment._id } },
+    );
+
+    res.status(200).json({
+        success: true,
+        comment,
+    });
+});
+
+exports.updateComment = BigPromise(async (req, res, next) => {
+    const { comment_body, comment_id } = req.body;
+
+    if (!(comment_body && comment_id)) {
+        return next(CustomError(res, 'All details are mandatory', 401));
+    }
+
+    const comment = await Comment.findOne({ comment_id }).populate(
+        'author likes parent_comment',
+        'name username profile_photo user_id comment_id',
+    );
+
+    if (!comment) {
+        return next(CustomError(res, 'Comment Not found', 401));
+    }
+
+    comment.body = comment_body;
+
+    await comment.save();
+
+    res.status(200).json({
+        success: true,
+        comment,
+    });
+});

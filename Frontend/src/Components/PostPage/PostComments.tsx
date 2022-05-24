@@ -1,27 +1,70 @@
-import { RiChat1Line, RiHeart2Line } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
-import { useAuthProvider } from '../../Context/Auth/AuthProvider';
-import { PostCommentsProps } from '../../Types';
+import React, { useState } from 'react';
 
-const PostComments = ({
-    noOfComments = 34,
-    commentArray,
-}: PostCommentsProps) => {
+import { Link, useParams } from 'react-router-dom';
+
+import LoaderButton from '../Shared/Loader/LoaderButton';
+
+import { useAuthProvider } from '../../Context/Auth/AuthProvider';
+
+import ErrorToast from '../../Toast/Error';
+
+import Axios from '../../http/axios';
+
+import { PostCommentsProps } from '../../Types';
+import SingleComment from './SingleComment';
+
+const PostComments = ({ commentArray, updateComment }: PostCommentsProps) => {
     const {
-        userAuthState: { userId, photo: user_avatar, login },
+        userAuthState: { photo: user_avatar, login, username },
     } = useAuthProvider();
+
+    const [commentBody, setCommentBody] = useState<string>();
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const { postId } = useParams();
+
+    const handleCommentBody = (event: React.FormEvent) => {
+        setCommentBody((event.target as HTMLButtonElement).value);
+    };
+
+    const handleCommentSubmit = async () => {
+        try {
+            setLoading(true);
+
+            const { data } = await Axios.post('/comment/create', {
+                post_id: postId,
+                comment_body: commentBody,
+            });
+
+            updateComment((oldData) => ({
+                ...oldData,
+                comments: [...commentArray, data.comment],
+            }));
+
+            setLoading(false);
+            setCommentBody('');
+        } catch (error) {
+            console.log(error);
+
+            setLoading(false);
+            ErrorToast('Failed');
+        }
+    };
 
     return (
         <>
             <section className="padding-top-2" id="comment">
-                <h1 className="auth-welcome-header-bold">
-                    Discussion ({noOfComments})
+                <h1 className="auth-welcome-header-bold" id="font-8">
+                    Discussion ({commentArray.length})
                 </h1>
+
                 {login && (
                     <div className="padding-top-3">
                         <div className="post-author width-100 align-start">
-                            {/* TODO: */}
-                            <Link to="/" className="post-author-image">
+                            <Link
+                                to={`/user/profile/${username}`}
+                                className="post-author-image"
+                            >
                                 <img
                                     src={user_avatar}
                                     alt="autor-single"
@@ -29,70 +72,47 @@ const PostComments = ({
                                 />
                             </Link>
                             <div className="width-100">
-                                <textarea className="width-100 comment-text-area scrollbar-hidden" />
+                                <textarea
+                                    className="width-100 comment-text-area scrollbar-hidden"
+                                    value={commentBody}
+                                    onChange={handleCommentBody}
+                                />
                                 <div className="padding-top-2">
-                                    {/* TODO: */}
-                                    <button
-                                        id="submit-primary-button"
-                                        className="margin-0  padding-button border-2"
-                                    >
-                                        Submit
-                                    </button>
+                                    {loading ? (
+                                        <LoaderButton classExtra="margin-0 padding-button border-2 width-max" />
+                                    ) : (
+                                        <button
+                                            id="submit-primary-button"
+                                            className="margin-0 padding-button border-2"
+                                            onClick={handleCommentSubmit}
+                                        >
+                                            Submit
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
 
-                {/* TODO: array */}
-                <div className="padding-top-7">
-                    <div className="post-author width-100 align-start">
-                        <div className="post-author-image">
-                            <img
-                                src={
-                                    // TODO:
-                                    'https://res.cloudinary.com/practicaldev/image/fetch/s--YUdYmPrk--/c_fill,f_auto,fl_progressive,h_320,q_auto,w_320/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/352636/a201c8d8-9ab8-4d01-9727-c16eb41c4fe1.png'
-                                }
-                                alt="autor-single"
-                                className="image image-round"
-                            />
-                        </div>
-                        <div className="width-100">
-                            <div className="width-100 comment-single color-mid-gray">
-                                <div className="post-author-description flex-col gap-3 align-center">
-                                    {/* TODO:  link and jsx */}
-                                    <Link to={'/'} className="post-author-name">
-                                        <div>{'authorName'}</div>
-                                    </Link>
-                                    <span className="font-m-bold">•</span>
-                                    {/* TODO: change to date */}
-                                    <div className="post-author-date">
-                                        {'postDate'}
-                                    </div>
-                                </div>
-                                {/* TODO: */}
-                                <div className="padding-top-3">
-                                    I don't know if English is your first
-                                    language, but that phrase is extremely
-                                    condescending.
-                                </div>
-                            </div>
-                            <div className="padding-top-2 flex gap-5 align-center font-m-bold color-mid-gray margin-x-sm">
-                                <div className="flex align-center gap-2">
-                                    {/* TODO: */}
-                                    <RiHeart2Line />
-                                    <span className="font-sm">{3}</span>
-                                </div>
-
-                                <div className="flex align-center gap-2">
-                                    {/* TODO: */}
-                                    <RiChat1Line />
-                                    <span className="font-sm">{3}</span>
-                                </div>
+                {commentArray?.length > 0 &&
+                    commentArray.map((comment) => (
+                        <div className="padding-top-7">
+                            <div className="post-author width-100 align-start">
+                                <SingleComment
+                                    authorAvatar={
+                                        comment.author.profile_photo.secure_url
+                                    }
+                                    authorName={comment.author.name}
+                                    authorUserName={comment.author.username}
+                                    commentBody={comment.body}
+                                    commentDate={comment.createdAt}
+                                    comment_id={comment._id}
+                                    likesArray={comment.likes}
+                                />
                             </div>
                         </div>
-                    </div>
-                </div>
+                    ))}
             </section>
         </>
     );

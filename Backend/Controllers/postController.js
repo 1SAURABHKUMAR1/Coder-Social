@@ -77,7 +77,14 @@ exports.getSinglePost = BigPromise(async (req, res, next) => {
         .populate(
             'author',
             'name username profile_photo bio education user_id work createdAt location',
-        );
+        )
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'author',
+                select: 'name username profile_photo user_id',
+            },
+        });
 
     if (!post) {
         return next(CustomError(res, 'No Post Found', 201));

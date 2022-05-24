@@ -110,7 +110,10 @@ const Post = () => {
                                 tagsArray={postData.tags}
                                 authorUserId={postData.author.user_id}
                             >
-                                <PostComments />
+                                <PostComments
+                                    commentArray={postData.comments}
+                                    updateComment={setPostData}
+                                />
                             </PostSection>
                             <PostUserInfo
                                 image_secure_url={

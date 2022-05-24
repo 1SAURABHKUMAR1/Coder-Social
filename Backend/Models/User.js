@@ -136,7 +136,7 @@ const userSchema = new mongoose.Schema({
             required: [true, 'Tag id is required'],
         },
     ],
-    commments: [
+    comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'comment',

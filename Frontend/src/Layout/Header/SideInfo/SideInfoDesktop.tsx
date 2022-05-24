@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { useAuthProvider } from '../../../Context/Auth/AuthProvider';
 
@@ -11,7 +11,7 @@ import { HeaderShortProps } from '../../../Types/index';
 
 const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
     const { userAuthState, userAuthDispatch } = useAuthProvider();
-    const navigate = useNavigate();
+
     const [profilePhoto, setProfilePhoto] = useState('');
 
     const logoutUser = async () => {
@@ -24,10 +24,6 @@ const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
         SuccessToast('Logout Success');
 
         setNavbarOpen?.(false);
-
-        setTimeout(() => {
-            navigate('/');
-        }, 2500);
     };
 
     const NavHandle = () => {

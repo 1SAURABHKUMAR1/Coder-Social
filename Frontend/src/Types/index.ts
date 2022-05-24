@@ -172,7 +172,7 @@ export interface UserData {
     bookmarks: [];
     posts: [];
     tags: [];
-    commments: [];
+    comments: [];
     createdAt: string;
     __v: number;
     _id: string;
@@ -291,10 +291,28 @@ export interface PostReactionProps {
     setPostData: React.Dispatch<React.SetStateAction<PostData>>;
 }
 
-// TODO: remove ?
 export interface PostCommentsProps {
-    noOfComments?: number;
-    commentArray?: [];
+    commentArray: CommentBody[];
+    updateComment: React.Dispatch<React.SetStateAction<PostData>>;
+}
+
+export interface CommentBody {
+    body: string;
+    author: {
+        profile_photo: {
+            id: string;
+            secure_url: string;
+        };
+        _id: string;
+        name: string;
+        username: string;
+        user_id: string;
+    };
+    post: string;
+    likes: [];
+    _id: string;
+    comment_id: string;
+    createdAt: string;
 }
 
 export interface PostData {
@@ -314,7 +332,7 @@ export interface PostData {
         work: string;
     };
     bookmarks: [];
-    comments: [];
+    comments: CommentBody[];
     createdAt: string;
     description: string;
     image: {
@@ -342,4 +360,14 @@ export interface showModalProps {
 
 export interface postEditProps {
     postId: string;
+}
+
+export interface SingleCommentProps {
+    commentBody: string;
+    authorAvatar: string;
+    authorUserName: string;
+    commentDate: string;
+    authorName: string;
+    likesArray: [];
+    comment_id: string;
 }

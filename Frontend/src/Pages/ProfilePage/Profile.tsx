@@ -45,7 +45,7 @@ const Profile = () => {
         bookmarks: [],
         posts: [],
         tags: [],
-        commments: [],
+        comments: [],
         createdAt: '',
         __v: 0,
         _id: '',
@@ -137,7 +137,7 @@ const Profile = () => {
                             works={userData.work}
                             skills={userData.skills}
                             numberOfPosts={userData.posts.length}
-                            numberOfComments={userData.commments.length}
+                            numberOfComments={userData.comments.length}
                             numberOftags={userData.tags.length}
                         />
                         <PostContainer postArray={userData.posts} />

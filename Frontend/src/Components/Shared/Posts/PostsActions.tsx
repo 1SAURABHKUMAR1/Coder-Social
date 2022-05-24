@@ -7,6 +7,7 @@ import { RiHeart2Line, RiChat1Line } from 'react-icons/ri';
 import { useAuthProvider } from '../../../Context/Auth/AuthProvider';
 
 import { PostActionsProps } from '../../../Types';
+
 import Axios from '../../../http/axios';
 
 const PostsActions = ({

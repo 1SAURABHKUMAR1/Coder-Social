@@ -1,13 +1,9 @@
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { deleteComment } from '../../features';
 
 import { GrClose } from 'react-icons/gr';
 
-import LoaderButton from '../Shared/Loader/LoaderButton';
-
-import SuccessToast from '../../Toast/Success';
-import ErrorToast from '../../Toast/Error';
-
-import Axios from '../../http/axios';
+import LoaderButton from '../Loader/LoaderButton';
 
 import { deleteCommentProps } from '../../Types';
 
@@ -15,36 +11,13 @@ const DeleteComment = ({
     showModal,
     handleModal,
     commentId,
-    updateComment,
 }: deleteCommentProps) => {
-    const [loading, setLoading] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
+    const { reactionStatus } = useAppSelector((state) => state.post);
 
-    const handleDelete = async () => {
-        try {
-            setLoading(true);
-
-            const { data } = await Axios.delete(`/comment/${commentId}`);
-
-            setLoading(false);
-            data.success && SuccessToast('Comment Deleted');
-            data.success &&
-                updateComment((oldData) => ({
-                    ...oldData,
-                    comments: [
-                        ...oldData.comments.filter(
-                            (item) => item.comment_id !== commentId,
-                        ),
-                    ],
-                }));
-            !data.success && ErrorToast('Failed');
-
-            data.success && handleModal();
-        } catch (error) {
-            ErrorToast('Failed');
-
-            console.log(error);
-            setLoading(false);
-        }
+    const handleDelete = () => {
+        dispatch(deleteComment(commentId));
+        handleModal();
     };
 
     return (
@@ -60,9 +33,9 @@ const DeleteComment = ({
                         </div>
                         <div className="modal-flex">
                             <div className="modal-heading">
-                                Confirm Deletion of Comemnt?
+                                Confirm Deletion of Comment?
                             </div>
-                            {loading ? (
+                            {reactionStatus === 'PENDING' ? (
                                 <LoaderButton />
                             ) : (
                                 <button

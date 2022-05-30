@@ -1,57 +1,30 @@
 import { useState } from 'react';
 
+import { useAppDispatch } from '../../store/hooks';
+
 import { BiEditAlt } from 'react-icons/bi';
 import { MdDeleteOutline } from 'react-icons/md';
 
 import DeleteComment from './DeleteComment';
 
 import { CommentEditProps } from '../../Types';
-import Axios from '../../http/axios';
-import ErrorToast from '../../Toast/Error';
-import SuccessToast from '../../Toast/Success';
+
+import { editComment } from '../../features/index';
 
 const CommentEditDelete = ({
     commentBody,
     setCommentBody,
     showCommentEdit,
     setShowCommentEdit,
-    updateComment,
     comment_id,
     oldCommentBody,
 }: CommentEditProps) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const dispatch = useAppDispatch();
 
-    const handleUpdate = async () => {
-        try {
-            const { data } = await Axios.post(`/comment/edit`, {
-                comment_body: commentBody,
-                comment_id,
-            });
-
-            data.success &&
-                updateComment((oldComment) => ({
-                    ...oldComment,
-                    comments: [
-                        ...oldComment.comments.map((item) => {
-                            if (item.comment_id === data.comment.comment_id) {
-                                item.body = data.comment.body;
-                                return item;
-                            }
-                            return item;
-                        }),
-                    ],
-                }));
-
-            data.success && SuccessToast('Comment Updated');
-            data.success && setShowCommentEdit(!showCommentEdit);
-            data.success && setCommentBody(data.comment.body);
-
-            !data.success && ErrorToast('Failed');
-        } catch (error) {
-            ErrorToast('Failed');
-
-            console.log(error);
-        }
+    const handleUpdate = () => {
+        dispatch(editComment({ comment_body: commentBody, comment_id }));
+        setShowCommentEdit(!showCommentEdit);
     };
 
     const toggleEdit = () => {
@@ -68,13 +41,13 @@ const CommentEditDelete = ({
             {showCommentEdit ? (
                 <div className="flex gap-2 align-center color-mid-gray">
                     <div
-                        className="post-comment post-number post-text"
+                        className="post-comment post-number"
                         onClick={handleUpdate}
                     >
                         Save
                     </div>
                     <div
-                        className="post-comment post-number post-text"
+                        className="post-comment post-number"
                         onClick={toggleEdit}
                     >
                         Dismiss
@@ -86,7 +59,6 @@ const CommentEditDelete = ({
                         commentId={comment_id}
                         handleModal={toggleDelete}
                         showModal={showDeleteModal}
-                        updateComment={updateComment}
                     />
                     <BiEditAlt
                         className="flex align-center gap-2 cursor-pointer"

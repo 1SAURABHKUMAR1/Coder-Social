@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Location } from 'react-router-dom';
+import { store } from '../store/store';
 
 export interface SearchBarProps {
     showSearchBox: boolean;
@@ -12,14 +13,15 @@ export interface TextFieldProps {
     inputPlaceHolder: string;
     inputId: string;
     value: string;
-    setValue: React.Dispatch<React.SetStateAction<string>>;
+    setValue?: React.Dispatch<React.SetStateAction<string>>;
     required: boolean;
     handleFunction?: (name: string, event: React.FormEvent) => void;
 }
 
 export interface PasswordFileProps {
     value: string;
-    setValue: React.Dispatch<React.SetStateAction<string>>;
+    setValue?: React.Dispatch<React.SetStateAction<string>>;
+    handleFunction?: (name: string, event: React.FormEvent) => void;
     required: boolean;
     label: string;
     htmlFor?: string;
@@ -31,31 +33,17 @@ export interface Children {
     children: React.ReactNode;
 }
 
-export interface AuthStateType {
+export interface AuthState {
     login: boolean;
-    userId: string | undefined;
-    username: string | undefined;
-    name: string | undefined;
-    email: string | undefined;
-    photo: string | undefined;
-    id: string | undefined;
-}
-
-export interface AuthActionType {
-    type: 'LOGIN' | 'LOGOUT';
-    payload?: {
-        user_id: string;
-        name: string;
-        username: string;
-        email: string;
-        photo: string;
-        id: string;
-    };
-}
-
-export interface AuthContextType {
-    userAuthState: AuthStateType;
-    userAuthDispatch: React.Dispatch<AuthActionType>;
+    userId: string;
+    username: string;
+    name: string;
+    email: string;
+    photo: string;
+    id: string;
+    authState: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    editProfileState: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    deleteProfileState: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
 }
 
 export interface FormState {
@@ -64,7 +52,8 @@ export interface FormState {
 
 export interface AvatarProps {
     image: any;
-    setImage: React.Dispatch<React.SetStateAction<any>>;
+    setImage?: React.Dispatch<React.SetStateAction<any>>;
+    handleFunction?: (name: string, event: React.FormEvent) => void;
     extraClass?: string;
 }
 
@@ -107,10 +96,6 @@ export interface PostActionsProps {
     postId: string;
     bookmarkArray: Array<string>;
 }
-export interface PostTag {
-    name: string;
-    _id: string;
-}
 
 export interface PostProps {
     image: string;
@@ -123,7 +108,7 @@ export interface PostProps {
     numberOfLikes: number;
     authorUsername: string;
     postDescription: string;
-    tagsArray: Array<PostTag>;
+    tagsArray: Array<SingleTag>;
     bookmarkArray: string[];
 }
 
@@ -145,17 +130,13 @@ export interface SideBarPortfolioProps {
     numberOftags: number;
 }
 
-export interface PostContainerProps {
-    postArray: Array<Post>;
-}
-
 export interface UserData {
     name: string;
     email: string;
     username: string;
     user_id: string;
     social_id: string;
-    profile_photo: { id: string; secure_url: string };
+    profile_photo: string;
     role: string;
     bio: string;
     portfolio_link: string;
@@ -174,26 +155,9 @@ export interface UserData {
     tags: [];
     comments: [];
     createdAt: string;
-    __v: number;
     _id: string;
-}
-
-export interface EditProfileInitalData {
-    userIntialData: {
-        name: string;
-        email: string;
-        username: string;
-        photo: string;
-        bio: string;
-        portfolio_link: string;
-        work: string;
-        skills: string;
-        education: string;
-        location: string;
-        githubUrl: string;
-        twitterUrl: string;
-    };
-    profilePhoto?: string;
+    getState: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    getProfile: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
 }
 
 export interface DeleteModalProps {
@@ -202,8 +166,8 @@ export interface DeleteModalProps {
 }
 
 export interface SingleTag {
-    text: string;
-    id: string;
+    name: string;
+    _id: string;
 }
 
 export interface TagProp extends Array<SingleTag> {}
@@ -228,30 +192,6 @@ export interface EditPostFieldProps {
     setContent: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export interface Post {
-    image: {
-        id: string;
-        secure_url: string;
-    };
-    _id: string;
-    title: string;
-    description: string;
-    tags: [];
-    comments: [];
-    likes: [];
-    bookmarks: [];
-    author: {
-        profile_photo: {
-            id: string;
-            secure_url: string;
-        };
-        name: string;
-        username: string;
-    };
-    post_id: string;
-    createdAt: string;
-}
-
 export interface PostProfileProps {
     image_secure_url: string;
     user_id: string;
@@ -264,36 +204,14 @@ export interface PostProfileProps {
     username: string;
 }
 
-export interface PostSectionProps {
-    image: string;
-    heading: string;
-    authorImage: string;
-    authorName: string;
-    authorUserId: string;
-    postDate: string;
-    postId: string;
-    authorUsername: string;
-    postDescription: string;
-    tagsArray: [
-        {
-            name: string;
-            _id: string;
-            tag_id: string;
-        },
-    ];
-    children: React.ReactNode;
-}
-
 export interface PostReactionProps {
     likes: Array<string>;
     unicorns: Array<string>;
     bookmarks: Array<string>;
-    setPostData: React.Dispatch<React.SetStateAction<PostData>>;
 }
 
 export interface PostCommentsProps {
     commentArray: CommentBody[];
-    updateComment: React.Dispatch<React.SetStateAction<PostData>>;
 }
 
 export interface CommentBody {
@@ -309,10 +227,200 @@ export interface CommentBody {
         user_id: string;
     };
     post: string;
-    likes: [];
+    likes: Array<LikeProps>;
     _id: string;
     comment_id: string;
     createdAt: string;
+    parent_comment: string;
+}
+
+export interface UserRequest {
+    name: string;
+    email: string;
+    username: string;
+    user_id: string;
+    social_id: string;
+    profile_photo: {
+        id: string;
+        secure_url: string;
+    };
+    role: string;
+    bio: string;
+    portfolio_link: string;
+    work: string;
+    skills: string;
+    education: string;
+    location: string;
+    githubUrl: string;
+    twitterUrl: string;
+    total_followers: number;
+    total_following: number;
+    following: [];
+    followers: [];
+    bookmarks: [];
+    posts: [];
+    tags: [];
+    comments: [];
+    createdAt: string;
+    _id: string;
+}
+
+export interface UserSliceaction {
+    user: UserRequest;
+}
+
+export interface PostSliceAction {
+    post: PostData;
+}
+
+export interface BookmarkSliceAction {
+    post: Bookmark[];
+}
+
+export interface ReactionAction {
+    data: {
+        post: Bookmark;
+    };
+    reactionName: string;
+    postId: string;
+}
+
+export interface CommentAction {
+    comment: CommentBody;
+}
+
+export interface likeeditCommentReaction {
+    comment_id: string;
+    data: {
+        comment: CommentBody;
+    };
+}
+
+export interface deleteCommentAction {
+    comment_id: string;
+}
+
+export interface showModalProps {
+    showModal: boolean;
+    handleModal: () => void;
+    postId: string;
+}
+
+export interface postEditProps {
+    postId: string;
+}
+
+export interface SingleCommentProps {
+    comment_body: string;
+    author_avatar: string;
+    author_username: string;
+    author_user_id: string;
+    comment_date: string;
+    author_name: string;
+    likes_array: Array<LikeProps>;
+    comment_id: string;
+    replies: CommentBody[];
+    comment_array: CommentBody[];
+    levels: number;
+}
+
+export interface CommentEditProps {
+    commentBody: string;
+    showCommentEdit: boolean;
+    setShowCommentEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    comment_id: string;
+    setCommentBody: React.Dispatch<React.SetStateAction<string>>;
+    oldCommentBody: string;
+}
+
+export interface deleteCommentProps {
+    showModal: boolean;
+    handleModal: () => void;
+    commentId: string;
+}
+
+export interface CommentBodyProps {
+    comment_body: string;
+    author_username: string;
+    comment_date: string;
+    author_name: string;
+    commentDescription: string;
+    setCommentDescription: React.Dispatch<React.SetStateAction<string>>;
+    showCommentEdit: boolean;
+}
+
+export interface LikeProps {
+    profile_photo: {
+        id: string;
+        secure_url: string;
+    };
+    _id: string;
+    name: string;
+    username: string;
+    user_id: string;
+}
+
+export interface CommentLikeProps {
+    likes_array: Array<LikeProps>;
+    comment_id: string;
+}
+
+export interface PostActionType {
+    type: 'SET_DATA';
+    payload: PostData;
+}
+
+export interface PostContextType {
+    postData: PostData;
+    postDispatch: React.Dispatch<PostActionType>;
+}
+
+export type AppDispatch = typeof store.dispatch;
+
+export interface Signup {
+    email: string;
+    password: string;
+    name: string;
+    photo: string;
+}
+
+export interface Login {
+    email: string;
+    password: string;
+}
+
+export interface AxiosRequest {
+    controller: AbortController;
+    unMounted: true;
+}
+
+export interface ChangePassword {
+    oldPassword: string;
+    newPassword: string;
+}
+
+export interface getUserData {
+    username: string;
+    controller: AbortController;
+    unMounted?: boolean;
+}
+
+export interface getSinglePost {
+    postId: string;
+    controller: AbortController;
+    unMounted?: boolean;
+}
+
+export interface PostSliceProps {
+    posts: Array<Bookmark>;
+    postStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    reactionStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    bookmark: Bookmark[];
+    singlePost: PostData;
+    getBookmarkStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    editPostStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    createPostStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    createCommentStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
 }
 
 export interface PostData {
@@ -341,66 +449,128 @@ export interface PostData {
     };
     likes: Array<string>;
     post_id: string;
-    tags: [
-        {
-            name: string;
-            tag_id: string;
-            _id: string;
-        },
-    ];
+    tags: Array<SingleTag>;
     title: string;
     unicorns: [];
     _id: string;
 }
-export interface showModalProps {
-    showModal: boolean;
-    handleModal: () => void;
+
+export interface PostSectionProps {
+    image: string;
+    heading: string;
+    authorImage: string;
+    authorName: string;
+    authorUserId: string;
+    postDate: string;
     postId: string;
+    authorUsername: string;
+    postDescription: string;
+    tagsArray: Array<SingleTag>;
+    children: React.ReactNode;
 }
 
-export interface postEditProps {
+export interface Bookmark {
+    author: {
+        profile_photo: {
+            id: string;
+            secure_url: string;
+        };
+        _id: string;
+        name: string;
+        username: string;
+    };
+    bookmarks: [];
+    comments: [];
+    createdAt: string;
+    description: string;
+    image: {
+        id: string;
+        secure_url: string;
+    };
+    likes: [];
+    post_id: string;
+    tags: SingleTag[];
+    title: string;
+    unicorns: [];
+    _id: string;
+}
+
+export interface bookmarkPostProp {
     postId: string;
+    userId: string;
 }
 
-export interface SingleCommentProps {
+export interface controller {
+    controller: AbortController;
+    unMounted: boolean;
+}
+
+export interface updateProfile {
+    name: string;
+    email: string;
+    user_ID: string;
+    username: string;
+    photo: string | undefined;
+    bio: string | undefined;
+    portfolio_link: string | undefined;
+    work: string | undefined;
+    skills: string | undefined;
+    education: string | undefined;
+    location: string | undefined;
+    githubUrl: string | undefined;
+    twitterUrl: string | undefined;
+}
+
+export interface editPostProps {
+    title: string;
+    photo: string | undefined;
+    description: string;
+    tags: string[];
+    postId: string | undefined;
+}
+
+export interface createPostProps {
+    title: string;
+    photo: string | undefined;
+    description: string;
+    tags: string[];
+    userId: string | undefined;
+}
+
+export interface postReactionProps {
+    postId: string;
+    reactionName: string;
+    apiName: string;
+}
+
+export type ValueOf<T> = T[keyof T];
+
+export interface commentProps {
+    post_id: string;
     comment_body: string;
-    author_avatar: string;
-    author_username: string;
-    author_user_id: string;
-    comment_date: string;
-    author_name: string;
-    likes_array: [];
+    parent_comment_id?: string;
+}
+
+export interface editCommentProps {
     comment_id: string;
-    updateComment: React.Dispatch<React.SetStateAction<PostData>>;
-}
-
-export interface CommentEditProps {
-    commentBody: string;
-    showCommentEdit: boolean;
-    setShowCommentEdit: React.Dispatch<React.SetStateAction<boolean>>;
-    updateComment: React.Dispatch<React.SetStateAction<PostData>>;
-    comment_id: string;
-    setCommentBody: React.Dispatch<React.SetStateAction<string>>;
-    oldCommentBody: string;
-}
-
-export interface deleteCommentProps {
-    showModal: boolean;
-    handleModal: () => void;
-    commentId: string;
-    updateComment: React.Dispatch<React.SetStateAction<PostData>>;
-}
-
-export interface CommentBodyProps {
     comment_body: string;
-    author_username: string;
-    comment_date: string;
-    author_name: string;
-    commentDescription: string;
-    setCommentDescription: React.Dispatch<React.SetStateAction<string>>;
-    showCommentEdit: boolean;
 }
 
-export interface CommentLikeReplyProps {
-    likes_array: [];
+export interface setStateName {
+    stateName: 'authState' | 'editProfileState' | 'deleteProfileState';
+    stateValue: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+}
+
+export interface setStateNamePost {
+    stateName:
+        | 'postStatus'
+        | 'reactionStatus'
+        | 'getBookmarkStatus'
+        | 'editPostStatus'
+        | 'createPostStatus'
+        | 'createCommentStatus'
+        | 'singlePost'
+        | 'bookmark';
+
+    stateValue: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED' | {};
 }

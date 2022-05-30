@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-
+import { useAppSelector } from '../../../store/hooks';
 import { NavLink, useLocation } from 'react-router-dom';
-
-import { useAuthProvider } from '../../../Context/Auth/AuthProvider';
 
 import SideInfoDesktop from '../SideInfo/SideInfoDesktop';
 
@@ -20,7 +18,7 @@ const NavBar = ({
 
     const [profilePhoto, setProfilePhoto] = useState('');
     const location = useLocation();
-    const { userAuthState } = useAuthProvider();
+    const { photo, login } = useAppSelector((state) => state.authenticate);
 
     const toggleSearchMobile = () => {
         setSearchMobile(!searchMobile);
@@ -31,8 +29,8 @@ const NavBar = ({
     };
 
     useEffect(() => {
-        setProfilePhoto(userAuthState?.photo ?? '');
-    }, [userAuthState]);
+        setProfilePhoto(photo ?? '');
+    }, [photo]);
 
     return (
         <>
@@ -41,7 +39,7 @@ const NavBar = ({
                     <FiSearch size={'1.7rem'} style={{ cursor: 'pointer' }} />
                 </div>
 
-                {userAuthState.login && (
+                {photo && (
                     <NavLink
                         to="/post/new"
                         className="header-signup-link header-post-link"
@@ -50,7 +48,7 @@ const NavBar = ({
                     </NavLink>
                 )}
 
-                {userAuthState.login && (
+                {login && (
                     <NavLink
                         to="/user/notification"
                         className="notification-icon"
@@ -60,7 +58,7 @@ const NavBar = ({
                 )}
 
                 {/* mobile icon  */}
-                {userAuthState.login && (
+                {photo && (
                     <div className="sidenav-mobile-wrapper">
                         <button
                             onClick={handleShowMobile}
@@ -83,14 +81,14 @@ const NavBar = ({
                 )}
 
                 {/* desktop icon and settings  */}
-                {userAuthState.login && (
+                {photo && (
                     <SideInfoDesktop
                         navbarOpen={navBarOpen}
                         setNavbarOpen={setNavbarOpen}
                     />
                 )}
 
-                {!userAuthState.login && (
+                {!photo && (
                     <>
                         <NavLink
                             to="/login"

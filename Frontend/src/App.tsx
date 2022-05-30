@@ -7,18 +7,20 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './Layout/Header/Header';
 import Footer from './Layout/Footer/Footer';
 
-import Home from './Pages/HomePage/Home';
-import Login from './Pages/LoginPage/Login';
-import Signup from './Pages/SignupPage/Signup';
-import PageNotFound from './Pages/PageNotFound/PageNotFound';
-import ForgotPassword from './Pages/ForgotPassword/ForgotPassword';
-import Profile from './Pages/ProfilePage/Profile';
-import EditProfile from './Pages/EditProfile/EditProfile';
-import ChangePassword from './Pages/ChangePassword/ChangePassword';
-import CreatePost from './Pages/CreatePost/CreatePost';
-import Post from './Pages/PostPage/Post';
-import EditPost from './Pages/EditPost/EditPost';
-import ReadingList from './Pages/ReadingList/ReadingList';
+import {
+    Login,
+    Signup,
+    PageNotFound,
+    ForgotPassword,
+    ChangePassword,
+    Profile,
+    ReadingList,
+    EditProfile,
+    Home,
+    EditPost,
+    CreatePost,
+    Post,
+} from './features/index';
 
 import PrivateRoute from './Hooks/PrivateRoute';
 

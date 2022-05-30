@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
 import './index.css';
+
 import App from './App';
 
-import MainProvider from './Context/MainProvider';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -13,8 +19,11 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
     <React.StrictMode>
-        <MainProvider>
-            <App />
-        </MainProvider>
+        <Provider store={store}>
+            <Toaster position="top-right" reverseOrder={false} />
+            <Router>
+                <App />
+            </Router>
+        </Provider>
     </React.StrictMode>,
 );

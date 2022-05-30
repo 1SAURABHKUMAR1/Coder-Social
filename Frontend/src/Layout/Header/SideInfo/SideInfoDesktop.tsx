@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { NavLink } from 'react-router-dom';
 
-import { useAuthProvider } from '../../../Context/Auth/AuthProvider';
-
-import Axios from '../../../http/axios';
+import Axios from '../../../Services/http/axios';
 
 import SuccessToast from '../../../Toast/Success';
+
+import { logoutUser as logoutPost } from '../../../features';
 
 import { HeaderShortProps } from '../../../Types/index';
 
 const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
-    const { userAuthState, userAuthDispatch } = useAuthProvider();
+    const { username, photo, login } = useAppSelector(
+        (state) => state.authenticate,
+    );
+    const dispatch = useAppDispatch();
 
     const [profilePhoto, setProfilePhoto] = useState('');
 
     const logoutUser = async () => {
         await Axios.get('/logout');
 
-        userAuthDispatch({
-            type: 'LOGOUT',
-        });
+        dispatch(logoutPost());
 
         SuccessToast('Logout Success');
 
@@ -31,8 +33,8 @@ const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
     };
 
     useEffect(() => {
-        setProfilePhoto(userAuthState?.photo ?? '');
-    }, [userAuthState]);
+        setProfilePhoto(photo ?? '');
+    }, [login, photo]);
 
     return (
         <>
@@ -62,12 +64,12 @@ const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
                     style={{ display: `${navbarOpen ? 'block' : 'none'}` }}
                 >
                     <NavLink
-                        to={`/user/profile/${userAuthState.username}`}
+                        to={`/user/profile/${username}`}
                         onClick={NavHandle}
                         className="sidenav-menu-items username-header"
                     >
                         <span>View Profile</span>
-                        <span>@{userAuthState.username}</span>
+                        <span>@{username}</span>
                     </NavLink>
 
                     <NavLink

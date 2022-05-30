@@ -39,7 +39,7 @@ exports.createComment = BigPromise(async (req, res, next) => {
     });
 
     comment = await comment.populate(
-        'author likes parent_comment',
+        'author likes',
         'name username profile_photo user_id comment_id',
     );
 
@@ -111,5 +111,37 @@ exports.deleteComment = BigPromise(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+    });
+});
+
+exports.likeUnlikeComment = BigPromise(async (req, res, next) => {
+    const { commentId } = req.params;
+
+    const { _id } = req.user;
+
+    let comment = await Comment.findOne({ comment_id: commentId });
+
+    if (!comment) {
+        return next(CustomError(res, 'Post Not found', 403));
+    }
+
+    if (!comment.likes.includes(_id.toString())) {
+        comment.likes.push(_id);
+    } else if (comment.likes.includes(_id.toString())) {
+        comment.likes = comment.likes.filter(
+            (user) => user.toString() !== _id.toString(),
+        );
+    }
+
+    comment = await comment.populate(
+        'author likes parent_comment',
+        'name username profile_photo user_id comment_id',
+    );
+
+    await comment.save();
+
+    res.status(200).json({
+        success: true,
+        comment,
     });
 });

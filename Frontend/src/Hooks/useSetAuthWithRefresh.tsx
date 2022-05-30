@@ -1,10 +1,12 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import axios from 'axios';
 
-import { useEffect } from 'react';
-import { useAuthProvider } from '../Context/Auth/AuthProvider';
+import { refreshToken } from '../features';
 
 const useSetAuthWithRefresh = () => {
-    const { userAuthDispatch } = useAuthProvider();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const controller = new AbortController();
@@ -20,18 +22,8 @@ const useSetAuthWithRefresh = () => {
                     },
                 );
 
-                if (!unMounted) {
-                    userAuthDispatch({
-                        type: 'LOGIN',
-                        payload: {
-                            user_id: data?.user.user_id,
-                            username: data?.user.username,
-                            name: data?.user.name,
-                            email: data?.user.email,
-                            photo: data?.user.profile_photo.secure_url,
-                            id: data?.user._id,
-                        },
-                    });
+                if (!unMounted && data.success) {
+                    dispatch(refreshToken(data));
                 }
             } catch (error) {
                 console.log(error);

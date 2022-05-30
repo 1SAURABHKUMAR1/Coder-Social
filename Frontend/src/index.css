@@ -134,6 +134,7 @@ body::-webkit-scrollbar-track {
   --icon-color: rgb(64, 64, 64);
   --icon-color-like: #dc2625;
   --icon-background-like: rgb(220, 38, 38, 0.1);
+  --icon-like-background: rgba(220, 38, 38, 0.1);
   --icon-color-unicorn: #169668;
   --icon-background-unicorn: rgb(5, 150, 105, 0.1);
   --icon-color-bookmark: #4f45e5;

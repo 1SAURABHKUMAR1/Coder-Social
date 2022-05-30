@@ -129,7 +129,7 @@ exports.forgotPassword = BigPromise(async (req, res, next) => {
 
     const tokenResetUrl = `${req.protocol}://${req.get(
         'host',
-    )}/host/api/v1/password/reset/${forgotPasswordToken}`;
+    )}/api/v1/password/reset/${forgotPasswordToken}`;
 
     const message = `Paste the link in browser to reset password ${tokenResetUrl}`;
 

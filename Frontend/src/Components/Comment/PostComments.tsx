@@ -1,54 +1,48 @@
 import React, { useState } from 'react';
-
 import { Link, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
-import LoaderButton from '../Shared/Loader/LoaderButton';
+import LoaderButton from '../Loader/LoaderButton';
 import SingleComment from './SingleComment';
-
-import { useAuthProvider } from '../../Context/Auth/AuthProvider';
 
 import ErrorToast from '../../Toast/Error';
 
-import Axios from '../../http/axios';
+import { createComment } from '../../features/index';
 
 import { PostCommentsProps } from '../../Types';
 
-const PostComments = ({ commentArray, updateComment }: PostCommentsProps) => {
+import { getReplies } from '../../Utils/getReplies';
+
+const PostComments = ({ commentArray }: PostCommentsProps) => {
     const {
-        userAuthState: { photo: user_avatar, login, username },
-    } = useAuthProvider();
-
-    const [commentBody, setCommentBody] = useState<string>();
-    const [loading, setLoading] = useState<boolean>(false);
-
+        login,
+        username,
+        photo: user_avatar,
+    } = useAppSelector((state) => state.authenticate);
+    const { createCommentStatus } = useAppSelector((state) => state.post);
     const { postId } = useParams();
+    const dispatch = useAppDispatch();
+    const [commentBody, setCommentBody] = useState<string>('');
+    const rootComments =
+        commentArray &&
+        commentArray.filter((comment) => !comment.parent_comment);
 
     const handleCommentBody = (event: React.FormEvent) => {
         setCommentBody((event.target as HTMLButtonElement).value);
     };
 
-    const handleCommentSubmit = async () => {
-        try {
-            setLoading(true);
-
-            const { data } = await Axios.post('/comment/create', {
-                post_id: postId,
-                comment_body: commentBody,
-            });
-
-            updateComment((oldData) => ({
-                ...oldData,
-                comments: [...commentArray, data.comment],
-            }));
-
-            setLoading(false);
-            setCommentBody('');
-        } catch (error) {
-            console.log(error);
-
-            setLoading(false);
-            ErrorToast('Failed');
+    const handleCommentSubmit = () => {
+        if (!commentBody) {
+            ErrorToast('Cannot be empty');
         }
+        dispatch(
+            createComment({
+                comment_body: commentBody,
+                // @ts-ignore
+                post_id: postId,
+            }),
+        );
+        setCommentBody('');
     };
 
     return (
@@ -78,7 +72,7 @@ const PostComments = ({ commentArray, updateComment }: PostCommentsProps) => {
                                     onChange={handleCommentBody}
                                 />
                                 <div className="padding-top-2">
-                                    {loading ? (
+                                    {createCommentStatus === 'PENDING' ? (
                                         <LoaderButton classExtra="margin-0 padding-button border-2 width-max" />
                                     ) : (
                                         <button
@@ -95,28 +89,25 @@ const PostComments = ({ commentArray, updateComment }: PostCommentsProps) => {
                     </div>
                 )}
 
-                {commentArray?.length > 0 &&
-                    commentArray.map((comment) => (
+                {rootComments &&
+                    rootComments.map((comment) => (
                         <div className="padding-top-7" key={comment.comment_id}>
-                            <div
-                                className="post-author width-100 align-start"
+                            <SingleComment
                                 key={comment.comment_id}
-                            >
-                                <SingleComment
-                                    author_avatar={
-                                        comment.author.profile_photo.secure_url
-                                    }
-                                    author_name={comment.author.name}
-                                    author_username={comment.author.username}
-                                    author_user_id={comment.author.user_id}
-                                    comment_body={comment.body}
-                                    comment_date={comment.createdAt}
-                                    comment_id={comment.comment_id}
-                                    likes_array={comment.likes}
-                                    updateComment={updateComment}
-                                    key={comment.comment_id}
-                                />
-                            </div>
+                                author_avatar={
+                                    comment.author.profile_photo.secure_url
+                                }
+                                author_name={comment.author.name}
+                                author_username={comment.author.username}
+                                author_user_id={comment.author.user_id}
+                                comment_body={comment.body}
+                                comment_date={comment.createdAt}
+                                comment_id={comment.comment_id}
+                                likes_array={comment.likes}
+                                replies={getReplies(commentArray, comment._id)}
+                                comment_array={commentArray}
+                                levels={1}
+                            />
                         </div>
                     ))}
             </section>

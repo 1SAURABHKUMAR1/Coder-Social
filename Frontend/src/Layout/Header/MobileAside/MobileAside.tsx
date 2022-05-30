@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../../store/hooks';
 
-import About from '../../../Components/Shared/About/About';
-
-import { useAuthProvider } from '../../../Context/Auth/AuthProvider';
+import About from '../../../Components/About/About';
 
 import { FaGithub, FaLinkedin, FaTags, FaTwitter } from 'react-icons/fa';
 import { FcAbout, FcHome, FcReading, FcSupport } from 'react-icons/fc';
@@ -11,9 +10,7 @@ import { GrClose } from 'react-icons/gr';
 import { AsideProps } from '../../../Types';
 
 const MobileAside = ({ showAside, handleToggleAside }: AsideProps) => {
-    const {
-        userAuthState: { login },
-    } = useAuthProvider();
+    const { login } = useAppSelector((state) => state.authenticate);
 
     return (
         <>
@@ -100,6 +97,7 @@ const MobileAside = ({ showAside, handleToggleAside }: AsideProps) => {
                                 <FaLinkedin className="icons-home" />
                             </a>
                         </div>
+                        {/* TODO: show followed tags */}
                     </div>
                 </div>
             </aside>

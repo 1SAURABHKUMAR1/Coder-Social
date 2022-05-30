@@ -12,14 +12,14 @@ const {
 
 // title , image , description  , tags , author
 exports.createPost = BigPromise(async (req, res, next) => {
-    const { title, photo, body, tags, userId } = req.body;
+    const { title, photo, description, tags, userId } = req.body;
 
     const { user_id, _id } = req.user;
 
     if (userId !== user_id) {
         return next(CustomError(res, 'You are not authorized', 403));
     }
-    if (!(title && body && tags)) {
+    if (!(title && description && tags)) {
         return next(CustomError(res, 'All Details are required!', 401));
     }
     if (photo && !validator.isDataURI(photo)) {
@@ -28,7 +28,7 @@ exports.createPost = BigPromise(async (req, res, next) => {
 
     const postData = {
         title,
-        description: body,
+        description,
         author: _id,
     };
 
@@ -81,8 +81,8 @@ exports.getSinglePost = BigPromise(async (req, res, next) => {
         .populate({
             path: 'comments',
             populate: {
-                path: 'author',
-                select: 'name username profile_photo user_id',
+                path: 'author likes',
+                select: 'name username profile_photo user_id _id',
             },
         });
 
@@ -199,7 +199,10 @@ exports.likeUnlikePost = BigPromise(async (req, res, next) => {
 
     const { _id } = req.user;
 
-    const post = await Post.findOne({ post_id: postId });
+    const post = await Post.findOne({ post_id: postId }).populate({
+        path: 'tags author',
+        select: 'name username name profile_photo',
+    });
 
     if (!post) {
         return next(CustomError(res, 'Post Not found', 403));
@@ -226,7 +229,10 @@ exports.unicronUnunicornPost = BigPromise(async (req, res, next) => {
 
     const { _id } = req.user;
 
-    const post = await Post.findOne({ post_id: postId });
+    const post = await Post.findOne({ post_id: postId }).populate({
+        path: 'tags author',
+        select: 'name username name profile_photo',
+    });
 
     if (!post) {
         return next(CustomError(res, 'Post Not found', 403));
@@ -253,7 +259,10 @@ exports.bookmarkUnBookmarkPost = BigPromise(async (req, res, next) => {
 
     const { _id } = req.user;
 
-    const post = await Post.findOne({ post_id: postId });
+    let post = await Post.findOne({ post_id: postId }).populate({
+        path: 'tags author',
+        select: 'name username name profile_photo',
+    });
 
     if (!post) {
         return next(CustomError(res, 'Post Not found', 403));

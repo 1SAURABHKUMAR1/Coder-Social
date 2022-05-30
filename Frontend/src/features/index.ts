@@ -30,6 +30,8 @@ import PostNotFound from './home/PostPage/Components/PostNotFound';
 import PostReaction from './home/PostPage/Components/PostReaction';
 import PostSection from './home/PostPage/Components/PostSection';
 import PostUserInfo from './home/PostPage/Components/PostUserInfo';
+import Tags from './tags/Tags/Tags';
+import SingleTag from './tags/Tags/Components/SingleTag';
 
 export * from './auth/hooks/useSignupHandler';
 export * from './auth/authSlice';
@@ -70,4 +72,6 @@ export {
     PostReaction,
     PostSection,
     PostUserInfo,
+    Tags,
+    SingleTag,
 };

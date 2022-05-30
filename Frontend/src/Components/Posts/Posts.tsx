@@ -8,7 +8,9 @@ import PostAuthor from './PostAuthor';
 import ConvertDate from '../../Utils/ConvertDate';
 import CalculateTimeRead from '../../Utils/CalculateTimeRead';
 
-import { PostProps } from '../../Types';
+import { PostProps, SingleTag } from '../../Types';
+
+import randomColor from '../../Utils/randomColor';
 
 const Posts = ({
     image,
@@ -55,21 +57,33 @@ const Posts = ({
                         </div>
                         {tagsArray?.length >= 1 && (
                             <div className="post-tag-wrapper">
-                                {tagsArray.map((tag) => (
-                                    <Link
-                                        to={`/tag/${tag?.name}`}
-                                        className="post-tag"
-                                        key={tag._id}
-                                    >
-                                        <span
-                                            className="post-tag-hashtag"
-                                            key={tag._id}
+                                {tagsArray.map((tag: SingleTag) => {
+                                    const color = randomColor();
+
+                                    return (
+                                        <Link
+                                            to={`/tag/${tag?.name}`}
+                                            className={`post-tag`}
+                                            style={{
+                                                // @ts-ignore
+                                                '--hover-color': `rgba(${color}, 0.9)`,
+                                            }}
+                                            key={tag?._id}
                                         >
-                                            #
-                                        </span>
-                                        {tag?.name}
-                                    </Link>
-                                ))}
+                                            <span
+                                                className="post-tag-hashtag"
+                                                style={{
+                                                    // @ts-ignore
+                                                    '--tag-color': `rgba(${color}, 0.95)`,
+                                                }}
+                                                key={tag?._id}
+                                            >
+                                                #
+                                            </span>
+                                            {tag?.name}
+                                        </Link>
+                                    );
+                                })}
                             </div>
                         )}
                         <div className="post-actions">

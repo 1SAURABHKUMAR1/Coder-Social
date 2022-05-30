@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { getProfile, EditProfileForm } from '../../';
+import { getProfile, EditProfileForm } from '../../index';
 
 import useScrollToTop from '../../../Hooks/useScrollToTop';
 import { AppDispatch } from '../../../Types';

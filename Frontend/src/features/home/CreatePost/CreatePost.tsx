@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { useNavigate } from 'react-router-dom';
 
-import { EditCreatePostFields } from '../../';
+import { EditCreatePostFields } from '../../index';
 import LoaderButton from '../../../Components/Loader/LoaderButton';
 
 import { createPost, setStateNamePost } from '../../index';

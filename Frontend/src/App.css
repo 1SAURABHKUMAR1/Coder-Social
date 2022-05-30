@@ -26,6 +26,10 @@
   border: 1px solid var(--border-color);
 }
 
+.component-pt-5 {
+  padding-top: 1.5rem !important;
+}
+
 .gap-5 {
   gap: 1.25rem;
 }
@@ -1225,6 +1229,76 @@
   font-size: 0.85rem !important;
 }
 
+.tags-grid-container {
+  width: 100%;
+  display: grid !important;
+  padding-bottom: 0.5rem !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+  gap: 0.75rem !important;
+}
+
+.single-tag {
+  border-top: 1rem solid var(--border-top-color);
+  border-radius: 0.4rem;
+  background-color: var(--color-white);
+  color: var(--color-black-900);
+  box-shadow: 0 0 0 1px rgba(23, 23, 23, 0.1);
+  overflow-wrap: break-word;
+  padding: 0.75rem;
+  padding-top: 0.5rem !important;
+  position: relative;
+}
+
+.single-tag-header {
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.single-tag-hash {
+  background: transparent;
+  color: var(--color-black);
+  border-radius: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid transparent;
+  gap: 0.25rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.single-tag-hash:hover {
+  max-width: max-content;
+  border: 1px solid var(--hover-color);
+}
+
+.single-tag-hash-single {
+  color: var(--tag-color);
+}
+
+.single-tag-description {
+  margin-bottom: 0.5rem;
+  color: var(--color-black-800);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.single-tag-number-post {
+  font-size: 0.87rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-black-800);
+}
+
+.single-tag-save {
+  padding: 0.55rem 0.9rem !important;
+  font-weight: 500;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -1304,6 +1378,15 @@
     padding-top: 1rem;
   }
 
+}
+
+@media screen and (min-width:760px) {
+
+  .tags-grid-container {
+    padding-left: 0;
+    padding-right: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
 }
 
 /* after tab and between normal desktop  */
@@ -1424,6 +1507,14 @@
     margin-left: 1.7rem;
   }
 
+  .single-tag {
+    padding: 1rem !important;
+  }
+
+  .tags-grid-container {
+    gap: 0.85rem !important;
+  }
+
 }
 
 @media screen and (min-width :980px) {
@@ -1456,5 +1547,9 @@
     height: 100%;
     width: 100%;
     max-width: 20rem;
+  }
+
+  .tags-grid-container {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   }
 }

@@ -3,7 +3,7 @@ import './Components/Home.css';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
-import { LeftSideBar, RightSideBar } from '../../';
+import { LeftSideBar, RightSideBar } from '../../index';
 import Posts from '../../../Components/Posts/Posts';
 
 import useScrollToTop from '../../../Hooks/useScrollToTop';
@@ -47,7 +47,7 @@ const Home = () => {
     }, [reactionStatus]);
 
     return (
-        <div className="component">
+        <div className="component  component-no-p-m">
             <div className="container-layout">
                 <div className="container-sidebar">
                     <LeftSideBar />

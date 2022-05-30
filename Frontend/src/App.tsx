@@ -20,6 +20,7 @@ import {
     EditPost,
     CreatePost,
     Post,
+    Tags,
 } from './features/index';
 
 import PrivateRoute from './Hooks/PrivateRoute';
@@ -66,6 +67,7 @@ const App = () => {
                         path="/user/readinglist"
                         element={<PrivateRoute element={<ReadingList />} />}
                     />
+                    <Route path="/tags" element={<Tags />} />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
                 <Footer />

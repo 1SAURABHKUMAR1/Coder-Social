@@ -169,7 +169,7 @@ const SingleComment = ({
                 replies.map((comment) => (
                     <div
                         className={`padding-top-7 ${
-                            levels < 2 ? 'sub-comment' : ''
+                            levels <= 2 ? 'sub-comment' : ''
                         }`}
                         key={comment.comment_id}
                     >

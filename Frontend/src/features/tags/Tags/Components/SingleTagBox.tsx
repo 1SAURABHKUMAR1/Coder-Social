@@ -33,8 +33,6 @@ const SingleTagBox = ({
     };
 
     useEffect(() => {
-        console.log(followers.includes(id));
-
         setIsFollowed(followers.includes(id));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tags, id]);

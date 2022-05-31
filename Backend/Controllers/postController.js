@@ -102,8 +102,8 @@ exports.deletePost = BigPromise(async (req, res, next) => {
     const { user_id, _id } = req.user;
 
     const post = await Post.findOne({ post_id: postId }).populate(
-        'author tags',
-        'user_id name',
+        'author tags comments',
+        'user_id name author _id',
     );
 
     if (!post) {
@@ -121,6 +121,20 @@ exports.deletePost = BigPromise(async (req, res, next) => {
     await User.findByIdAndUpdate(_id, { $pull: { posts: post._id } });
 
     await deleteTags(post.tags, post);
+
+    // delete comments from user
+    for (const comment of post.comments) {
+        await User.findByIdAndUpdate(comment.author, {
+            $pull: { comments: comment._id },
+        });
+    }
+
+    // delete bookmark
+    for (const bookmark of post.bookmarks) {
+        await User.findByIdAndUpdate(bookmark, {
+            $pull: { bookmarks: post._id },
+        });
+    }
 
     await post.remove();
 

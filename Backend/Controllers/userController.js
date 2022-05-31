@@ -7,6 +7,9 @@ const cloudinary = require('cloudinary').v2;
 const emailSender = require('../Utils/EmailSender');
 const crypto = require('crypto');
 const verifyRefreshToken = require('../Middleware/verifyRefreshToken');
+const Post = require('../Models/Post');
+const Tag = require('../Models/Tag');
+const Comment = require('../Models/Comment');
 
 // signup
 exports.signup = BigPromise(async (req, res, next) => {
@@ -337,6 +340,48 @@ exports.profileDelete = BigPromise(async (req, res, next) => {
     const user = await User.findOne({ user_id });
 
     await cloudinary.uploader.destroy(user.profile_photo.id);
+
+    for (const singlePost of user.posts) {
+        const post = await Post.findById(singlePost).populate('comments tags');
+
+        for (const comment of post.comments) {
+            await User.findByIdAndUpdate(comment.author, {
+                $pull: { comments: comment },
+            });
+        }
+
+        for (const tag of post.tags) {
+            await Tag.findByIdAndUpdate(tag._id, {
+                $pull: { posts: post._id },
+            });
+        }
+
+        for (const bookmark of post.bookmarks) {
+            await User.findByIdAndUpdate(bookmark, {
+                $pull: { bookmarks: post._id },
+            });
+        }
+
+        post.remove();
+    }
+
+    for (singleBookmark of user.bookmarks) {
+        await Post.findByIdAndUpdate(singleBookmark, {
+            $pull: { bookmarks: user._id },
+        });
+    }
+
+    for (const tag of user.tags) {
+        await Tag.findByIdAndUpdate(tag._id, {
+            $pull: { followers: user._id },
+        });
+    }
+
+    for (const singleComment of user.comments) {
+        await Post.findByIdAndUpdate(singleComment, {
+            $pull: { comments: singleComment },
+        });
+    }
 
     await user.remove();
 

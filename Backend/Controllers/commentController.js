@@ -107,6 +107,21 @@ exports.deleteComment = BigPromise(async (req, res, next) => {
         $pull: { comments: comment._id },
     });
 
+    const childComments = await Comment.find({
+        parent_comment: comment._id,
+    });
+
+    for (const child of childComments) {
+        await User.findByIdAndUpdate(child.author, {
+            $pull: { comments: child._id },
+        });
+        await Post.findByIdAndUpdate(child.post, {
+            $pull: { comments: child._id },
+        });
+
+        await child.remove();
+    }
+
     await comment.remove();
 
     res.status(200).json({

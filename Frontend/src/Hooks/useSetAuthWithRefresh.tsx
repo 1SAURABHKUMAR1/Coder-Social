@@ -33,8 +33,8 @@ const useSetAuthWithRefresh = () => {
         getUserData();
 
         return () => {
-            unMounted = true;
             controller.abort();
+            unMounted = true;
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

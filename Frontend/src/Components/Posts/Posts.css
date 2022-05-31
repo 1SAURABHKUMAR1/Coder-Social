@@ -86,11 +86,11 @@
     max-width: max-content;
     padding: 0.2rem 0.4rem;
     border-radius: 0.35rem;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
 }
 
 .post-tag:hover {
-    border: 1px solid var(--hover-color);
+    border: 2px solid var(--hover-color);
 }
 
 .post-tag-hashtag {

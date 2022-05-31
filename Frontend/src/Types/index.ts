@@ -274,12 +274,12 @@ export interface PostSliceAction {
 }
 
 export interface BookmarkSliceAction {
-    post: Bookmark[];
+    post: SmallPost[];
 }
 
 export interface ReactionAction {
     data: {
-        post: Bookmark;
+        post: SmallPost;
     };
     reactionName: string;
     postId: string;
@@ -391,7 +391,7 @@ export interface Login {
 
 export interface AxiosRequest {
     controller: AbortController;
-    unMounted: true;
+    unMounted: boolean;
 }
 
 export interface ChangePassword {
@@ -412,10 +412,10 @@ export interface getSinglePost {
 }
 
 export interface PostSliceProps {
-    posts: Array<Bookmark>;
+    posts: Array<SmallPost>;
     postStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
     reactionStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
-    bookmark: Bookmark[];
+    bookmark: Array<SmallPost>;
     singlePost: PostData;
     getBookmarkStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
     editPostStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
@@ -440,7 +440,7 @@ export interface PostData {
         work: string;
     };
     bookmarks: [];
-    comments: CommentBody[];
+    comments: Array<CommentBody>;
     createdAt: string;
     description: string;
     image: {
@@ -469,7 +469,7 @@ export interface PostSectionProps {
     children: React.ReactNode;
 }
 
-export interface Bookmark {
+export interface SmallPost {
     author: {
         profile_photo: {
             id: string;
@@ -489,7 +489,7 @@ export interface Bookmark {
     };
     likes: [];
     post_id: string;
-    tags: SingleTag[];
+    tags: Array<SingleTag>;
     title: string;
     unicorns: [];
     _id: string;
@@ -573,4 +573,51 @@ export interface setStateNamePost {
         | 'bookmark';
 
     stateValue: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED' | {};
+}
+
+export interface TagSliceProps {
+    tags: Array<AllTagProps>;
+    getTagStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    singleTag: SingleTagDescription;
+    singleTagStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    followUnfollowStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+}
+
+export interface AllTagProps {
+    createdAt: string;
+    followers: string[];
+    name: string;
+    posts: string[];
+    tag_id: string;
+    _id: string;
+}
+
+export interface TagAction {
+    tags: Array<AllTagProps>;
+}
+
+export interface SingleTagDescription {
+    createdAt: string;
+    followers: string[];
+    name: string;
+    posts: Array<SmallPost>;
+    tag_id: string;
+    _id: string;
+}
+
+export interface SingleTagAction {
+    tag: SingleTagDescription;
+}
+
+export interface SingleTagProps {
+    name: string;
+    numberOfPost: number;
+    tag_id: string;
+    followers: string[];
+}
+
+export interface getSingleTagProps {
+    controller: AbortController;
+    unMounted: boolean;
+    tagName: string;
 }

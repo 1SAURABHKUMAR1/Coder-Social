@@ -1,15 +1,104 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+    createSlice,
+    createAsyncThunk,
+    PayloadAction,
+    current,
+} from '@reduxjs/toolkit';
 
-import {} from '../../Services';
+import {
+    getTags as getTagsRequest,
+    getSingleTag as getSingleTagRequest,
+    followUnfollowTag as followUnfollowTagRequest,
+} from '../../Services';
 
 import ErrorToast from '../../Toast/Error';
-import SuccessToast from '../../Toast/Success';
 
-import {} from '../../Types/index';
+import {
+    controller,
+    TagAction,
+    TagSliceProps,
+    getSingleTagProps,
+    SingleTagAction,
+} from '../../Types/index';
 
-const initialState = {
-    tag: [],
+const initialState: TagSliceProps = {
+    tags: [],
+    getTagStatus: 'IDLE',
+    singleTag: {
+        _id: '',
+        createdAt: '',
+        followers: [],
+        name: '',
+        tag_id: '',
+        posts: [],
+    },
+    singleTagStatus: 'IDLE',
+    followUnfollowStatus: 'IDLE',
 };
+
+export const getAllTags = createAsyncThunk(
+    '/tags/getAllTags',
+    async ({ controller, unMounted }: controller, { rejectWithValue }) => {
+        try {
+            const { data } = await getTagsRequest(controller);
+
+            if (data.success && !unMounted) {
+                return data;
+            }
+            return rejectWithValue(data);
+        } catch (error) {
+            console.log(error);
+
+            return rejectWithValue(
+                error.response?.data ?? { message: 'Failed' },
+            );
+        }
+    },
+);
+
+export const getSingleTag = createAsyncThunk(
+    'tag/getSingleTag',
+    async (
+        { controller, unMounted, tagName }: getSingleTagProps,
+        { rejectWithValue },
+    ) => {
+        try {
+            const { data } = await getSingleTagRequest(controller, tagName);
+
+            if (data.success && !unMounted) {
+                return data;
+            }
+            return rejectWithValue(data);
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue(
+                error.response?.data ?? { message: 'Failed' },
+            );
+        }
+    },
+);
+
+export const followUnfollowTag = createAsyncThunk(
+    'tag/followunfollow',
+    async (tag_id: string, { rejectWithValue }) => {
+        try {
+            const { data } = await followUnfollowTagRequest(tag_id);
+
+            if (data.success) {
+                return data;
+            }
+
+            return rejectWithValue(data);
+        } catch (error) {
+            console.log(error);
+
+            ErrorToast('Failed');
+            return rejectWithValue(
+                error.response?.data ?? { message: 'Failed' },
+            );
+        }
+    },
+);
 
 const tagSlice = createSlice({
     name: 'tags',
@@ -18,10 +107,96 @@ const tagSlice = createSlice({
         //
     },
     extraReducers: (builder) => {
-        //
+        builder.addCase(getAllTags.pending, (state: TagSliceProps) => {
+            return {
+                ...state,
+                getTagStatus: 'PENDING',
+            };
+        });
+
+        builder.addCase(
+            getAllTags.fulfilled,
+            (state: TagSliceProps, action: PayloadAction<TagAction>) => {
+                return {
+                    ...state,
+                    getTagStatus: 'FULFILLED',
+                    tags: action.payload.tags,
+                };
+            },
+        );
+
+        builder.addCase(getAllTags.rejected, (state: TagSliceProps) => {
+            return {
+                ...state,
+                getTagStatus: 'REJECTED',
+            };
+        });
+
+        builder.addCase(getSingleTag.pending, (state: TagSliceProps) => {
+            return {
+                ...state,
+                singleTagStatus: 'PENDING',
+            };
+        });
+
+        builder.addCase(
+            getSingleTag.fulfilled,
+            (state: TagSliceProps, action: PayloadAction<SingleTagAction>) => {
+                return {
+                    ...state,
+                    singleTagStatus: 'FULFILLED',
+                    singleTag: action.payload.tag,
+                };
+            },
+        );
+
+        builder.addCase(getSingleTag.rejected, (state: TagSliceProps) => {
+            return {
+                ...state,
+                singleTagStatus: 'REJECTED',
+                singleTag: {
+                    _id: '',
+                    createdAt: '',
+                    followers: [],
+                    name: '',
+                    tag_id: '',
+                    posts: [],
+                },
+            };
+        });
+
+        builder.addCase(followUnfollowTag.pending, (state: TagSliceProps) => {
+            return {
+                ...state,
+                followUnfollowStatus: 'PENDING',
+            };
+        });
+
+        builder.addCase(
+            followUnfollowTag.fulfilled,
+            (state: TagSliceProps, action: PayloadAction<SingleTagAction>) => {
+                const tagIndex: number = current(state.tags).findIndex(
+                    (tag) => tag._id === action.payload.tag._id,
+                );
+
+                state.followUnfollowStatus = 'FULFILLED';
+                state.singleTag = {
+                    ...state.singleTag,
+                    followers: action.payload.tag.followers,
+                };
+                state.tags[tagIndex].followers = action.payload.tag.followers;
+            },
+        );
+
+        builder.addCase(followUnfollowTag.rejected, (state: TagSliceProps) => {
+            return {
+                ...state,
+                followUnfollowStatus: 'REJECTED',
+            };
+        });
     },
 });
 
 export const tagReducer = tagSlice.reducer;
 
-export const {} = tagSlice.actions;
+// export const {} = tagSlice.actions;

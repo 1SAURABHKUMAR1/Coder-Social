@@ -8,6 +8,8 @@ import ConvertDate from '../../../../Utils/ConvertDate';
 
 import { PostSectionProps } from '../../../../Types';
 
+import randomColor from '../../../../Utils/randomColor';
+
 const PostSection = ({
     image,
     heading,
@@ -54,21 +56,33 @@ const PostSection = ({
                         </div>
                         {tagsArray?.length > 0 && (
                             <div className="post-tag-wrapper">
-                                {tagsArray.map((tag) => (
-                                    <Link
-                                        to={`/tag/${tag?.name}`}
-                                        className="post-tag"
-                                        key={tag._id}
-                                    >
-                                        <span
-                                            className="post-tag-hashtag"
+                                {tagsArray.map((tag) => {
+                                    const color = randomColor();
+
+                                    return (
+                                        <Link
+                                            to={`/tag/${tag?.name}`}
+                                            className="post-tag"
                                             key={tag._id}
+                                            style={{
+                                                // @ts-ignore
+                                                '--hover-color': `rgba(${color}, 0.9)`,
+                                            }}
                                         >
-                                            #
-                                        </span>
-                                        {tag?.name}
-                                    </Link>
-                                ))}
+                                            <span
+                                                className="post-tag-hashtag"
+                                                key={tag._id}
+                                                style={{
+                                                    // @ts-ignore
+                                                    '--tag-color': `rgba(${color}, 0.95)`,
+                                                }}
+                                            >
+                                                #
+                                            </span>
+                                            {tag?.name}
+                                        </Link>
+                                    );
+                                })}
                             </div>
                         )}
                     </div>

@@ -21,6 +21,7 @@ import {
     CreatePost,
     Post,
     Tags,
+    SingleTag,
 } from './features/index';
 
 import PrivateRoute from './Hooks/PrivateRoute';
@@ -68,6 +69,7 @@ const App = () => {
                         element={<PrivateRoute element={<ReadingList />} />}
                     />
                     <Route path="/tags" element={<Tags />} />
+                    <Route path="/tag/:tagName" element={<SingleTag />} />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
                 <Footer />

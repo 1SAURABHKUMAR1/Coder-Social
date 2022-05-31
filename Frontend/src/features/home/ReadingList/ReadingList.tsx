@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Posts from '../../../Components/Posts/Posts';
 
-import { Bookmark } from '../../../Types';
+import { SmallPost } from '../../../Types';
 
 import { getBookmarks } from '../postSlice';
 
@@ -52,7 +52,7 @@ const ReadingList = () => {
                         <div className="max-w-50 container container-post">
                             <ul>
                                 {bookmark.length > 0 &&
-                                    bookmark.map((post: Bookmark) => (
+                                    bookmark.map((post: SmallPost) => (
                                         <Posts
                                             image={post?.image?.secure_url}
                                             heading={post.title}

@@ -163,7 +163,7 @@ aside {
 }
 
 .mobile-side-drawer-content {
-    width: 50%;
+    width: 45%;
     background-color: var(--color-white);
     height: 100%;
     max-width: 40rem;
@@ -196,7 +196,7 @@ aside {
 }
 
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 780px) {
     header {
         padding: 0.55rem 1.5rem;
     }

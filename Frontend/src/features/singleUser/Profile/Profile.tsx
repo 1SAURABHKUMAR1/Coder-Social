@@ -14,7 +14,7 @@ import {
 } from '../../index';
 import { getUserData } from '../../index';
 
-import { Bookmark } from '../../../Types';
+import { SmallPost } from '../../../Types';
 
 import { setStateNamePost } from '../../../features';
 
@@ -123,7 +123,7 @@ const Profile = () => {
 
                         <div className="container-post container">
                             <ul>
-                                {userData.posts.map((post: Bookmark) => (
+                                {userData.posts.map((post: SmallPost) => (
                                     <Posts
                                         image={post?.image?.secure_url}
                                         heading={post.title}

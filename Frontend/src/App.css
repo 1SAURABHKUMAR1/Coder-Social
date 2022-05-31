@@ -1286,6 +1286,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  height: 4.5rem;
 }
 
 .single-tag-number-post {
@@ -1294,9 +1295,41 @@
   color: var(--color-black-800);
 }
 
-.single-tag-save {
-  padding: 0.55rem 0.9rem !important;
-  font-weight: 500;
+
+.tag-hash {
+  background: transparent;
+  color: var(--color-black-800);
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  gap: 0.25rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.tag-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tag-follow {
+  font-weight: 600;
+  text-align: center;
+  padding: 0.4rem 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 0.35rem;
+  cursor: pointer;
+}
+
+.max-56 {
+  max-width: 56rem;
+}
+
+.flex-column {
+  flex-direction: column;
 }
 
 @keyframes spin {
@@ -1386,6 +1419,14 @@
     padding-left: 0;
     padding-right: 0;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .tag-hash {
+    font-size: 1.6rem;
+  }
+
+  .tag-follow {
+    padding: 0.6rem 1.2rem;
   }
 }
 

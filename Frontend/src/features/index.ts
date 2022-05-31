@@ -31,7 +31,8 @@ import PostReaction from './home/PostPage/Components/PostReaction';
 import PostSection from './home/PostPage/Components/PostSection';
 import PostUserInfo from './home/PostPage/Components/PostUserInfo';
 import Tags from './tags/Tags/Tags';
-import SingleTag from './tags/Tags/Components/SingleTag';
+import SingleTagBox from './tags/Tags/Components/SingleTagBox';
+import SingleTag from './tags/SingleTag/SingleTag';
 
 export * from './auth/hooks/useSignupHandler';
 export * from './auth/authSlice';
@@ -73,5 +74,6 @@ export {
     PostSection,
     PostUserInfo,
     Tags,
+    SingleTagBox,
     SingleTag,
 };

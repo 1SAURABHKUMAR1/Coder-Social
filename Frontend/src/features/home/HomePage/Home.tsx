@@ -10,7 +10,7 @@ import useScrollToTop from '../../../Hooks/useScrollToTop';
 
 import { getAllPosts } from '../../../features';
 
-import { Bookmark } from '../../../Types';
+import { SmallPost } from '../../../Types';
 
 import { setStateNamePost } from '../../../features';
 
@@ -54,7 +54,7 @@ const Home = () => {
                 </div>
                 <div className="container-post container">
                     <ul>
-                        {posts.map((post: Bookmark) => (
+                        {posts.map((post: SmallPost) => (
                             <Posts
                                 image={post?.image?.secure_url}
                                 heading={post.title}

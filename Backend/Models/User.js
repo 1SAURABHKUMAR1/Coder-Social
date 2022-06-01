@@ -91,28 +91,18 @@ const userSchema = new mongoose.Schema({
     },
     following: [
         {
-            name: {
-                type: String,
-                required: [true, 'Name is required'],
-            },
-            user_id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'user',
-                required: [true, 'User id is required'],
-            },
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user',
+            required: [true, 'User id is required'],
+            unique: true,
         },
     ],
     followers: [
         {
-            name: {
-                type: String,
-                required: [true, 'Follower name is required'],
-            },
-            user_id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'user',
-                required: [true, 'Follower User id is required'],
-            },
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user',
+            required: [true, 'Follower User id is required'],
+            unique: true,
         },
     ],
     bookmarks: [
@@ -120,6 +110,7 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'post',
             required: [true, 'Post id is required in bookmarks'],
+            unique: true,
         },
     ],
     posts: [
@@ -127,6 +118,7 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'post',
             required: [true, 'Post id is required'],
+            unique: true,
         },
     ],
     tags: [
@@ -134,6 +126,7 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'tag',
             required: [true, 'Tag id is required'],
+            unique: true,
         },
     ],
     comments: [
@@ -141,6 +134,7 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'comment',
             required: [true, 'Comment id is required'],
+            unique: true,
         },
     ],
     forgotPasswordToken: {

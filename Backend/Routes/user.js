@@ -18,6 +18,7 @@ const {
     getAccessToken,
     singleUserViaId,
     readingList,
+    followUnfollowUser,
 } = require('../Controllers/userController');
 
 router.route('/signup').post(signup);
@@ -32,6 +33,8 @@ router.route('/profile/update').post(isLoggedIn, updateProfile);
 router.route('/profile/delete').delete(isLoggedIn, profileDelete);
 
 router.route('/user/readinglist').get(isLoggedIn, readingList);
+
+router.route('/follow/:userId').put(isLoggedIn, followUnfollowUser);
 
 router.route('/refresh').get(getAccessToken);
 

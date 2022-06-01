@@ -148,8 +148,8 @@ export interface UserData {
     twitterUrl: string;
     total_followers: number;
     total_following: number;
-    following: [];
-    followers: [];
+    following: string[];
+    followers: string[];
     bookmarks: [];
     posts: [];
     tags: [];
@@ -158,6 +158,7 @@ export interface UserData {
     _id: string;
     getState: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
     getProfile: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    followUserState: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
 }
 
 export interface DeleteModalProps {

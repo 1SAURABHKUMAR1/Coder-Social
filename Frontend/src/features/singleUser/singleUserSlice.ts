@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     getUserData as getUserDataRequest,
     getUserProfile as getUserProfileRequest,
+    followUnfollowUser as followUnfollowUserRequest,
 } from '../../Services';
 
 import {
@@ -40,6 +41,7 @@ const initialState: UserData = {
     _id: '',
     getState: 'IDLE',
     getProfile: 'IDLE',
+    followUserState: 'IDLE',
 };
 
 export const getUserData = createAsyncThunk(
@@ -73,6 +75,27 @@ export const getProfile = createAsyncThunk(
             const { data } = await getUserProfileRequest(controller);
 
             if (data.success && !unMounted) {
+                return data;
+            } else {
+                return rejectWithValue(data);
+            }
+        } catch (error) {
+            console.log(error);
+
+            return rejectWithValue(
+                error.response?.data ?? { message: 'Failed' },
+            );
+        }
+    },
+);
+
+export const followUnfollowUser = createAsyncThunk(
+    'user/followUnfollowUserProfile',
+    async (userId: string, { rejectWithValue }) => {
+        try {
+            const { data } = await followUnfollowUserRequest(userId);
+
+            if (data.success) {
                 return data;
             } else {
                 return rejectWithValue(data);
@@ -165,6 +188,32 @@ const singleUserSlice = createSlice({
 
         builder.addCase(getProfile.rejected, (state: UserData) => {
             return { ...state, getProfile: 'REJECTED' };
+        });
+
+        builder.addCase(followUnfollowUser.pending, (state: UserData) => {
+            return {
+                ...state,
+                followUserState: 'PENDING',
+            };
+        });
+
+        builder.addCase(
+            followUnfollowUser.fulfilled,
+            (state: UserData, action: PayloadAction<UserSliceaction>) => {
+                return {
+                    ...state,
+                    followUserState: 'FULFILLED',
+                    total_followers: action.payload.user.total_followers,
+                    followers: action.payload.user.followers,
+                };
+            },
+        );
+
+        builder.addCase(followUnfollowUser.rejected, (state: UserData) => {
+            return {
+                ...state,
+                followUserState: 'REJECTED',
+            };
         });
     },
 });

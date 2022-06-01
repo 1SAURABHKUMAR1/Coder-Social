@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { Link, useParams } from 'react-router-dom';
 
@@ -16,17 +16,43 @@ import { getUserData } from '../../index';
 
 import { SmallPost } from '../../../Types';
 
-import { setStateNamePost } from '../../../features';
+import { setStateNamePost, followUnfollowUser } from '../../../features';
 
 const Profile = () => {
     useScrollToTop();
 
     const { username } = useParams();
-
-    const userData = useAppSelector((state) => state.user);
+    const {
+        getState,
+        profile_photo,
+        user_id,
+        name,
+        bio,
+        work,
+        education,
+        total_followers,
+        total_following,
+        followers,
+        skills,
+        posts,
+        comments,
+        tags,
+        location,
+        createdAt,
+        portfolio_link,
+        twitterUrl,
+        githubUrl,
+        followUserState,
+    } = useAppSelector((state) => state.user);
     const { reactionStatus } = useAppSelector((state) => state.post);
-    const { userId } = useAppSelector((state) => state.authenticate);
+    const { userId, id } = useAppSelector((state) => state.authenticate);
     const dispatch = useAppDispatch();
+    const [isFollowed, setIsFollowed] = useState(false);
+
+    const handleFollow = () => {
+        setIsFollowed(!isFollowed);
+        dispatch(followUnfollowUser(user_id));
+    };
 
     useEffect(() => {
         let unMounted = false;
@@ -60,9 +86,14 @@ const Profile = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [reactionStatus]);
 
+    useEffect(() => {
+        setIsFollowed(followers.includes(id));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [followers, id]);
+
     return (
         <>
-            {userData.getState === 'FULFILLED' ? (
+            {getState === 'FULFILLED' ? (
                 <main className="profile-page component">
                     <div className="profile-user-info">
                         <div className="user-info-profile">
@@ -70,7 +101,7 @@ const Profile = () => {
                                 <div className="user-info-profile-image-button">
                                     <div className="user-info-avatar">
                                         <img
-                                            src={userData.profile_photo}
+                                            src={profile_photo}
                                             className="profile-image"
                                             alt=""
                                             width="128"
@@ -79,7 +110,7 @@ const Profile = () => {
                                     </div>
 
                                     <div className="user-info-follow-edit-button">
-                                        {userId === userData.user_id ? (
+                                        {userId === user_id ? (
                                             <Link
                                                 to="/user/profile/edit"
                                                 className="button-primary button-profile"
@@ -87,43 +118,52 @@ const Profile = () => {
                                                 Edit Profile
                                             </Link>
                                         ) : (
-                                            <button className="button-primary button-profile">
-                                                Follow User
+                                            <button
+                                                className="button-primary button-profile"
+                                                disabled={
+                                                    followUserState ===
+                                                    'PENDING'
+                                                }
+                                                onClick={handleFollow}
+                                            >
+                                                {isFollowed
+                                                    ? 'Unfollow User'
+                                                    : 'Follow User'}
                                             </button>
                                         )}
                                     </div>
                                 </div>
                                 <ProfileNameBio
-                                    name={userData.name}
-                                    bio={userData.bio}
-                                    location={userData.location}
-                                    joinedDate={userData.createdAt}
-                                    portfolio_link={userData.portfolio_link}
-                                    twitterUrl={userData.twitterUrl}
-                                    githubUrl={userData.githubUrl}
+                                    name={name}
+                                    bio={bio}
+                                    location={location}
+                                    joinedDate={createdAt}
+                                    portfolio_link={portfolio_link}
+                                    twitterUrl={twitterUrl}
+                                    githubUrl={githubUrl}
                                 />
 
                                 <ProfileExtra
-                                    work={userData.work}
-                                    education={userData.education}
-                                    following={userData.total_followers}
-                                    followers={userData.total_following}
+                                    work={work}
+                                    education={education}
+                                    following={total_following}
+                                    followers={total_followers}
                                 />
                             </header>
                         </div>
                     </div>
                     <div className="profile-sidebar-post-container">
                         <ProfileSidebar
-                            works={userData.work}
-                            skills={userData.skills}
-                            numberOfPosts={userData.posts.length}
-                            numberOfComments={userData.comments.length}
-                            numberOftags={userData.tags.length}
+                            works={work}
+                            skills={skills}
+                            numberOfPosts={posts.length}
+                            numberOfComments={comments.length}
+                            numberOftags={tags.length}
                         />
 
                         <div className="container-post container">
                             <ul>
-                                {userData.posts.map((post: SmallPost) => (
+                                {posts.map((post: SmallPost) => (
                                     <Posts
                                         image={post?.image?.secure_url}
                                         heading={post.title}

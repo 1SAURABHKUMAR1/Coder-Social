@@ -383,6 +383,20 @@ exports.profileDelete = BigPromise(async (req, res, next) => {
         });
     }
 
+    for (const singleUser of user.followers) {
+        await User.findByIdAndUpdate(singleUser, {
+            $pull: { following: singleUser },
+            $inc: { total_following: -1 },
+        });
+    }
+
+    for (const singleUser of user.following) {
+        await User.findByIdAndUpdate(singleUser, {
+            $pull: { followers: singleUser },
+            $inc: { total_followers: -1 },
+        });
+    }
+
     await user.remove();
 
     res.status(200)
@@ -537,5 +551,44 @@ exports.readingList = BigPromise(async (req, res, next) => {
     res.status(200).json({
         success: true,
         bookmarks: user.bookmarks,
+    });
+});
+
+exports.followUnfollowUser = BigPromise(async (req, res, next) => {
+    const { userId } = req.params;
+
+    const { _id } = req.user;
+
+    let followUser = await User.findOne({ user_id: userId });
+
+    if (!followUser) return CustomError(res, 'User Not Found', 401);
+
+    if (followUser.followers.includes(_id.toString())) {
+        await User.findByIdAndUpdate(followUser._id, {
+            $pull: { followers: _id },
+            $inc: { total_followers: -1 },
+        });
+
+        await User.findByIdAndUpdate(_id, {
+            $pull: { following: followUser._id },
+            $inc: { total_following: -1 },
+        });
+    } else {
+        await User.findByIdAndUpdate(followUser._id, {
+            $push: { followers: _id },
+            $inc: { total_followers: 1 },
+        });
+
+        await User.findByIdAndUpdate(_id, {
+            $push: { following: followUser._id },
+            $inc: { total_following: 1 },
+        });
+    }
+
+    followUser = await User.findOne({ user_id: userId });
+
+    res.status(200).json({
+        success: true,
+        user: followUser,
     });
 });

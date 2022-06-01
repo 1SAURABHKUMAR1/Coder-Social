@@ -25,10 +25,13 @@ const updateProfile = (userData: updateProfileProps) =>
 
 const deleteProfile = () => Axios.delete('/profile/delete');
 
+const followUnfollowUser = (userId: string) => Axios.put(`/follow/${userId}`);
+
 export {
     getUserData,
     getBookmark,
     getUserProfile,
     updateProfile,
     deleteProfile,
+    followUnfollowUser,
 };

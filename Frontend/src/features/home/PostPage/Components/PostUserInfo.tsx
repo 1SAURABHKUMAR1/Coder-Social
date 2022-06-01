@@ -1,5 +1,8 @@
-import { useAppSelector } from '../../../../store/hooks';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+
+import { followUnfollowUser } from '../../../index';
 
 import ConvertDate from '../../../../Utils/ConvertDate';
 
@@ -16,9 +19,24 @@ const PostUserInfo = ({
     name,
     username,
 }: PostProfileProps) => {
-    const { userId } = useAppSelector((state) => state.authenticate);
+    const [isFollowed, setIsFollowed] = useState(false);
+    const { userId, id } = useAppSelector((state) => state.authenticate);
+    const { followers, followUserState } = useAppSelector(
+        (state) => state.user,
+    );
+    const dispatch = useAppDispatch();
 
     const [joiningDate] = ConvertDate(joinedDate, 'DD MMM YYYY');
+
+    const handleFollow = () => {
+        setIsFollowed(!isFollowed);
+        dispatch(followUnfollowUser(user_id));
+    };
+
+    useEffect(() => {
+        setIsFollowed(followers.includes(id));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [followers, id]);
 
     return (
         <section className="post-user-info post-sticky-4px top-21">
@@ -51,9 +69,12 @@ const PostUserInfo = ({
                                 </button>
                             </Link>
                         ) : (
-                            // TODO: follow
-                            <button className="button-primary margin-top-3 small-padding">
-                                Follow User
+                            <button
+                                className="button-primary button-profile"
+                                disabled={followUserState === 'PENDING'}
+                                onClick={handleFollow}
+                            >
+                                {isFollowed ? 'Unfollow User' : 'Follow User'}
                             </button>
                         )}
 

@@ -62,7 +62,8 @@ exports.createPost = BigPromise(async (req, res, next) => {
 exports.getAllPosts = BigPromise(async (req, res, next) => {
     const post = await Post.find()
         .populate('tags', 'name')
-        .populate('author', 'name username profile_photo');
+        .populate('author', 'name username profile_photo')
+        .sort({ createdAt: 'descending' });
 
     res.status(200).json({
         success: true,

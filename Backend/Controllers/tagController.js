@@ -60,6 +60,9 @@ exports.getSingleTag = BigPromise(async (req, res, next) => {
             path: 'author tags',
             select: 'name username profile_photo _id ',
         },
+        options: {
+            sort: { createdAt: 'descending' },
+        },
     });
 
     if (!tag) return next(CustomError(res, 'Invalid Tag', 401));

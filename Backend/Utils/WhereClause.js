@@ -24,10 +24,13 @@ class WhereClause {
               }
             : {};
 
-        this.base = this.base.find({ ...searchWord }).populate({
-            path: 'tags author',
-            select: 'name username name profile_photo',
-        });
+        this.base = this.base
+            .find({ ...searchWord })
+            .populate({
+                path: 'tags author',
+                select: 'name username name profile_photo',
+            })
+            .sort({ createdAt: 'descending' });
 
         return this;
     }

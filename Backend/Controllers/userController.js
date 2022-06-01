@@ -429,6 +429,9 @@ exports.singleUserViaId = BigPromise(async (req, res, next) => {
             path: 'tags author',
             select: 'name username name profile_photo',
         },
+        options: {
+            sort: { createdAt: 'descending' },
+        },
     });
 
     if (!user) {
@@ -541,6 +544,9 @@ exports.readingList = BigPromise(async (req, res, next) => {
         populate: {
             path: 'tags author',
             select: 'name username name profile_photo',
+        },
+        options: {
+            sort: { createdAt: 'descending' },
         },
     });
 

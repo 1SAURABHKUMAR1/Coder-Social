@@ -41,7 +41,7 @@ const Search = () => {
             <div className="component component-no-p-m  component-pt-5">
                 <div className="container-layout  flex flex-column">
                     <div className="width-100 component-justify flex not-found-header">
-                        No post found for {searchParams.get('text')}
+                        No post found for "{searchParams.get('text')}"
                     </div>
                 </div>
             </div>

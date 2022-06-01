@@ -308,11 +308,17 @@ exports.bookmarkUnBookmarkPost = BigPromise(async (req, res, next) => {
 });
 
 exports.searchPost = BigPromise(async (req, res, next) => {
-    const resultPerPage = 8;
+    // const resultPerPage = 8;
 
-    let posts = new WhereClause(Post.find(), req.query)
-        .search()
-        .pager(resultPerPage);
+    if (req.query.search === '') {
+        return res.status(200).json({
+            success: true,
+            posts: [],
+        });
+    }
+
+    let posts = new WhereClause(Post.find(), req.query).search();
+    // .pager(resultPerPage);
 
     posts = await posts.base;
 

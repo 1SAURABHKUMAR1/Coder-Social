@@ -27,6 +27,9 @@ const deleteProfile = () => Axios.delete('/profile/delete');
 
 const followUnfollowUser = (userId: string) => Axios.put(`/follow/${userId}`);
 
+const getUserTag = (controller: AbortController) =>
+    Axios.get(`/user/tag`, { signal: controller.signal });
+
 export {
     getUserData,
     getBookmark,
@@ -34,4 +37,5 @@ export {
     updateProfile,
     deleteProfile,
     followUnfollowUser,
+    getUserTag,
 };

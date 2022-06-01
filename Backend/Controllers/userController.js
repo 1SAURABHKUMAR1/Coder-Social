@@ -592,3 +592,14 @@ exports.followUnfollowUser = BigPromise(async (req, res, next) => {
         user: followUser,
     });
 });
+
+exports.userFollowedTag = BigPromise(async (req, res, next) => {
+    const { _id } = req.user;
+
+    const user = await User.findById(_id).populate('tags');
+
+    res.status(200).json({
+        success: true,
+        tag: user.tags,
+    });
+});

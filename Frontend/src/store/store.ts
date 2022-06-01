@@ -5,6 +5,7 @@ import {
     postReducer,
     singleUserReducer,
     tagReducer,
+    searchReducer,
 } from '../features';
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
         post: postReducer,
         user: singleUserReducer,
         tags: tagReducer,
+        search: searchReducer,
     },
 });
 

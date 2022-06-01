@@ -11,8 +11,7 @@ import randomColor from '../../../Utils/randomColor';
 import { SmallPost } from '../../../Types';
 
 const SingleTag = () => {
-    const color = randomColor();
-
+    const [color, setColor] = useState(() => randomColor());
     const [isFollowed, setIsFollowed] = useState(false);
     const { tagName } = useParams();
     const dispatch = useAppDispatch();

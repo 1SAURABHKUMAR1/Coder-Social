@@ -9,6 +9,7 @@ import {
     getTags as getTagsRequest,
     getSingleTag as getSingleTagRequest,
     followUnfollowTag as followUnfollowTagRequest,
+    getUserTag as getUserTagsRequest,
 } from '../../Services';
 
 import ErrorToast from '../../Toast/Error';
@@ -19,6 +20,7 @@ import {
     TagSliceProps,
     getSingleTagProps,
     SingleTagAction,
+    UserTagAction,
 } from '../../Types/index';
 
 const initialState: TagSliceProps = {
@@ -34,6 +36,8 @@ const initialState: TagSliceProps = {
     },
     singleTagStatus: 'IDLE',
     followUnfollowStatus: 'IDLE',
+    userTags: [],
+    userTagState: 'IDLE',
 };
 
 export const getAllTags = createAsyncThunk(
@@ -95,6 +99,26 @@ export const followUnfollowTag = createAsyncThunk(
             ErrorToast('Failed');
             return rejectWithValue(
                 error.response?.data ?? { message: 'Failed' },
+            );
+        }
+    },
+);
+
+export const getUserTags = createAsyncThunk(
+    'user/getTags',
+    async ({ controller, unMounted }: controller, { rejectWithValue }) => {
+        try {
+            const { data } = await getUserTagsRequest(controller);
+
+            if (data.success && !unMounted) {
+                return data;
+            }
+            return rejectWithValue(data);
+        } catch (error) {
+            console.log(error);
+
+            return rejectWithValue(
+                error.response?.message ?? { message: 'Failed' },
             );
         }
     },
@@ -192,6 +216,31 @@ const tagSlice = createSlice({
             return {
                 ...state,
                 followUnfollowStatus: 'REJECTED',
+            };
+        });
+
+        builder.addCase(getUserTags.pending, (state: TagSliceProps) => {
+            return {
+                ...state,
+                userTagState: 'IDLE',
+            };
+        });
+
+        builder.addCase(
+            getUserTags.fulfilled,
+            (state: TagSliceProps, action: PayloadAction<UserTagAction>) => {
+                return {
+                    ...state,
+                    userTagState: 'FULFILLED',
+                    userTags: action.payload.tag,
+                };
+            },
+        );
+
+        builder.addCase(getUserTags.rejected, (state: TagSliceProps) => {
+            return {
+                ...state,
+                userTagState: 'REJECTED',
             };
         });
     },

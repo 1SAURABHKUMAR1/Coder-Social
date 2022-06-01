@@ -1,14 +1,12 @@
 import { useAppSelector } from '../../../../store/hooks';
-import { Link } from 'react-router-dom';
 
 import PostAuthor from '../../../../Components/Posts/PostAuthor';
 import PostEditDelete from './PostEditDelete';
+import TagList from '../../../../Components/Tag/TagList';
 
 import ConvertDate from '../../../../Utils/ConvertDate';
 
 import { PostSectionProps } from '../../../../Types';
-
-import randomColor from '../../../../Utils/randomColor';
 
 const PostSection = ({
     image,
@@ -54,41 +52,12 @@ const PostSection = ({
                         <div className="post-title">
                             <div>{heading}</div>
                         </div>
-                        {tagsArray?.length > 0 && (
-                            <div className="post-tag-wrapper">
-                                {tagsArray.map((tag) => {
-                                    const color = randomColor();
 
-                                    return (
-                                        <Link
-                                            to={`/tag/${tag?.name}`}
-                                            className="post-tag"
-                                            key={tag._id}
-                                            style={{
-                                                // @ts-ignore
-                                                '--hover-color': `rgba(${color}, 0.9)`,
-                                            }}
-                                        >
-                                            <span
-                                                className="post-tag-hashtag"
-                                                key={tag._id}
-                                                style={{
-                                                    // @ts-ignore
-                                                    '--tag-color': `rgba(${color}, 0.95)`,
-                                                }}
-                                            >
-                                                #
-                                            </span>
-                                            {tag?.name}
-                                        </Link>
-                                    );
-                                })}
-                            </div>
-                        )}
+                        <TagList tagsArray={tagsArray} />
                     </div>
-                    <div className="margin-small-profile post-description-single">
-                        {postDescription}
-                    </div>
+                    <code className="margin-small-profile post-description-single">
+                        <pre>{postDescription}</pre>
+                    </code>
                 </div>
                 <div
                     id="paddding-top-3"

@@ -22,6 +22,7 @@ import {
     Post,
     Tags,
     SingleTag,
+    Search,
 } from './features/index';
 
 import PrivateRoute from './Hooks/PrivateRoute';
@@ -58,6 +59,10 @@ const App = () => {
                     <Route
                         path="/post/new"
                         element={<PrivateRoute element={<CreatePost />} />}
+                    />
+                    <Route
+                        path="/post/search"
+                        element={<PrivateRoute element={<Search />} />}
                     />
                     <Route path="/post/:postId" element={<Post />} />
                     <Route

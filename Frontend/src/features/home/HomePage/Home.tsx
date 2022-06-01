@@ -47,12 +47,12 @@ const Home = () => {
     }, [reactionStatus]);
 
     return (
-        <div className="component  component-no-p-m">
+        <div className="component  component-no-p-m  component-pt-5">
             <div className="container-layout">
                 <div className="container-sidebar">
                     <LeftSideBar />
                 </div>
-                <div className="container-post container">
+                <div className="container-post container ">
                     <ul>
                         {posts.map((post: SmallPost) => (
                             <Posts

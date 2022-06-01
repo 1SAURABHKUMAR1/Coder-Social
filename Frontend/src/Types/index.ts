@@ -582,6 +582,8 @@ export interface TagSliceProps {
     singleTag: SingleTagDescription;
     singleTagStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
     followUnfollowStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+    userTags: Array<SingleTagDescription>;
+    userTagState: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
 }
 
 export interface AllTagProps {
@@ -621,4 +623,26 @@ export interface getSingleTagProps {
     controller: AbortController;
     unMounted: boolean;
     tagName: string;
+}
+
+export interface UserTagAction {
+    tag: Array<SingleTagDescription>;
+}
+
+export interface SearchSliceInital {
+    searchPosts: Array<SmallPost>;
+    searchPostState: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+}
+
+export interface SearchRequestProp extends controller {
+    searchParams: string;
+}
+
+export interface SearchAction {
+    posts: Array<SmallPost>;
+}
+
+export interface setStateNameSearchProps {
+    stateName: 'searchPosts' | 'searchPostState';
+    stateValue: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED' | [];
 }

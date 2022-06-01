@@ -19,6 +19,7 @@ const {
     singleUserViaId,
     readingList,
     followUnfollowUser,
+    userFollowedTag,
 } = require('../Controllers/userController');
 
 router.route('/signup').post(signup);
@@ -31,10 +32,9 @@ router.route('/profile/:username').get(singleUserViaId);
 router.route('/password/update').post(isLoggedIn, updatePassword);
 router.route('/profile/update').post(isLoggedIn, updateProfile);
 router.route('/profile/delete').delete(isLoggedIn, profileDelete);
-
 router.route('/user/readinglist').get(isLoggedIn, readingList);
-
 router.route('/follow/:userId').put(isLoggedIn, followUnfollowUser);
+router.route('/user/tag').get(isLoggedIn, userFollowedTag);
 
 router.route('/refresh').get(getAccessToken);
 

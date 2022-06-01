@@ -11,10 +11,13 @@ const {
     likeUnlikePost,
     unicronUnunicornPost,
     bookmarkUnBookmarkPost,
+    searchPost,
 } = require('../Controllers/postController');
 
 router.route('/post/create').post(isLoggedIn, createPost);
 router.route('/post').get(getAllPosts);
+router.route('/post/filter').get(searchPost);
+
 router
     .route('/post/:postId')
     .get(getSinglePost)

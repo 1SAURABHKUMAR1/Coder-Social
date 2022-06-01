@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 import About from '../../../Components/About/About';
 
@@ -9,8 +10,27 @@ import { GrClose } from 'react-icons/gr';
 
 import { AsideProps } from '../../../Types';
 
+import { getUserTags } from '../../../features/index';
+
+import UserTagList from '../../../Components/Tag/UserTagList';
+
 const MobileAside = ({ showAside, handleToggleAside }: AsideProps) => {
     const { login } = useAppSelector((state) => state.authenticate);
+    const { userTags, userTagState } = useAppSelector((state) => state.tags);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        const controller = new AbortController();
+        let unMounted = false;
+
+        dispatch(getUserTags({ controller, unMounted }));
+
+        return () => {
+            controller.abort();
+            unMounted = true;
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>
@@ -97,7 +117,11 @@ const MobileAside = ({ showAside, handleToggleAside }: AsideProps) => {
                                 <FaLinkedin className="icons-home" />
                             </a>
                         </div>
-                        {/* TODO: show followed tags */}
+
+                        <UserTagList
+                            tagsArray={userTags}
+                            tagsState={userTagState}
+                        />
                     </div>
                 </div>
             </aside>

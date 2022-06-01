@@ -33,12 +33,14 @@ import PostUserInfo from './home/PostPage/Components/PostUserInfo';
 import Tags from './tags/Tags/Tags';
 import SingleTagBox from './tags/Tags/Components/SingleTagBox';
 import SingleTag from './tags/SingleTag/SingleTag';
+import Search from './search/Search';
 
 export * from './auth/hooks/useSignupHandler';
 export * from './auth/authSlice';
 export * from './home/postSlice';
 export * from './singleUser/singleUserSlice';
 export * from './tags/tagSlice';
+export * from './search/searchSlice';
 
 export {
     Signup,
@@ -76,4 +78,5 @@ export {
     Tags,
     SingleTagBox,
     SingleTag,
+    Search,
 };

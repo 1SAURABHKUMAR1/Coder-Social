@@ -9,6 +9,7 @@ const {
     deleteTags,
     updateTags,
 } = require('../Controllers/tagController');
+const WhereClause = require('../Utils/WhereClause');
 
 // title , image , description  , tags , author
 exports.createPost = BigPromise(async (req, res, next) => {
@@ -303,5 +304,20 @@ exports.bookmarkUnBookmarkPost = BigPromise(async (req, res, next) => {
     res.status(200).json({
         success: true,
         post,
+    });
+});
+
+exports.searchPost = BigPromise(async (req, res, next) => {
+    const resultPerPage = 8;
+
+    let posts = new WhereClause(Post.find(), req.query)
+        .search()
+        .pager(resultPerPage);
+
+    posts = await posts.base;
+
+    res.status(200).json({
+        success: true,
+        posts,
     });
 });

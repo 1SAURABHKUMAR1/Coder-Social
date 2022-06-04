@@ -58,12 +58,14 @@ exports.createComment = BigPromise(async (req, res, next) => {
         { $addToSet: { comments: comment._id } },
     );
 
-    await commentNotification({
-        senderId: _id,
-        receiverId: post.author,
-        postId: post._id,
-        commentId: comment._id,
-    });
+    if (post.author !== _id) {
+        await commentNotification({
+            senderId: _id,
+            receiverId: post.author,
+            postId: post._id,
+            commentId: comment._id,
+        });
+    }
 
     res.status(200).json({
         success: true,
@@ -134,12 +136,14 @@ exports.deleteComment = BigPromise(async (req, res, next) => {
         await child.remove();
     }
 
-    await removeCommentNotification({
-        senderId: _id,
-        receiverId: comment.post.author,
-        postId: comment.post._id,
-        commentId: comment._id,
-    });
+    if (comment.post.author !== _id) {
+        await removeCommentNotification({
+            senderId: _id,
+            receiverId: comment.post.author,
+            postId: comment.post._id,
+            commentId: comment._id,
+        });
+    }
 
     await comment.remove();
 

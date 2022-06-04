@@ -233,11 +233,13 @@ exports.likeUnlikePost = BigPromise(async (req, res, next) => {
             },
         );
 
-        await likeNotification({
-            senderId: _id,
-            postId: post._id,
-            receiverId: post.author,
-        });
+        if (post.author !== _id) {
+            await likeNotification({
+                senderId: _id,
+                postId: post._id,
+                receiverId: post.author,
+            });
+        }
     } else if (post.likes.includes(_id.toString())) {
         await Post.findOneAndUpdate(
             { post_id: postId },
@@ -246,11 +248,13 @@ exports.likeUnlikePost = BigPromise(async (req, res, next) => {
             },
         );
 
-        await removeLikeNotification({
-            senderId: _id,
-            postId: post._id,
-            receiverId: post.author,
-        });
+        if (post.author !== _id) {
+            await removeLikeNotification({
+                senderId: _id,
+                postId: post._id,
+                receiverId: post.author,
+            });
+        }
     }
 
     post = await Post.findOne({ post_id: postId }).populate({

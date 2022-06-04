@@ -11,7 +11,7 @@ import {
 } from '../../index';
 import Loader from '../../../Components/Loader/LoaderMain';
 
-import { getPost, setStateNamePost } from '../../index';
+import { getPost } from '../../index';
 
 import useScrollToTop from '../../../Hooks/useScrollToTop';
 
@@ -42,23 +42,14 @@ const Post = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [postId]);
 
-    useEffect(() => {
-        postStatus === 'FULFILLED' &&
-            dispatch(
-                setStateNamePost({
-                    stateName: 'postStatus',
-                    stateValue: 'IDLE',
-                }),
-            );
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [postStatus]);
-
     if (postStatus === 'PENDING') {
         return <Loader />;
-    } else if (postStatus === 'REJECTED' || singlePost._id === '') {
+    } else if (
+        postStatus === 'REJECTED' ||
+        (postStatus === 'FULFILLED' && singlePost._id === '')
+    ) {
         return <PostNotFound />;
-    } else if (postStatus === 'FULFILLED' || singlePost._id) {
+    } else if (postStatus === 'FULFILLED' && singlePost._id) {
         return (
             <div className="component component-no-p-m">
                 <div className="container-layout post-layout">

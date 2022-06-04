@@ -10,6 +10,7 @@ const passportConfig = require('./passport/passport');
 const passport = require('passport');
 const { Server } = require('socket.io');
 const httpsServer = require('http').createServer(app);
+const helmet = require('helmet');
 
 // middlewares
 app.use(morgan('tiny'));
@@ -23,6 +24,7 @@ const corsOption = {
 };
 app.use(cors(corsOption));
 app.use(nocache());
+app.use(helmet());
 
 app.use(cookieParser());
 

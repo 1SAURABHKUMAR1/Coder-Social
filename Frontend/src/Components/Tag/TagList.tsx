@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { SingleTag } from '../../Types';
@@ -46,4 +47,4 @@ const TagList = ({ tagsArray }: TagListProps) => {
     );
 };
 
-export default TagList;
+export default memo(TagList);

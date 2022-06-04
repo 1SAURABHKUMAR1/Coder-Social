@@ -21,6 +21,7 @@ import {
     getSingleTagProps,
     SingleTagAction,
     UserTagAction,
+    tagSliceAction,
 } from '../../Types/index';
 
 const initialState: TagSliceProps = {
@@ -128,7 +129,32 @@ const tagSlice = createSlice({
     name: 'tags',
     initialState,
     reducers: {
-        //
+        setStateNameTag: (
+            state: TagSliceProps,
+            action: PayloadAction<tagSliceAction>,
+        ) => {
+            return {
+                ...state,
+                [action.payload.stateName]: action.payload.stateValue,
+            };
+        },
+
+        logoutUser: (state: TagSliceProps) => {
+            state.tags = [];
+            state.getTagStatus = 'IDLE';
+            state.singleTag = {
+                _id: '',
+                createdAt: '',
+                followers: [],
+                name: '',
+                tag_id: '',
+                posts: [],
+            };
+            state.singleTagStatus = 'IDLE';
+            state.followUnfollowStatus = 'IDLE';
+            state.userTags = [];
+            state.userTagState = 'IDLE';
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getAllTags.pending, (state: TagSliceProps) => {
@@ -248,4 +274,4 @@ const tagSlice = createSlice({
 
 export const tagReducer = tagSlice.reducer;
 
-// export const {} = tagSlice.actions;
+export const { setStateNameTag, logoutUser: logoutUserTags } = tagSlice.actions;

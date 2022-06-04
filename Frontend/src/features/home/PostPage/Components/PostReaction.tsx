@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { BiBookmark } from 'react-icons/bi';
 import { RiHeart2Line } from 'react-icons/ri';
 
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 
 import { PostReactionProps } from '../../../../Types';
 
 import { postReaction, setStateNamePost } from '../../../index';
+
+import { socket } from '../../../../Services/http/socket';
 
 const PostReaction = ({ likes, unicorns, bookmarks }: PostReactionProps) => {
     const { postId } = useParams();
@@ -21,7 +23,17 @@ const PostReaction = ({ likes, unicorns, bookmarks }: PostReactionProps) => {
         bookmark: false,
     });
     const { id, login } = useAppSelector((state) => state.authenticate);
-    const { reactionStatus } = useAppSelector((state) => state.post);
+    const {
+        reactionStatus,
+        singlePost: {
+            author: { name: recieverName, _id: recieverUserId },
+        },
+    } = useAppSelector((state) => state.post);
+    const { socketConnectedState } = useAppSelector((state) => state.socket);
+
+    const { name: senderName, photo: senderProfilePic } = useAppSelector(
+        (state) => state.authenticate,
+    );
 
     const handleReaction = async (
         reactionName: 'likes' | 'bookmarks' | 'unicorns',
@@ -44,6 +56,25 @@ const PostReaction = ({ likes, unicorns, bookmarks }: PostReactionProps) => {
                 apiName: apiAddress,
             }),
         );
+
+        if (
+            socketConnectedState === 'CONNECTED' &&
+            !likes.includes(id) &&
+            reactionName === 'likes'
+        ) {
+            socket.emit('likedPost', {
+                postId: postId,
+                sender: {
+                    name: senderName,
+                    profile_image: senderProfilePic,
+                    userId: id,
+                },
+                reciever: {
+                    name: recieverName,
+                    userId: recieverUserId,
+                },
+            });
+        }
     };
 
     useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../../../store/hooks';
@@ -13,9 +13,9 @@ const SearchBar = ({ showSearchBox }: SearchBarProps) => {
     const dispatch = useAppDispatch();
 
     // for search on post
-    const handleValueChange = (event: any) => {
+    const handleValueChange = useCallback((event: any) => {
         setSearchValue((event.target as HTMLButtonElement).value);
-    };
+    }, []);
 
     const handleSearch = (event: any) => {
         if (event.key === 'Enter' && searchValue !== '') {

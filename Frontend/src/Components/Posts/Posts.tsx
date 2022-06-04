@@ -11,6 +11,7 @@ import CalculateTimeRead from '../../Utils/CalculateTimeRead';
 import { PostProps } from '../../Types';
 
 import TagList from '../Tag/TagList';
+import { memo } from 'react';
 
 const Posts = ({
     image,
@@ -74,4 +75,4 @@ const Posts = ({
     );
 };
 
-export default Posts;
+export default memo(Posts);

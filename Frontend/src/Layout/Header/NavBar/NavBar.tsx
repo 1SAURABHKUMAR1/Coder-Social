@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useAppSelector } from '../../../store/hooks';
+import { useCallback, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import SideInfoDesktop from '../SideInfo/SideInfoDesktop';
@@ -7,6 +7,13 @@ import SideInfoDesktop from '../SideInfo/SideInfoDesktop';
 import { FiBell, FiSearch } from 'react-icons/fi';
 
 import { NavBarProps } from '../../../Types';
+
+import {
+    addNewNotification,
+    getUnreadNotifications,
+} from '../../../features/index';
+
+import { socket } from '../../../Services/http/socket';
 
 const NavBar = ({
     searchMobile,
@@ -18,19 +25,41 @@ const NavBar = ({
 
     const [profilePhoto, setProfilePhoto] = useState('');
     const location = useLocation();
+    const dispatch = useAppDispatch();
     const { photo, login } = useAppSelector((state) => state.authenticate);
+    const { notifications } = useAppSelector((state) => state.socket);
 
-    const toggleSearchMobile = () => {
+    const toggleSearchMobile = useCallback(() => {
         setSearchMobile(!searchMobile);
-    };
+    }, [searchMobile, setSearchMobile]);
 
-    const handleShowMobile = () => {
+    const handleShowMobile = useCallback(() => {
         setShowMobile(!showMobile);
-    };
+    }, [showMobile, setShowMobile]);
 
     useEffect(() => {
         setProfilePhoto(photo ?? '');
     }, [photo]);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        let unMounted = false;
+
+        dispatch(getUnreadNotifications({ controller, unMounted }));
+
+        return () => {
+            unMounted = true;
+            controller.abort();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        socket.on('newNotification', (data) => {
+            dispatch(addNewNotification(data));
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>
@@ -54,6 +83,13 @@ const NavBar = ({
                         className="notification-icon"
                     >
                         <FiBell size={'1.7rem'} style={{ cursor: 'pointer' }} />
+                        {notifications.length > 0 && (
+                            <span className="bell-navbar">
+                                <span className="bell-navbar-text">
+                                    {notifications.length}
+                                </span>
+                            </span>
+                        )}
                     </NavLink>
                 )}
 

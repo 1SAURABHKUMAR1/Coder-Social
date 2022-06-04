@@ -6,6 +6,7 @@ import {
     singleUserReducer,
     tagReducer,
     searchReducer,
+    socketReducer,
 } from '../features';
 
 export const store = configureStore({
@@ -15,6 +16,7 @@ export const store = configureStore({
         user: singleUserReducer,
         tags: tagReducer,
         search: searchReducer,
+        socket: socketReducer,
     },
 });
 

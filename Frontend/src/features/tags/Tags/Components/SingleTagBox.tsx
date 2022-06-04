@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 
@@ -86,4 +86,4 @@ const SingleTagBox = ({
     );
 };
 
-export default SingleTagBox;
+export default memo(SingleTagBox);

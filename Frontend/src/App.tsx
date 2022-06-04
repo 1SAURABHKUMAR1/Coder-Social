@@ -23,6 +23,7 @@ import {
     Tags,
     SingleTag,
     Search,
+    Notification,
 } from './features/index';
 
 import PrivateRoute from './Hooks/PrivateRoute';
@@ -75,6 +76,10 @@ const App = () => {
                     />
                     <Route path="/tags" element={<Tags />} />
                     <Route path="/tag/:tagName" element={<SingleTag />} />
+                    <Route
+                        path="/user/notification"
+                        element={<PrivateRoute element={<Notification />} />}
+                    />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
                 <Footer />

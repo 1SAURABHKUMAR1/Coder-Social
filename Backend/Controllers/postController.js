@@ -10,6 +10,10 @@ const {
     updateTags,
 } = require('../Controllers/tagController');
 const WhereClause = require('../Utils/WhereClause');
+const {
+    likeNotification,
+    removeLikeNotification,
+} = require('./notifcationController');
 
 // title , image , description  , tags , author
 exports.createPost = BigPromise(async (req, res, next) => {
@@ -215,24 +219,44 @@ exports.likeUnlikePost = BigPromise(async (req, res, next) => {
 
     const { _id } = req.user;
 
-    const post = await Post.findOne({ post_id: postId }).populate({
-        path: 'tags author',
-        select: 'name username name profile_photo',
-    });
+    let post = await Post.findOne({ post_id: postId });
 
     if (!post) {
         return next(CustomError(res, 'Post Not found', 403));
     }
 
     if (!post.likes.includes(_id.toString())) {
-        post.likes.push(_id);
-    } else if (post.likes.includes(_id.toString())) {
-        post.likes = post.likes.filter(
-            (user) => user.toString() !== _id.toString(),
+        await Post.findOneAndUpdate(
+            { post_id: postId },
+            {
+                $push: { likes: _id },
+            },
         );
+
+        await likeNotification({
+            senderId: _id,
+            postId: post._id,
+            receiverId: post.author,
+        });
+    } else if (post.likes.includes(_id.toString())) {
+        await Post.findOneAndUpdate(
+            { post_id: postId },
+            {
+                $pull: { likes: _id },
+            },
+        );
+
+        await removeLikeNotification({
+            senderId: _id,
+            postId: post._id,
+            receiverId: post.author,
+        });
     }
 
-    await post.save();
+    post = await Post.findOne({ post_id: postId }).populate({
+        path: 'tags author',
+        select: 'name username name profile_photo',
+    });
 
     res.status(200).json({
         success: true,

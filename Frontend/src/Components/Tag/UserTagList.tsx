@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { SingleTagDescription } from '../../Types';
@@ -47,4 +48,4 @@ const UserTagList = ({ tagsArray, tagsState }: UserTagListProps) => {
     );
 };
 
-export default UserTagList;
+export default memo(UserTagList);

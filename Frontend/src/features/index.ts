@@ -34,6 +34,8 @@ import Tags from './tags/Tags/Tags';
 import SingleTagBox from './tags/Tags/Components/SingleTagBox';
 import SingleTag from './tags/SingleTag/SingleTag';
 import Search from './search/Search';
+import Notification from './socket/Notification/Notification';
+import NotificationBody from './socket/Notification/Components/NotificationBody';
 
 export * from './auth/hooks/useSignupHandler';
 export * from './auth/authSlice';
@@ -41,6 +43,7 @@ export * from './home/postSlice';
 export * from './singleUser/singleUserSlice';
 export * from './tags/tagSlice';
 export * from './search/searchSlice';
+export * from './socket/socketSlice';
 
 export {
     Signup,
@@ -79,4 +82,6 @@ export {
     SingleTagBox,
     SingleTag,
     Search,
+    Notification,
+    NotificationBody,
 };

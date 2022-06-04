@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { PostAuthorProps } from '../../Types';
 
@@ -32,4 +33,4 @@ const PostAuthor = ({
     );
 };
 
-export default PostAuthor;
+export default memo(PostAuthor);

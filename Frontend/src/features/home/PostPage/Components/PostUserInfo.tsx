@@ -8,6 +8,8 @@ import ConvertDate from '../../../../Utils/ConvertDate';
 
 import { PostProfileProps } from '../../../../Types';
 
+import { socket } from '../../../../Services/http/socket';
+
 const PostUserInfo = ({
     image_secure_url,
     user_id,
@@ -18,19 +20,40 @@ const PostUserInfo = ({
     joinedDate,
     name,
     username,
+    id: recieverUserId,
 }: PostProfileProps) => {
     const [isFollowed, setIsFollowed] = useState(false);
-    const { userId, id } = useAppSelector((state) => state.authenticate);
+    const {
+        userId,
+        id,
+        name: senderName,
+        photo: senderProfilePic,
+    } = useAppSelector((state) => state.authenticate);
     const { followers, followUserState } = useAppSelector(
         (state) => state.user,
     );
     const dispatch = useAppDispatch();
+    const { socketConnectedState } = useAppSelector((state) => state.socket);
 
     const [joiningDate] = ConvertDate(joinedDate, 'DD MMM YYYY');
 
     const handleFollow = () => {
         setIsFollowed(!isFollowed);
         dispatch(followUnfollowUser(user_id));
+
+        if (socketConnectedState === 'CONNECTED' && !followers.includes(id)) {
+            socket.emit('follow', {
+                sender: {
+                    name: senderName,
+                    profile_image: senderProfilePic,
+                    userId: id,
+                },
+                reciever: {
+                    name: name,
+                    userId: recieverUserId,
+                },
+            });
+        }
     };
 
     useEffect(() => {

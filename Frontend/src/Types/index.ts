@@ -203,6 +203,7 @@ export interface PostProfileProps {
     joinedDate: string;
     name: string;
     username: string;
+    id: string;
 }
 
 export interface PostReactionProps {
@@ -629,6 +630,11 @@ export interface UserTagAction {
     tag: Array<SingleTagDescription>;
 }
 
+export interface tagSliceAction {
+    stateName: 'userTags';
+    stateValue: [];
+}
+
 export interface SearchSliceInital {
     searchPosts: Array<SmallPost>;
     searchPostState: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
@@ -645,4 +651,97 @@ export interface SearchAction {
 export interface setStateNameSearchProps {
     stateName: 'searchPosts' | 'searchPostState';
     stateValue: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED' | [];
+}
+
+export interface socketInitalState {
+    socketConnectedState: 'CONNECTED' | 'DISCONNECTED';
+    notifications:
+        | Array<commentSocket>
+        | Array<likeSocket>
+        | Array<followSocket>
+        | [];
+    allNotifications: Array<notificationSingle> | [];
+    notificationStatus: 'IDLE' | 'PENDING' | 'FULFILLED' | 'REJECTED';
+}
+
+export interface setStateNameSocket {
+    stateName: 'socketConnectedState' | 'notifications' | 'allNotifications';
+    stateValue: 'CONNECTED' | 'DISCONNECTED' | [];
+}
+
+export interface socketAction {
+    notification:
+        | Array<commentSocket>
+        | Array<likeSocket>
+        | Array<followSocket>
+        | [];
+}
+
+export interface socketActionGetAll {
+    notification: Array<notificationSingle> | [];
+}
+
+export interface commentSocket {
+    postId: string;
+    senderName: string;
+    senderImage: string;
+    recieverName: string;
+    recieverId: string;
+    date: Date;
+}
+
+export interface likeSocket {
+    postId: string;
+    senderName: string;
+    senderImage: string;
+    recieverName: string;
+    recieverId: string;
+    date: Date;
+}
+
+export interface followSocket {
+    senderName: string;
+    senderImage: string;
+    recieverName: string;
+    recieverId: string;
+    date: Date;
+}
+
+export interface notificationSingle {
+    _id: string;
+    sender: {
+        profile_photo: {
+            id: string;
+            secure_url: string;
+        };
+        _id: string;
+        name: string;
+        username: string;
+        user_id: string;
+    };
+    receiver: {
+        profile_photo: {
+            id: string;
+            secure_url: string;
+        };
+        _id: string;
+        name: string;
+        username: string;
+        user_id: string;
+    };
+    comment: {
+        _id: string;
+        body: string;
+    };
+    post: string;
+    type: 'Comment' | 'Like' | 'Follow';
+    read: true;
+    createdAt: string;
+}
+
+export interface NotificationBodyProps {
+    actionType: string;
+    senderName: string;
+    commentBody?: string;
+    date: string;
 }

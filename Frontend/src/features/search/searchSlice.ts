@@ -51,6 +51,11 @@ const searchSlice = createSlice({
                 [action.payload.stateName]: action.payload.stateValue,
             };
         },
+
+        logoutUser: (state: SearchSliceInital) => {
+            state.searchPosts = [];
+            state.searchPostState = 'IDLE';
+        },
     },
     extraReducers: (builders) => {
         builders.addCase(searchPost.pending, (state: SearchSliceInital) => {
@@ -81,4 +86,7 @@ const searchSlice = createSlice({
 });
 
 export const searchReducer = searchSlice.reducer;
-export const { setStateName: setStateNameSearch } = searchSlice.actions;
+export const {
+    setStateName: setStateNameSearch,
+    logoutUser: logoutUserSearch,
+} = searchSlice.actions;

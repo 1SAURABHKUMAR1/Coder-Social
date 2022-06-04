@@ -3,6 +3,11 @@ const CustomError = require('../Utils/CustomError');
 const Comment = require('../Models/Comment');
 const Post = require('../Models/Post');
 const User = require('../Models/User');
+const {
+    commentNotification,
+    removeCommentNotification,
+} = require('./notifcationController');
+const Notification = require('../Models/Notification');
 
 // required -> post_id ,body , parent_comment_id
 exports.createComment = BigPromise(async (req, res, next) => {
@@ -52,6 +57,13 @@ exports.createComment = BigPromise(async (req, res, next) => {
         { post_id },
         { $addToSet: { comments: comment._id } },
     );
+
+    await commentNotification({
+        senderId: _id,
+        receiverId: post.author,
+        postId: post._id,
+        commentId: comment._id,
+    });
 
     res.status(200).json({
         success: true,
@@ -121,6 +133,13 @@ exports.deleteComment = BigPromise(async (req, res, next) => {
 
         await child.remove();
     }
+
+    await removeCommentNotification({
+        senderId: _id,
+        receiverId: comment.post.author,
+        postId: comment.post._id,
+        commentId: comment._id,
+    });
 
     await comment.remove();
 

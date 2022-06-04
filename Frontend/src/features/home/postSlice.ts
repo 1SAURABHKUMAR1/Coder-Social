@@ -353,6 +353,48 @@ const postSlice = createSlice({
                 [action.payload.stateName]: action.payload.stateValue,
             };
         },
+
+        logoutUser: (state: PostSliceProps) => {
+            state.bookmark = [];
+            state.posts = [];
+            state.getBookmarkStatus = 'IDLE';
+            state.postStatus = 'IDLE';
+            state.editPostStatus = 'IDLE';
+            state.createPostStatus = 'IDLE';
+            state.reactionStatus = 'IDLE';
+            state.createCommentStatus = 'IDLE';
+            state.singlePost = {
+                author: {
+                    name: '',
+                    profile_photo: {
+                        id: '',
+                        secure_url: '',
+                    },
+                    username: '',
+                    _id: '',
+                    bio: '',
+                    education: '',
+                    createdAt: '',
+                    location: '',
+                    user_id: '',
+                    work: '',
+                },
+                bookmarks: [],
+                comments: [],
+                createdAt: '',
+                description: '',
+                image: {
+                    id: '',
+                    secure_url: '',
+                },
+                likes: [],
+                post_id: '',
+                tags: [],
+                title: '',
+                unicorns: [],
+                _id: '',
+            };
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getBookmarks.pending, (state: PostSliceProps) => {
@@ -468,12 +510,19 @@ const postSlice = createSlice({
             },
         );
 
-        builder.addCase(getPost.rejected, (state: PostSliceProps) => {
-            return {
-                ...state,
-                postStatus: 'REJECTED',
-            };
-        });
+        builder.addCase(
+            getPost.rejected,
+            (state: PostSliceProps, action: PayloadAction<any>) => {
+                if (action.payload.message === 'Failed') {
+                    return { ...state, postStatus: 'PENDING' };
+                }
+
+                return {
+                    ...state,
+                    postStatus: 'REJECTED',
+                };
+            },
+        );
 
         builder.addCase(postReaction.pending, (state: PostSliceProps) => {
             return {
@@ -645,4 +694,5 @@ const postSlice = createSlice({
 });
 
 export const postReducer = postSlice.reducer;
-export const { setStateName: setStateNamePost } = postSlice.actions;
+export const { setStateName: setStateNamePost, logoutUser: logoutUserPost } =
+    postSlice.actions;

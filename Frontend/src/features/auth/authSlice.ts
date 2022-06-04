@@ -54,7 +54,7 @@ export const loginUser = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            ErrorToast(error?.response?.data?.message ?? 'Login Failed');
+            ErrorToast('Login Failed');
 
             return rejectWithValue(
                 error.response?.data ?? { message: 'Failed' },
@@ -86,7 +86,7 @@ export const signupUser = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            ErrorToast(error?.response?.data?.message ?? 'Signup Failed');
+            ErrorToast('Signup Failed');
 
             return rejectWithValue(
                 error.response?.data ?? { message: 'Failed' },

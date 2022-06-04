@@ -8,6 +8,8 @@ const cors = require('cors');
 const nocache = require('nocache');
 const passportConfig = require('./passport/passport');
 const passport = require('passport');
+const { Server } = require('socket.io');
+const httpsServer = require('http').createServer(app);
 
 // middlewares
 app.use(morgan('tiny'));
@@ -47,6 +49,8 @@ const oauth = require('./Routes/oauth');
 const post = require('./Routes/post');
 const comment = require('./Routes/comment');
 const tag = require('./Routes/tag');
+const notification = require('./Routes/notification');
+const { socketHandler } = require('./Utils/Socket');
 
 // router middleware
 app.use('/api/v1', home);
@@ -55,5 +59,16 @@ app.use('/api/v1', oauth);
 app.use('/api/v1', post);
 app.use('/api/v1', comment);
 app.use('/api/v1', tag);
+app.use('/api/v1', notification);
 
-module.exports = app;
+const io = new Server(httpsServer, {
+    cors: {
+        origin: process.env.CLIENT_URL,
+        methods: ['GET', 'POST', 'PUT'],
+        credentials: true,
+    },
+});
+socketHandler(io);
+
+exports.app = app;
+exports.httpsServer = httpsServer;

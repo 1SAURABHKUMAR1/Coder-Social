@@ -10,6 +10,10 @@ const verifyRefreshToken = require('../Middleware/verifyRefreshToken');
 const Post = require('../Models/Post');
 const Tag = require('../Models/Tag');
 const Comment = require('../Models/Comment');
+const {
+    followNotification,
+    removeFollowNotification,
+} = require('./notifcationController');
 
 // signup
 exports.signup = BigPromise(async (req, res, next) => {
@@ -562,12 +566,13 @@ exports.readingList = BigPromise(async (req, res, next) => {
 
 exports.followUnfollowUser = BigPromise(async (req, res, next) => {
     const { userId } = req.params;
-
     const { _id } = req.user;
 
     let followUser = await User.findOne({ user_id: userId });
 
-    if (!followUser) return CustomError(res, 'User Not Found', 401);
+    if (!followUser) {
+        return next(CustomError(res, 'User Not Found', 401));
+    }
 
     if (followUser.followers.includes(_id.toString())) {
         await User.findByIdAndUpdate(followUser._id, {
@@ -579,6 +584,10 @@ exports.followUnfollowUser = BigPromise(async (req, res, next) => {
             $pull: { following: followUser._id },
             $inc: { total_following: -1 },
         });
+        await removeFollowNotification({
+            senderId: _id,
+            receiverId: followUser._id,
+        });
     } else {
         await User.findByIdAndUpdate(followUser._id, {
             $push: { followers: _id },
@@ -589,6 +598,7 @@ exports.followUnfollowUser = BigPromise(async (req, res, next) => {
             $push: { following: followUser._id },
             $inc: { total_following: 1 },
         });
+        await followNotification({ senderId: _id, receiverId: followUser._id });
     }
 
     followUser = await User.findOne({ user_id: userId });

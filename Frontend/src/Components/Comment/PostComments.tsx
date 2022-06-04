@@ -13,11 +13,14 @@ import { PostCommentsProps } from '../../Types';
 
 import { getReplies } from '../../Utils/getReplies';
 
+import { socket } from '../../Services/http/socket';
+
 const PostComments = ({ commentArray }: PostCommentsProps) => {
     const {
         login,
         username,
         photo: user_avatar,
+        id: senderUserId,
     } = useAppSelector((state) => state.authenticate);
     const { createCommentStatus } = useAppSelector((state) => state.post);
     const { postId } = useParams();
@@ -27,12 +30,22 @@ const PostComments = ({ commentArray }: PostCommentsProps) => {
         commentArray &&
         commentArray.filter((comment) => !comment.parent_comment);
 
+    const { socketConnectedState } = useAppSelector((state) => state.socket);
+    const { name: senderName, photo: senderProfilePic } = useAppSelector(
+        (state) => state.authenticate,
+    );
+    const {
+        singlePost: {
+            author: { _id: recieverId, name: recieverName },
+        },
+    } = useAppSelector((state) => state.post);
+
     const handleCommentBody = (event: React.FormEvent) => {
         setCommentBody((event.target as HTMLButtonElement).value);
     };
 
     const handleCommentSubmit = () => {
-        if (!commentBody) {
+        if (commentBody === '') {
             ErrorToast('Cannot be empty');
         }
         dispatch(
@@ -42,6 +55,22 @@ const PostComments = ({ commentArray }: PostCommentsProps) => {
                 post_id: postId,
             }),
         );
+
+        if (socketConnectedState === 'CONNECTED') {
+            socket.emit('commentPost', {
+                postId: postId,
+                sender: {
+                    name: senderName,
+                    profile_image: senderProfilePic,
+                    userId: senderUserId,
+                },
+                reciever: {
+                    name: recieverName,
+                    userId: recieverId,
+                },
+            });
+        }
+
         setCommentBody('');
     };
 

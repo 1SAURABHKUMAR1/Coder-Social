@@ -114,7 +114,36 @@ const singleUserSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        //
+        logoutUser: (state: UserData) => {
+            state.getState = 'IDLE';
+            state.getProfile = 'IDLE';
+            state.followUserState = 'IDLE';
+            state.name = '';
+            state.email = '';
+            state.username = '';
+            state.user_id = '';
+            state.social_id = '';
+            state.profile_photo = '';
+            state.role = '';
+            state.bio = '';
+            state.portfolio_link = '';
+            state.work = '';
+            state.skills = '';
+            state.education = '';
+            state.location = '';
+            state.githubUrl = '';
+            state.twitterUrl = '';
+            state.total_followers = 0;
+            state.total_following = 0;
+            state.following = [];
+            state.followers = [];
+            state.bookmarks = [];
+            state.posts = [];
+            state.tags = [];
+            state.comments = [];
+            state.createdAt = '';
+            state._id = '';
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getUserData.pending, (state: UserData) => {
@@ -156,9 +185,16 @@ const singleUserSlice = createSlice({
             },
         );
 
-        builder.addCase(getUserData.rejected, (state: UserData) => {
-            return { ...state, getState: 'REJECTED' };
-        });
+        builder.addCase(
+            getUserData.rejected,
+            (state: UserData, action: PayloadAction<any>) => {
+                if (action.payload.message === 'Failed') {
+                    return { ...state, getState: 'PENDING' };
+                }
+
+                return { ...state, getState: 'REJECTED' };
+            },
+        );
 
         builder.addCase(getProfile.pending, (state: UserData) => {
             return { ...state, getProfile: 'PENDING' };
@@ -219,4 +255,4 @@ const singleUserSlice = createSlice({
 });
 
 export const singleUserReducer = singleUserSlice.reducer;
-// export const {} = singleUserSlice.actions;
+export const { logoutUser: logoutUserSingle } = singleUserSlice.actions;

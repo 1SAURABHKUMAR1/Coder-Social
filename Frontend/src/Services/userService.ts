@@ -30,6 +30,12 @@ const followUnfollowUser = (userId: string) => Axios.put(`/follow/${userId}`);
 const getUserTag = (controller: AbortController) =>
     Axios.get(`/user/tag`, { signal: controller.signal });
 
+const getUnreadNotifications = (controller: AbortController) =>
+    Axios.get('/notification/unread', { signal: controller.signal });
+
+const getAllNotifications = (controller: AbortController) =>
+    Axios.get('/notification', { signal: controller.signal });
+
 export {
     getUserData,
     getBookmark,
@@ -38,4 +44,6 @@ export {
     deleteProfile,
     followUnfollowUser,
     getUserTag,
+    getUnreadNotifications,
+    getAllNotifications,
 };

@@ -6,7 +6,14 @@ import Axios from '../../../Services/http/axios';
 
 import SuccessToast from '../../../Toast/Success';
 
-import { logoutUser as logoutPost } from '../../../features';
+import {
+    logoutUser as logoutUserData,
+    logoutUserPost,
+    logoutUserSearch,
+    logoutUserSingle,
+    logoutUserSocket,
+    logoutUserTags,
+} from '../../../features';
 
 import { HeaderShortProps } from '../../../Types/index';
 
@@ -21,7 +28,12 @@ const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
     const logoutUser = async () => {
         await Axios.get('/logout');
 
-        dispatch(logoutPost());
+        dispatch(logoutUserData());
+        dispatch(logoutUserPost());
+        dispatch(logoutUserSearch());
+        dispatch(logoutUserSingle());
+        dispatch(logoutUserSocket());
+        dispatch(logoutUserTags());
 
         SuccessToast('Logout Success');
 

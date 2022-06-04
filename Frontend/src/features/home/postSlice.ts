@@ -96,9 +96,7 @@ export const getBookmarks = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -117,9 +115,7 @@ export const getAllPosts = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -151,9 +147,7 @@ export const editPost = createAsyncThunk(
 
             ErrorToast(error?.response?.data?.message ?? 'Post Update Failed');
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -185,9 +179,7 @@ export const createPost = createAsyncThunk(
 
             ErrorToast(error?.response?.data?.message ?? 'Failed');
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -209,9 +201,7 @@ export const getPost = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -233,9 +223,7 @@ export const postReaction = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -262,9 +250,7 @@ export const createComment = createAsyncThunk(
         } catch (error) {
             console.log(error);
             ErrorToast('Failed');
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -284,9 +270,7 @@ export const likeComment = createAsyncThunk(
         } catch (error) {
             console.log(error);
             ErrorToast('Failed');
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -310,9 +294,7 @@ export const editComment = createAsyncThunk(
         } catch (error) {
             console.log(error);
             ErrorToast('Failed');
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -333,9 +315,7 @@ export const deleteComment = createAsyncThunk(
         } catch (error) {
             console.log(error);
             ErrorToast('Failed');
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -513,7 +493,7 @@ const postSlice = createSlice({
         builder.addCase(
             getPost.rejected,
             (state: PostSliceProps, action: PayloadAction<any>) => {
-                if (action.payload.message === 'Failed') {
+                if (action.payload === 'canceled') {
                     return { ...state, postStatus: 'PENDING' };
                 }
 

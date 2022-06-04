@@ -56,9 +56,7 @@ export const loginUser = createAsyncThunk(
 
             ErrorToast('Login Failed');
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -88,9 +86,7 @@ export const signupUser = createAsyncThunk(
 
             ErrorToast('Signup Failed');
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -144,9 +140,7 @@ export const updatePassword = createAsyncThunk(
 
             ErrorToast(error?.response?.data?.message ?? 'Signup Failed');
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -169,9 +163,7 @@ export const updateProfile = createAsyncThunk(
 
             ErrorToast(error?.response?.data?.message ?? 'Failed');
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -194,9 +186,7 @@ export const deleteProfile = createAsyncThunk(
 
             ErrorToast(error?.response?.data?.message ?? 'Failed');
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );

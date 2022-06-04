@@ -31,9 +31,7 @@ export const searchPost = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );

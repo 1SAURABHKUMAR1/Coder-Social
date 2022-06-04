@@ -54,9 +54,7 @@ export const getAllTags = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -76,9 +74,7 @@ export const getSingleTag = createAsyncThunk(
             return rejectWithValue(data);
         } catch (error) {
             console.log(error);
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -98,9 +94,7 @@ export const followUnfollowTag = createAsyncThunk(
             console.log(error);
 
             ErrorToast('Failed');
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );

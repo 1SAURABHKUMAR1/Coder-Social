@@ -61,9 +61,7 @@ export const getUserData = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -82,9 +80,7 @@ export const getProfile = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -103,9 +99,7 @@ export const followUnfollowUser = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            return rejectWithValue(
-                error.response?.data ?? { message: 'Failed' },
-            );
+            return rejectWithValue(error.message ?? { message: 'Failed' });
         }
     },
 );
@@ -188,7 +182,7 @@ const singleUserSlice = createSlice({
         builder.addCase(
             getUserData.rejected,
             (state: UserData, action: PayloadAction<any>) => {
-                if (action.payload.message === 'Failed') {
+                if (action.payload === 'canceled') {
                     return { ...state, getState: 'PENDING' };
                 }
 

@@ -133,7 +133,7 @@ const socketSlice = createSlice({
         builder.addCase(
             getAllNotification.rejected,
             (state: socketInitalState, action: PayloadAction<any>) => {
-                if (action.payload.message === 'Failed') {
+                if (action.payload === 'canceled') {
                     return { ...state, notificationStatus: 'PENDING' };
                 }
 

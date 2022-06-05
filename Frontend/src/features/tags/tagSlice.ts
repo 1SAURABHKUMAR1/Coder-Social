@@ -169,12 +169,19 @@ const tagSlice = createSlice({
             },
         );
 
-        builder.addCase(getAllTags.rejected, (state: TagSliceProps) => {
-            return {
-                ...state,
-                getTagStatus: 'REJECTED',
-            };
-        });
+        builder.addCase(
+            getAllTags.rejected,
+            (state: TagSliceProps, action: PayloadAction<any>) => {
+                if (action.payload === 'canceled') {
+                    return { ...state, getTagStatus: 'PENDING' };
+                }
+
+                return {
+                    ...state,
+                    getTagStatus: 'REJECTED',
+                };
+            },
+        );
 
         builder.addCase(getSingleTag.pending, (state: TagSliceProps) => {
             return {

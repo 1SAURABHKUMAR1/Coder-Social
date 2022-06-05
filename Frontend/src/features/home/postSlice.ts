@@ -426,7 +426,7 @@ const postSlice = createSlice({
         builder.addCase(getAllPosts.rejected, (state: PostSliceProps) => {
             return {
                 ...state,
-                postStatus: 'REJECTED',
+                postStatus: 'PENDING',
             };
         });
 

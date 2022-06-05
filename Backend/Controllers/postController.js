@@ -233,7 +233,7 @@ exports.likeUnlikePost = BigPromise(async (req, res, next) => {
             },
         );
 
-        if (post.author !== _id) {
+        if (post.author.toString() !== _id.toString()) {
             await likeNotification({
                 senderId: _id,
                 postId: post._id,
@@ -248,7 +248,7 @@ exports.likeUnlikePost = BigPromise(async (req, res, next) => {
             },
         );
 
-        if (post.author !== _id) {
+        if (post.author.toString() !== _id.toString()) {
             await removeLikeNotification({
                 senderId: _id,
                 postId: post._id,

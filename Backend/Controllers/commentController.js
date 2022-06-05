@@ -58,7 +58,7 @@ exports.createComment = BigPromise(async (req, res, next) => {
         { $addToSet: { comments: comment._id } },
     );
 
-    if (post.author !== _id) {
+    if (post.author.toString() !== _id.toString()) {
         await commentNotification({
             senderId: _id,
             receiverId: post.author,
@@ -136,7 +136,7 @@ exports.deleteComment = BigPromise(async (req, res, next) => {
         await child.remove();
     }
 
-    if (comment.post.author !== _id) {
+    if (comment.post.author.toString() !== _id.toString()) {
         await removeCommentNotification({
             senderId: _id,
             receiverId: comment.post.author,

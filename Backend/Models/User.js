@@ -58,7 +58,7 @@ const userSchema = new mongoose.Schema({
     },
     bio: {
         type: String,
-        maxlength: [100],
+        maxlength: [150],
     },
     portfolio_link: {
         type: String,

@@ -107,7 +107,7 @@ export const forgotPassword = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            ErrorToast(error?.response?.data?.message ?? 'Email Sent Failed');
+            ErrorToast('Email Sent Failed');
 
             return rejectWithValue(
                 error?.response?.data ?? { message: 'Failed' },
@@ -138,7 +138,7 @@ export const updatePassword = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            ErrorToast(error?.response?.data?.message ?? 'Signup Failed');
+            ErrorToast('Signup Failed');
 
             return rejectWithValue(error.message ?? { message: 'Failed' });
         }
@@ -161,7 +161,7 @@ export const updateProfile = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            ErrorToast(error?.response?.data?.message ?? 'Failed');
+            ErrorToast('Failed');
 
             return rejectWithValue(error.message ?? { message: 'Failed' });
         }
@@ -184,7 +184,7 @@ export const deleteProfile = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            ErrorToast(error?.response?.data?.message ?? 'Failed');
+            ErrorToast('Failed');
 
             return rejectWithValue(error.message ?? { message: 'Failed' });
         }

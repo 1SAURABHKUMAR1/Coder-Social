@@ -145,7 +145,7 @@ export const editPost = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            ErrorToast(error?.response?.data?.message ?? 'Post Update Failed');
+            ErrorToast('Post Update Failed');
 
             return rejectWithValue(error.message ?? { message: 'Failed' });
         }
@@ -177,7 +177,7 @@ export const createPost = createAsyncThunk(
         } catch (error) {
             console.log(error);
 
-            ErrorToast(error?.response?.data?.message ?? 'Failed');
+            ErrorToast('Failed');
 
             return rejectWithValue(error.message ?? { message: 'Failed' });
         }

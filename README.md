@@ -5,7 +5,7 @@
 </h1>
 > An social media app Coder Social build with ReactJS , NodeJS , MongoDB, Express, and Socket.io and Typescript
 
-![](cover image)
+![cover image](https://user-images.githubusercontent.com/68764149/172044034-ff6fe791-3ec1-4da5-a037-b9dfefb245d3.png)
 
 ## [Live Site](https://coder-social.vercel.app)
 
@@ -129,51 +129,43 @@ GOOGLE_CLIENT_SECRET =
 
 ### Login / Signup
 
-<!-- ![](login signup user) -->
+![Screenshot (195)](https://user-images.githubusercontent.com/68764149/172044082-bbe6938d-81c8-4bc2-9b82-0bc07b81cbf7.png)
 
 ### Change Password
 
-<!-- ![](chnage password) -->
+![Screenshot (197)](https://user-images.githubusercontent.com/68764149/172044125-a9c042c1-592d-4fe5-9b31-7465db6493d1.png)
 
 ### View And Edit Profile And Delete Profile
 
-<!-- ![](view edit and delete profile) -->
-
-### Follow User
-
-<!-- ![](follow User) -->
+![Screenshot (198)](https://user-images.githubusercontent.com/68764149/172044141-fae4559d-7029-4dca-9094-ee940f522cfc.png)
 
 ### New Post
 
-<!-- ![](new post) -->
+![Screenshot (200)](https://user-images.githubusercontent.com/68764149/172044171-05791ea7-f46b-4606-82f4-568a5f8bbcf0.png)
 
 ### Edit Post And Delete Post
 
-<!-- ![](sedit post) -->
-
-### Like / Unicorn / Bookmark
-
-<!-- ![](like) -->
+![Screenshot (201)](https://user-images.githubusercontent.com/68764149/172044183-7c15ed79-03ee-4f11-843d-b08eb59dfd9c.png)
 
 ### Comments and Replies
 
-<!-- ![](comments) -->
+![Screenshot (202)](https://user-images.githubusercontent.com/68764149/172044271-aaa183a1-81fc-424c-bacf-ff5a9937a234.png)
 
 ### Follow Tags
 
-<!-- ![](follow tags) -->
+[Screenshot (203)](https://user-images.githubusercontent.com/68764149/172044447-03bb90af-2472-4885-8c34-5c2e9e893ff9.png)
 
 ### Reading List
 
-<!-- ![](reading list) -->
+![Screenshot (204)](https://user-images.githubusercontent.com/68764149/172044460-0d8df14f-001a-4ccc-a991-97dffff0c1cb.png)
 
 ### Real-time Notifications
 
-<!-- ![](notification) -->
+![Screenshot (205)](https://user-images.githubusercontent.com/68764149/172044470-59577991-dd3e-4328-b408-202830dc4938.png)
 
 ### Search
 
-<!--![](search) -->
+![Screenshot (206)](https://user-images.githubusercontent.com/68764149/172044482-6e97feda-e636-4cfb-8ebf-0b50c35cd175.png)
 
 <br>
 

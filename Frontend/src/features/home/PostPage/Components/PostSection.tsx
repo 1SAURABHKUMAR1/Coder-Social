@@ -57,9 +57,9 @@ const PostSection = ({
 
                         <TagList tagsArray={tagsArray} />
                     </div>
-                    <code className="margin-small-profile post-description-single">
+                    <div className="margin-small-profile post-description-single">
                         <ReactMarkdown>{postDescription}</ReactMarkdown>
-                    </code>
+                    </div>
                 </div>
                 <div
                     id="paddding-top-3"

@@ -5,7 +5,7 @@
 </h1>
 
 
-> An social media app Coder Social build with ReactJS , NodeJS , MongoDB, Express, and Socket.io and Typescript
+> An social media app Coder Social build with ReactJS , NodeJS , MongoDB, Express, Redux Toolkit , Socket.io and Typescript
 
 
 
@@ -24,6 +24,7 @@
 -   Database: [MongoDB](https://www.mongodb.com/)
 -   Image Upload: [Cloudinary](https://cloudinary.com/)
 -   Notification: [Socket.io](https://socket.io/)
+-   State Management [Redux Toolkit](https://redux-toolkit.js.org)
 -   Testing: [TODO:](z)
 
 ## Features

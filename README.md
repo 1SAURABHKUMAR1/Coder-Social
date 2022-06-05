@@ -3,7 +3,11 @@
   <b>Coder Social</b>
   <br>
 </h1>
+
+
 > An social media app Coder Social build with ReactJS , NodeJS , MongoDB, Express, and Socket.io and Typescript
+
+
 
 ![cover image](https://user-images.githubusercontent.com/68764149/172044034-ff6fe791-3ec1-4da5-a037-b9dfefb245d3.png)
 

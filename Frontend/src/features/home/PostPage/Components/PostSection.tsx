@@ -1,5 +1,7 @@
 import { useAppSelector } from '../../../../store/hooks';
 
+import ReactMarkdown from 'react-markdown';
+
 import PostAuthor from '../../../../Components/Posts/PostAuthor';
 import PostEditDelete from './PostEditDelete';
 import TagList from '../../../../Components/Tag/TagList';
@@ -56,7 +58,7 @@ const PostSection = ({
                         <TagList tagsArray={tagsArray} />
                     </div>
                     <code className="margin-small-profile post-description-single">
-                        <pre>{postDescription}</pre>
+                        <ReactMarkdown>{postDescription}</ReactMarkdown>
                     </code>
                 </div>
                 <div

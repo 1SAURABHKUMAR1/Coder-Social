@@ -15,8 +15,8 @@ const helmet = require('helmet');
 // middlewares
 app.use(morgan('tiny'));
 
-app.use(express.json({ limit: '1mb' }));
-app.use(express.urlencoded({ limit: '1mb', extended: true }));
+app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ limit: '5mb', extended: true }));
 
 const corsOption = {
     origin: process.env.CLIENT_URL,

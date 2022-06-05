@@ -197,6 +197,12 @@ aside {
 }
 
 
+@media screen and (min-width: 563px) {
+    .header-post-link {
+        display: inline-block;
+    }
+}
+
 @media screen and (min-width: 780px) {
     header {
         padding: 0.55rem 1.5rem;
@@ -227,10 +233,6 @@ aside {
     .notification-icon {
         margin-left: 0.3rem;
         margin-left: 0rem;
-    }
-
-    .header-post-link {
-        display: inline-block;
     }
 
     .logo {

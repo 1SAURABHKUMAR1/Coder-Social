@@ -903,35 +903,18 @@
   font-size: 0.75rem;
 }
 
-.post-description-single {
-  font-size: 0.95rem;
-  line-height: 1.5rem;
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
 }
 
-.post-description-single>h1 {
-  font-size: 2em;
-  margin-block-start: 0.67em;
-  margin-block-end: 0.67em;
-  font-weight: bold;
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px;
+  }
 }
-
-.post-description-single>h2 {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-.post-description-single>h3 {
-  font-size: 1.17em;
-  font-weight: bold;
-}
-
-.post-description-single>a {
-  color: -webkit-link;
-  cursor: pointer;
-  text-decoration: underline;
-  color: var(--color-primary);
-}
-
 
 /* Like */
 .post-single-heart {

@@ -423,12 +423,19 @@ const postSlice = createSlice({
             },
         );
 
-        builder.addCase(getAllPosts.rejected, (state: PostSliceProps) => {
-            return {
-                ...state,
-                postStatus: 'PENDING',
-            };
-        });
+        builder.addCase(
+            getAllPosts.rejected,
+            (state: PostSliceProps, action: any) => {
+                if (action.payload === 'canceled') {
+                    return { ...state, postStatus: 'PENDING' };
+                }
+
+                return {
+                    ...state,
+                    postStatus: 'REJECTED',
+                };
+            },
+        );
 
         builder.addCase(editPost.pending, (state: PostSliceProps) => {
             return {

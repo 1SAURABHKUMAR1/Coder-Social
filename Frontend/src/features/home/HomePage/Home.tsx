@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 import { LeftSideBar, RightSideBar } from '../../index';
 import Posts from '../../../Components/Posts/Posts';
+import Loader from '../../../Components/Loader/LoaderMain';
 
 import useScrollToTop from '../../../Hooks/useScrollToTop';
 
@@ -17,7 +18,7 @@ import { setStateNamePost } from '../../../features';
 const Home = () => {
     useScrollToTop();
 
-    const { posts } = useAppSelector((state) => state.post);
+    const { posts, postStatus } = useAppSelector((state) => state.post);
     const dispatch = useAppDispatch();
     const { reactionStatus } = useAppSelector((state) => state.post);
 
@@ -45,6 +46,10 @@ const Home = () => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [reactionStatus]);
+
+    if (postStatus === 'PENDING') {
+        return <Loader />;
+    }
 
     return (
         <div className="component  component-no-p-m  component-pt-5">

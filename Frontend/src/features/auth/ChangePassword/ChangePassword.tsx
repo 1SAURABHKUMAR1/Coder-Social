@@ -42,10 +42,6 @@ const ChangePassword = () => {
                     stateValue: 'IDLE',
                 }),
             );
-
-            setTimeout(() => {
-                navigate('/');
-            }, 1000);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

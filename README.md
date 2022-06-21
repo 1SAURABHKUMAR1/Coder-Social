@@ -9,7 +9,7 @@
 
 
 
-![cover image](https://user-images.githubusercontent.com/68764149/172044034-ff6fe791-3ec1-4da5-a037-b9dfefb245d3.png)
+https://user-images.githubusercontent.com/68764149/174830763-d6db04cf-273a-46ca-8a8d-83fb8216a41f.mp4
 
 ## [Live Site](https://coder-social.vercel.app)
 

@@ -7,6 +7,7 @@ import 'github-markdown-css';
 import PostAuthor from '../../../../Components/Posts/PostAuthor';
 import PostEditDelete from './PostEditDelete';
 import TagList from '../../../../Components/Tag/TagList';
+import Code from '../../../../Components/Code/Code';
 
 import ConvertDate from '../../../../Utils/ConvertDate';
 
@@ -60,7 +61,20 @@ const PostSection = ({
                         <TagList tagsArray={tagsArray} />
                     </div>
                     <div className="margin-small-profile post-description-single markdown-body">
-                        <Markdown>{postDescription}</Markdown>
+                        <Markdown
+                            options={{
+                                overrides: {
+                                    code: {
+                                        component: Code,
+                                        props: {
+                                            className: '',
+                                        },
+                                    },
+                                },
+                            }}
+                        >
+                            {postDescription}
+                        </Markdown>
                     </div>
                 </div>
                 <div

@@ -336,7 +336,6 @@ const postSlice = createSlice({
 
         logoutUser: (state: PostSliceProps) => {
             state.bookmark = [];
-            state.posts = [];
             state.getBookmarkStatus = 'IDLE';
             state.postStatus = 'IDLE';
             state.editPostStatus = 'IDLE';

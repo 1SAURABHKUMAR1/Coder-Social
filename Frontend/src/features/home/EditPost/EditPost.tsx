@@ -49,6 +49,10 @@ const EditPost = () => {
         }
     };
 
+    const handleCancel = () => {
+        navigate(`/post/${postId}`);
+    };
+
     useEffect(() => {
         const controller = new AbortController();
         let unMounted = false;
@@ -132,12 +136,20 @@ const EditPost = () => {
                                 {editPostStatus === 'PENDING' ? (
                                     <LoaderButton classExtra="button-padding-small" />
                                 ) : (
-                                    <button
-                                        className="button-primary button-padding-small"
-                                        onClick={handleSubmit}
-                                    >
-                                        Publish Post
-                                    </button>
+                                    <div className="button-filled-profile">
+                                        <button
+                                            className="button-primary button-padding-small width-fit"
+                                            onClick={handleSubmit}
+                                        >
+                                            Publish Post
+                                        </button>
+                                        <button
+                                            className="button-primary button-padding-small width-fit button-secod"
+                                            onClick={handleCancel}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
                                 )}
                             </div>
                         </div>

@@ -1428,6 +1428,16 @@
   height: 100% !important;
 }
 
+.width-fit {
+  width: fit-content;
+}
+
+.button-secod {
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  background-color: inherit;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

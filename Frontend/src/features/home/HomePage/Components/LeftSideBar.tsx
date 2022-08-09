@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 
-import { FcHome, FcAbout, FcReading, FcSupport } from 'react-icons/fc';
+import { FcHome, FcReading } from 'react-icons/fc';
 import { FaGithub, FaLinkedin, FaTags, FaTwitter } from 'react-icons/fa';
 
 import About from '../../../../Components/About/About';
@@ -58,22 +58,6 @@ const LeftSideBar = () => {
                                 <FaTags />
                             </i>
                             <span>Tags</span>
-                        </Link>
-                    </li>
-                    <li className="list-item hover-list-home">
-                        <Link to="/about">
-                            <i>
-                                <FcAbout />
-                            </i>
-                            <span>About</span>
-                        </Link>
-                    </li>
-                    <li className="list-item hover-list-home">
-                        <Link to="/support">
-                            <i>
-                                <FcSupport />
-                            </i>
-                            <span>Support</span>
                         </Link>
                     </li>
                 </ul>

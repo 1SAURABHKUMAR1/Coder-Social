@@ -5,15 +5,19 @@ const commentSchema = new mongoose.Schema({
     body: {
         type: String,
         required: [true, 'Comment Body is required!'],
+        sparse: true,
     },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, 'Comment Author is required!'],
+        sparse: true,
+
         ref: 'user',
     },
     post: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, 'Post Id is required'],
+        sparse: true,
         ref: 'post',
     },
     likes: [

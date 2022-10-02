@@ -6,6 +6,7 @@ const postSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'Post Title is required'],
+        sparse: true,
     },
     image: {
         id: {
@@ -18,11 +19,13 @@ const postSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, 'Post Description is required'],
+        sparse: true,
     },
     post_id: {
         type: String,
         unique: [true, 'Post ID must be unique'],
         required: [true, 'Post ID is required'],
+        sparse: true,
         default: uuid,
     },
     tags: [
@@ -36,6 +39,7 @@ const postSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'comment',
             required: [true, 'Comment Id is required'],
+            sparse: true,
         },
     ],
     likes: [
@@ -43,6 +47,7 @@ const postSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user',
             required: [true, 'User Id is required'],
+            sparse: true,
         },
     ],
     bookmarks: [
@@ -50,6 +55,7 @@ const postSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user',
             required: [true, 'User Id is required'],
+            sparse: true,
         },
     ],
     unicorns: [
@@ -57,12 +63,14 @@ const postSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user',
             required: [true, 'User Id is required'],
+            sparse: true,
         },
     ],
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
         required: [true, 'Author user Id is required'],
+        sparse: true,
     },
     createdAt: {
         type: Date,

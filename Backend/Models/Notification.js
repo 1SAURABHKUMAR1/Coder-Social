@@ -23,6 +23,7 @@ const notificationSchema = new mongoose.Schema({
         type: String,
         enum: ['Like', 'Comment', 'Follow'],
         required: true,
+        sparse: true,
     },
     read: {
         type: Boolean,

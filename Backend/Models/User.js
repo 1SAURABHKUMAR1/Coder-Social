@@ -95,6 +95,7 @@ const userSchema = new mongoose.Schema({
             ref: 'user',
             required: [true, 'User id is required'],
             unique: true,
+            sparse: true,
         },
     ],
     followers: [
@@ -103,6 +104,7 @@ const userSchema = new mongoose.Schema({
             ref: 'user',
             required: [true, 'Follower User id is required'],
             unique: true,
+            sparse: true,
         },
     ],
     bookmarks: [
@@ -111,6 +113,7 @@ const userSchema = new mongoose.Schema({
             ref: 'post',
             required: [true, 'Post id is required in bookmarks'],
             unique: true,
+            sparse: true,
         },
     ],
     posts: [
@@ -119,6 +122,7 @@ const userSchema = new mongoose.Schema({
             ref: 'post',
             required: [true, 'Post id is required'],
             unique: true,
+            sparse: true,
         },
     ],
     tags: [
@@ -127,6 +131,7 @@ const userSchema = new mongoose.Schema({
             ref: 'tag',
             required: [true, 'Tag id is required'],
             unique: true,
+            sparse: true,
         },
     ],
     comments: [
@@ -135,11 +140,13 @@ const userSchema = new mongoose.Schema({
             ref: 'comment',
             required: [true, 'Comment id is required'],
             unique: true,
+            sparse: true,
         },
     ],
     forgotPasswordToken: {
         type: String,
         unique: true,
+        sparse: true,
     },
     forgotPasswordExpiry: {
         type: Date,

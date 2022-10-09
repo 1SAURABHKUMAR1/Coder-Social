@@ -12,8 +12,8 @@ export interface TagListProps {
 const TagList = ({ tagsArray }: TagListProps) => {
     return (
         <>
-            {tagsArray?.length > 0 && (
-                <div className="post-tag-wrapper">
+            {tagsArray?.length !== 0 && (
+                <div className="post-tag-wrapper" data-testid="post-tags">
                     {tagsArray.map((tag: SingleTag) => {
                         const color = randomColor();
 

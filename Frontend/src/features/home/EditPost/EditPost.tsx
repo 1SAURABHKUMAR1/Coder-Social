@@ -140,12 +140,14 @@ const EditPost = () => {
                                         <button
                                             className="button-primary button-padding-small width-fit"
                                             onClick={handleSubmit}
+                                            data-testid="edit-post-button"
                                         >
                                             Publish Post
                                         </button>
                                         <button
                                             className="button-primary button-padding-small width-fit button-secod"
                                             onClick={handleCancel}
+                                            data-testid="cancel-button"
                                         >
                                             Cancel
                                         </button>

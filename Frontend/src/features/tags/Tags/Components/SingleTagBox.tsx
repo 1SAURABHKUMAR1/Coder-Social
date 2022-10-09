@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 
 import { followUnfollowTag } from '../../../index';
@@ -14,19 +14,26 @@ const SingleTagBox = ({
     tag_id,
     followers,
 }: SingleTagProps) => {
-    const [color, getColor] = useState(() => randomColor());
-    const [randomQuotesText, setRandomQuotesText] = useState(
+    const [color] = useState(() => randomColor());
+    const [randomQuotesText] = useState(
         () => quotes[Math.floor(Math.random() * quotes.length)].text,
     );
 
     const [isFollowed, setIsFollowed] = useState(false);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
     const { tags, followUnfollowStatus } = useAppSelector(
         (state) => state.tags,
     );
-    const { id } = useAppSelector((state) => state.authenticate);
+    const { id, login } = useAppSelector((state) => state.authenticate);
 
     const handleFollow = () => {
+        if (!login) {
+            navigate('/login', { state: { from: location } });
+            return;
+        }
+
         setIsFollowed(!isFollowed);
 
         dispatch(followUnfollowTag(tag_id));
@@ -45,6 +52,7 @@ const SingleTagBox = ({
                     // @ts-ignore
                     '--border-top-color': `rgba(${color}, 0.95)`,
                 }}
+                data-testid="tag-container"
             >
                 <h3 className="single-tag-header">
                     <Link

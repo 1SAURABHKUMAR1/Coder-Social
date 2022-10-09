@@ -44,9 +44,10 @@ const DeleteModal = ({ showModal, handleModal, postId }: showModalProps) => {
         <>
             {showModal && (
                 <div className="modal-wrapper">
-                    <div className="modal-box">
+                    <div className="modal-box" data-testid="post-delete-modal">
                         <div className="modal-side">
                             <GrClose
+                                data-testid="post-delete-modal-close"
                                 onClick={handleModal}
                                 style={{ cursor: 'pointer' }}
                             />
@@ -61,6 +62,7 @@ const DeleteModal = ({ showModal, handleModal, postId }: showModalProps) => {
                                 <button
                                     className="modal-button"
                                     onClick={handleDelete}
+                                    data-testid="post-delete-modal-button"
                                 >
                                     Delete Account
                                 </button>

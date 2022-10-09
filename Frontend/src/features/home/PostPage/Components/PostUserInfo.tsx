@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 
 import { followUnfollowUser } from '../../../index';
@@ -28,16 +28,25 @@ const PostUserInfo = ({
         id,
         name: senderName,
         photo: senderProfilePic,
+        login,
     } = useAppSelector((state) => state.authenticate);
     const { followers, followUserState } = useAppSelector(
         (state) => state.user,
     );
+
     const dispatch = useAppDispatch();
+    const currenturl = useLocation();
+    const navigate = useNavigate();
+
     const { socketConnectedState } = useAppSelector((state) => state.socket);
 
     const [joiningDate] = ConvertDate(joinedDate, 'DD MMM YYYY');
 
     const handleFollow = () => {
+        if (!login) {
+            navigate('/login', { state: { from: currenturl } });
+        }
+
         setIsFollowed(!isFollowed);
         dispatch(followUnfollowUser(user_id));
 
@@ -76,23 +85,31 @@ const PostUserInfo = ({
                                 alt=""
                                 width="128"
                                 height="128"
+                                data-testid="post-author-side-image"
                             />
                         </Link>
 
                         {name && (
-                            <div className="post-profile-bio margin-top-3 small-text text-center">
+                            <div
+                                data-testid="post-author-side-name"
+                                className="post-profile-bio margin-top-3 small-text text-center"
+                            >
                                 {name}
                             </div>
                         )}
 
                         {userId === user_id ? (
-                            <Link to="/user/profile/edit">
+                            <Link
+                                to="/user/profile/edit"
+                                data-testid="post-author-side-edit-profile"
+                            >
                                 <button className="button-primary margin-top-3 small-padding">
                                     Edit Profile
                                 </button>
                             </Link>
                         ) : (
                             <button
+                                data-testid="post-author-side-follow-unfollow"
                                 className="button-primary button-profile"
                                 disabled={followUserState === 'PENDING'}
                                 onClick={handleFollow}
@@ -102,33 +119,48 @@ const PostUserInfo = ({
                         )}
 
                         {bio && (
-                            <div className="post-profile-bio margin-top-4 small-text">
+                            <div
+                                className="post-profile-bio margin-top-4 small-text"
+                                data-testid="post-author-side-bio"
+                            >
                                 {bio}
                             </div>
                         )}
 
                         {location && (
-                            <div className="post-profile-item">
+                            <div
+                                className="post-profile-item"
+                                data-testid="post-author-side-location"
+                            >
                                 <strong>LOCATION</strong>
                                 <p>{location}</p>
                             </div>
                         )}
 
                         {education && (
-                            <div className="post-profile-item">
+                            <div
+                                className="post-profile-item"
+                                data-testid="post-author-side-education"
+                            >
                                 <strong>EDUCATION</strong>
                                 <p>{education}</p>
                             </div>
                         )}
 
                         {work && (
-                            <div className="post-profile-item">
+                            <div
+                                className="post-profile-item"
+                                data-testid="post-author-side-work"
+                            >
                                 <strong>WORK</strong>
                                 <p>{work}</p>
                             </div>
                         )}
 
-                        <div className="post-profile-item">
+                        <div
+                            data-testid="post-author-side-joined"
+                            className="post-profile-item"
+                        >
                             <strong>JOINED ON</strong>
                             <p>{joiningDate}</p>
                         </div>

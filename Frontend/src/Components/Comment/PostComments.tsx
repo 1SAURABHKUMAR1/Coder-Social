@@ -47,6 +47,7 @@ const PostComments = ({ commentArray }: PostCommentsProps) => {
     const handleCommentSubmit = () => {
         if (commentBody === '') {
             ErrorToast('Cannot be empty');
+            return;
         }
         dispatch(
             createComment({
@@ -83,10 +84,14 @@ const PostComments = ({ commentArray }: PostCommentsProps) => {
 
                 {login && (
                     <div className="padding-top-3">
-                        <div className="post-author width-100 align-start">
+                        <div
+                            data-testid="comment-body"
+                            className="post-author width-100 align-start"
+                        >
                             <Link
                                 to={`/user/profile/${username}`}
                                 className="post-author-image"
+                                data-testid="create-comment-author-image"
                             >
                                 <img
                                     src={user_avatar}
@@ -99,6 +104,7 @@ const PostComments = ({ commentArray }: PostCommentsProps) => {
                                     className="width-100 comment-text-area scrollbar-hidden"
                                     value={commentBody}
                                     onChange={handleCommentBody}
+                                    data-testid="create-comment-textarea"
                                 />
                                 <div className="padding-top-2">
                                     {createCommentStatus === 'PENDING' ? (
@@ -108,6 +114,7 @@ const PostComments = ({ commentArray }: PostCommentsProps) => {
                                             id="submit-primary-button"
                                             className="margin-0 padding-button border-2"
                                             onClick={handleCommentSubmit}
+                                            data-testid="create-comment-submit"
                                         >
                                             Submit
                                         </button>

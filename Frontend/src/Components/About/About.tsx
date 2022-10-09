@@ -11,9 +11,9 @@ const About = () => {
 
     return (
         <>
-            <div className="home-sidebar-about">
+            <div className="home-sidebar-about" data-testid="home-about">
                 <div className="about-bold">
-                    <span className="about-bold-highlight">Dev Social </span>
+                    <span className="about-bold-highlight">Coder Social </span>
                     is community of amazing developers.
                 </div>
                 <p>

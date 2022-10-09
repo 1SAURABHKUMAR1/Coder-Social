@@ -17,16 +17,25 @@ const PostAuthor = ({
                             src={authorImage}
                             alt="autor-single"
                             className="image image-round"
+                            data-testid="post-author-image"
                         />
                     </Link>
                 </div>
                 <div className="post-author-description">
-                    <div className="post-author-name">
+                    <div
+                        className="post-author-name"
+                        data-testid="post-author-name"
+                    >
                         <Link to={`/user/profile/${authorUsername}`}>
                             {authorName}
                         </Link>
                     </div>
-                    <div className="post-author-date">{postDate}</div>
+                    <div
+                        className="post-author-date"
+                        data-testid="post-author-date"
+                    >
+                        {postDate}
+                    </div>
                 </div>
             </div>
         </>

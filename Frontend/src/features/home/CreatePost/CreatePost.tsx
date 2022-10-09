@@ -77,7 +77,10 @@ const CreatePost = () => {
         <>
             <div className="component component-center gap-5">
                 <h1 className="user-info-header-name">Create Post</h1>
-                <div className="sub-component flex-gap-5">
+                <div
+                    className="sub-component flex-gap-5"
+                    data-testid="create-post-form"
+                >
                     <EditCreatePostFields
                         title={title}
                         setTitle={setTitle}
@@ -96,6 +99,7 @@ const CreatePost = () => {
                                 <button
                                     className="button-primary button-padding-small"
                                     onClick={handleSubmit}
+                                    data-testid="create-post-button"
                                 >
                                     Publish Post
                                 </button>

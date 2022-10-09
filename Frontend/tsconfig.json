@@ -1,11 +1,17 @@
 {
     "include": ["./src/", "**/*.ts", "**/s.tsx"],
     "compilerOptions": {
-        "types": ["react/next", "react-dom/next", "node"],
+        "types": [
+            "react/next",
+            "react-dom/next",
+            "node",
+            "cypress",
+            "@testing-library/cypress"
+        ],
         "allowJs": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "isolatedModules": true,
+        // "isolatedModules": true,
         "jsx": "preserve",
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "module": "ESNext",

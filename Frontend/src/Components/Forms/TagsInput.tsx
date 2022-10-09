@@ -41,7 +41,7 @@ const TagsInput = ({
             </label>
 
             <div className="tags-input-wrapper">
-                {tags.length > 0 ? (
+                {tags.length !== 0 ? (
                     <ul className="tags-list">
                         {tags.map((tag: SingleTag) => (
                             <li className="tag-input-item" key={tag._id}>

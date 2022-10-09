@@ -33,7 +33,7 @@ const SignupForm = () => {
         <>
             <div className="auth-form-component">
                 <div className="auth-form-header">Create New Account</div>
-                <form className="auth-form-fields">
+                <form className="auth-form-fields" data-testid="signup-form">
                     <TextField
                         htmlFor="name"
                         labelTitle="Full Name"
@@ -70,11 +70,16 @@ const SignupForm = () => {
                         <button
                             className="button-primary"
                             onClick={handleSubmit}
+                            data-testid="signup-form-button-submit"
                         >
                             Create Account
                         </button>
                     )}
-                    <Link to="/login" className="button-secondary">
+                    <Link
+                        to="/login"
+                        className="button-secondary"
+                        data-testid="login-button-form"
+                    >
                         Log in
                     </Link>
                 </form>

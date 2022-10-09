@@ -18,7 +18,6 @@ import { socket } from '../../../Services/http/socket';
 const NavBar = ({
     searchMobile,
     setSearchMobile,
-    showMobile,
     setShowMobile,
 }: NavBarProps) => {
     const [navBarOpen, setNavbarOpen] = useState(false);
@@ -34,8 +33,8 @@ const NavBar = ({
     }, [searchMobile, setSearchMobile]);
 
     const handleShowMobile = useCallback(() => {
-        setShowMobile(!showMobile);
-    }, [showMobile, setShowMobile]);
+        setShowMobile((prev) => !prev);
+    }, [setShowMobile]);
 
     useEffect(() => {
         setProfilePhoto(photo ?? '');
@@ -68,7 +67,7 @@ const NavBar = ({
                     <FiSearch size={'1.7rem'} style={{ cursor: 'pointer' }} />
                 </div>
 
-                {photo && (
+                {login && photo && (
                     <NavLink
                         to="/post/new"
                         className="header-signup-link header-post-link"
@@ -81,9 +80,10 @@ const NavBar = ({
                     <NavLink
                         to="/user/notification"
                         className="notification-icon"
+                        data-testid="notification-icon"
                     >
                         <FiBell size={'1.7rem'} style={{ cursor: 'pointer' }} />
-                        {notifications.length > 0 && (
+                        {notifications.length !== 0 && (
                             <span className="bell-navbar">
                                 <span className="bell-navbar-text">
                                     {notifications.length}
@@ -94,7 +94,7 @@ const NavBar = ({
                 )}
 
                 {/* mobile icon  */}
-                {photo && (
+                {login && photo && (
                     <div className="sidenav-mobile-wrapper">
                         <button
                             onClick={handleShowMobile}
@@ -105,29 +105,24 @@ const NavBar = ({
                                 src={profilePhoto}
                                 alt="avatar"
                                 className="image"
-                                loading="lazy"
                             />
                         </button>
-                        <button
-                            tabIndex={-1}
-                            className=".sidenav-handler"
-                            onClick={handleShowMobile}
-                        ></button>
                     </div>
                 )}
 
                 {/* desktop icon and settings  */}
-                {photo && (
+                {login && photo && (
                     <SideInfoDesktop
                         navbarOpen={navBarOpen}
                         setNavbarOpen={setNavbarOpen}
                     />
                 )}
 
-                {!photo && (
+                {!photo && !login && (
                     <>
                         <NavLink
                             to="/login"
+                            data-testid="log-in-button-header"
                             state={{ from: location.pathname }}
                             className="header-login-link"
                         >
@@ -135,6 +130,7 @@ const NavBar = ({
                         </NavLink>
                         <NavLink
                             to="/signup"
+                            data-testid="sign-up-button-header"
                             state={{ from: location.pathname }}
                             className="header-signup-link"
                         >

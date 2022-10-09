@@ -33,7 +33,9 @@
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -54,10 +56,13 @@
     ]
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "@testing-library/cypress": "^8.0.3",
     "@types/node": "^17.0.36",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
     "@types/react-syntax-highlighter": "^15.5.2",
+    "cypress": "^10.9.0",
     "prettier": "^2.6.2",
     "typescript": "^4.7.2"
   }

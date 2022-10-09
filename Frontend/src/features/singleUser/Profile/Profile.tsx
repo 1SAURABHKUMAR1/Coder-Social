@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import useScrollToTop from '../../../Hooks/useScrollToTop';
 
@@ -53,14 +53,21 @@ const Profile = () => {
         userId,
         id,
         name: senderName,
+        login,
         photo: senderProfilePic,
     } = useAppSelector((state) => state.authenticate);
     const dispatch = useAppDispatch();
+    const currentUrl = useLocation();
+    const navigate = useNavigate();
     const [isFollowed, setIsFollowed] = useState(false);
 
     const { socketConnectedState } = useAppSelector((state) => state.socket);
 
     const handleFollow = () => {
+        if (!login) {
+            navigate('/login', { state: { from: currentUrl } });
+        }
+
         setIsFollowed(!isFollowed);
         dispatch(followUnfollowUser(user_id));
 
@@ -134,6 +141,7 @@ const Profile = () => {
                                         alt=""
                                         width="128"
                                         height="128"
+                                        data-testid="profile-photo"
                                     />
                                 </div>
 
@@ -142,6 +150,7 @@ const Profile = () => {
                                         <Link
                                             to="/user/profile/edit"
                                             className="button-primary button-profile"
+                                            data-testid="edit-profile-button"
                                         >
                                             Edit Profile
                                         </Link>

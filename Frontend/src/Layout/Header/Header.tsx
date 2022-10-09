@@ -26,7 +26,7 @@ const Header = () => {
     };
 
     return (
-        <header className="sticky-header">
+        <header className="sticky-header" data-testid="header">
             <div className="container container-navbar">
                 {/* hamburgr  */}
                 <div
@@ -41,7 +41,12 @@ const Header = () => {
                 {/* logo and searhc bar  */}
                 <div className="header-logo-search">
                     <NavLink to="/" className="header-logo">
-                        <img src={logo.default} alt="" className="image logo" />
+                        <img
+                            src={logo.default}
+                            alt=""
+                            className="image logo"
+                            data-testid="home-logo"
+                        />
                     </NavLink>
                     <SearchBar showSearchBox={false} />
                 </div>
@@ -50,7 +55,6 @@ const Header = () => {
                 <NavBar
                     searchMobile={searchMobile}
                     setSearchMobile={setSearchMobile}
-                    showMobile={showMobile}
                     setShowMobile={setShowMobile}
                 />
             </div>

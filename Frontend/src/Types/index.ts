@@ -60,7 +60,6 @@ export interface AvatarProps {
 export interface NavBarProps {
     searchMobile: boolean;
     setSearchMobile: React.Dispatch<React.SetStateAction<boolean>>;
-    showMobile: boolean;
     setShowMobile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

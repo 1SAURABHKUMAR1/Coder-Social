@@ -39,6 +39,7 @@ const PostSection = ({
                         style={{
                             backgroundImage: `url(${image})`,
                         }}
+                        data-testid="post-image"
                     ></div>
                 )}
                 <div className="post-description post-single-padding">
@@ -54,13 +55,16 @@ const PostSection = ({
                         )}
                     </div>
                     <div className="post-about margin-small-profile">
-                        <div className="post-title">
-                            <div>{heading}</div>
+                        <div className="post-title" data-testid="post-heading">
+                            {heading}
                         </div>
 
                         <TagList tagsArray={tagsArray} />
                     </div>
-                    <div className="margin-small-profile post-description-single markdown-body">
+                    <div
+                        data-testid="post-content"
+                        className="margin-small-profile post-description-single markdown-body"
+                    >
                         <Markdown
                             options={{
                                 overrides: {

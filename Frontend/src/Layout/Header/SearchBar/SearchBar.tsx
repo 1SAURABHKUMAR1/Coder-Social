@@ -35,6 +35,7 @@ const SearchBar = ({ showSearchBox }: SearchBarProps) => {
     return (
         <>
             <input
+                data-testid="header-search"
                 className={`search-bar ${
                     showSearchBox ? 'mobile-search-bar' : 'desktop-search-bar'
                 }`}

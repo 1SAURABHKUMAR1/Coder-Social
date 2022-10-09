@@ -108,6 +108,7 @@ const PostReaction = ({ likes, unicorns, bookmarks }: PostReactionProps) => {
                         className={`post-action-icons ${
                             isClicked.like ? 'clicked-like' : ''
                         }`}
+                        data-testid="like-button"
                     >
                         <span
                             className={`post-single-heart icons-p-2 radius-50 ${
@@ -133,6 +134,7 @@ const PostReaction = ({ likes, unicorns, bookmarks }: PostReactionProps) => {
                         className={`post-action-icons ${
                             isClicked.unicorn ? 'clicked-unicorn' : ''
                         }`}
+                        data-testid="unicorn-button"
                     >
                         <span
                             className={`post-single-unicorn icons-p-2 radius-50 ${
@@ -171,6 +173,7 @@ const PostReaction = ({ likes, unicorns, bookmarks }: PostReactionProps) => {
                         className={`post-action-icons ${
                             isClicked.bookmark ? 'clicked-bookmark' : ''
                         }`}
+                        data-testid="bookmark-button"
                     >
                         <span
                             className={`post-single-bookmark icons-p-2 radius-50 ${

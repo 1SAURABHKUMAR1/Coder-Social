@@ -27,6 +27,7 @@ const SideBar = ({
             <div
                 style={{ display: `${showMoreInfo ? 'flex' : 'none'}` }}
                 className="profile-bottom-left"
+                data-testid="profile-sidebar"
             >
                 <div className="profile-bottom-left-menu-items">
                     <h2>Works</h2>

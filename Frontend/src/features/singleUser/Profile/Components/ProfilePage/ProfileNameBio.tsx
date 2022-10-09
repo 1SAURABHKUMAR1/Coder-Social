@@ -19,8 +19,14 @@ const ProfileNameBio = ({
 
     return (
         <div className="user-info-profile-header-bio">
-            <h1 className="user-info-header-name">{name}</h1>
-            <p className="user-info-bio">{bio}</p>
+            <h1 className="user-info-header-name" data-testid="user-name">
+                {name}
+            </h1>
+            {bio && (
+                <p className="user-info-bio" data-testid="user-bio">
+                    {bio}
+                </p>
+            )}
             <div className="user-info-location-portfolio">
                 {location && (
                     <span className="user-info-single-item">

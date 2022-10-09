@@ -42,7 +42,7 @@ const ReadingList = () => {
 
     return (
         <>
-            {bookmark.length > 0 ? (
+            {bookmark.length !== 0 ? (
                 <>
                     <main className="component component-center component-no-p-m profile-component">
                         <div className="profile-edit-form-header margin-mobile">
@@ -50,8 +50,8 @@ const ReadingList = () => {
                         </div>
 
                         <div className="max-w-50 container container-post">
-                            <ul>
-                                {bookmark.length > 0 &&
+                            <ul data-testid="reading-list-list">
+                                {bookmark.length !== 0 &&
                                     bookmark.map((post: SmallPost) => (
                                         <Posts
                                             image={post?.image?.secure_url}

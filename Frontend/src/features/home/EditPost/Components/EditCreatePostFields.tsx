@@ -23,7 +23,7 @@ const EditCreatePostFields = ({
 
     return (
         <>
-            <div className="flex-gap-5">
+            <div className="flex-gap-5" data-testid="edit-post-form">
                 <TextField
                     htmlFor="title"
                     inputId="title"
@@ -44,7 +44,11 @@ const EditCreatePostFields = ({
                 />
 
                 <PostAvatar image={picture} setImage={setPicture} />
-                <SimpleMDE value={content} onChange={handle} />
+                <SimpleMDE
+                    value={content}
+                    onChange={handle}
+                    data-testid="post-content"
+                />
             </div>
         </>
     );

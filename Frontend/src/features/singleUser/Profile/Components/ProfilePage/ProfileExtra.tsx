@@ -21,11 +21,17 @@ const ProfileExtra = ({
                         <p>Student</p>
                     </div>
                 )}
-                <div className="user-info-education-item">
+                <div
+                    className="user-info-education-item"
+                    data-testid="user-followers"
+                >
                     <strong>Followers</strong>
                     <p>{followers}</p>
                 </div>
-                <div className="user-info-education-item">
+                <div
+                    className="user-info-education-item"
+                    data-testid="user-following"
+                >
                     <strong>Following</strong>
                     <p>{following}</p>
                 </div>

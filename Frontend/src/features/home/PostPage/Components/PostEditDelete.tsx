@@ -23,6 +23,7 @@ const PostEditDelete = ({ postId }: postEditProps) => {
                 />
                 <Link
                     to={`/post/${postId}/edit`}
+                    data-testid="post-edit-button"
                     className="margin-0 edit-delete-button padding-button border-2"
                 >
                     Edit
@@ -30,6 +31,7 @@ const PostEditDelete = ({ postId }: postEditProps) => {
                 <button
                     className="margin-0 edit-delete-button padding-button border-2"
                     onClick={toggleModal}
+                    data-testid="post-delete-button"
                 >
                     Delete
                 </button>

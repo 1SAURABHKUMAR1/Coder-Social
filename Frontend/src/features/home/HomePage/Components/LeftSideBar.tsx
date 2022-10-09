@@ -33,7 +33,7 @@ const LeftSideBar = () => {
         <>
             <div className="sidebar-left">
                 <About />
-                <ul className="home-sidebar-tags">
+                <ul className="home-sidebar-tags" data-testid="tags-home">
                     <li className="list-item hover-list-home">
                         <Link to="/">
                             <i>

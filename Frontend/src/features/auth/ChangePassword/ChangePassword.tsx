@@ -50,7 +50,10 @@ const ChangePassword = () => {
     return (
         <>
             <main className="component component-center component-justify">
-                <form className="auth-component">
+                <form
+                    className="auth-component"
+                    data-testid="change-password-form"
+                >
                     <div className="profile-edit-form-header">
                         Change Password
                     </div>
@@ -81,6 +84,7 @@ const ChangePassword = () => {
                             <button
                                 className="button-primary"
                                 onClick={handleSubmit}
+                                data-testid="change-password-button"
                             >
                                 Change Password
                             </button>

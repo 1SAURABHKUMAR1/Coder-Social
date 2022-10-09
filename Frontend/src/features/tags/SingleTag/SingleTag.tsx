@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 import Posts from '../../../Components/Posts/Posts';
@@ -11,16 +11,23 @@ import randomColor from '../../../Utils/randomColor';
 import { SmallPost } from '../../../Types';
 
 const SingleTag = () => {
-    const [color, setColor] = useState(() => randomColor());
+    const [color] = useState(() => randomColor());
     const [isFollowed, setIsFollowed] = useState(false);
     const { tagName } = useParams();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
     const { singleTagStatus, singleTag, followUnfollowStatus } = useAppSelector(
         (state) => state.tags,
     );
-    const { id } = useAppSelector((state) => state.authenticate);
+    const { id, login } = useAppSelector((state) => state.authenticate);
 
     const handleFollow = () => {
+        if (!login) {
+            navigate('/login', { state: { from: location } });
+            return;
+        }
+
         setIsFollowed(!isFollowed);
 
         dispatch(followUnfollowTag(singleTag.tag_id));
@@ -65,7 +72,10 @@ const SingleTag = () => {
                                 }}
                             >
                                 <div className="tag-header">
-                                    <div className="tag-hash">
+                                    <div
+                                        className="tag-hash"
+                                        data-testid="tag-name"
+                                    >
                                         <span
                                             className="single-tag-hash-single"
                                             style={{
@@ -92,8 +102,8 @@ const SingleTag = () => {
                         </div>
 
                         <div className="max-56 container container-post">
-                            <ul>
-                                {singleTag.posts.length > 0 &&
+                            <ul data-testid="tags-post-list">
+                                {singleTag.posts.length !== 0 &&
                                     singleTag.posts.map((post: SmallPost) => (
                                         <Posts
                                             image={post?.image?.secure_url}

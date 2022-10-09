@@ -52,7 +52,10 @@ const ForgotPassword = () => {
                         <div className=" forgot-header auth-form-header">
                             Forgot Password?
                         </div>
-                        <form className="auth-form-fields">
+                        <form
+                            className="auth-form-fields"
+                            data-testid="forgot-password-form"
+                        >
                             <TextField
                                 htmlFor="email"
                                 inputId="email"
@@ -69,6 +72,7 @@ const ForgotPassword = () => {
                                 <button
                                     className="button-primary"
                                     onClick={handleSubmit}
+                                    data-testid="forgot-password-form-button"
                                 >
                                     Continue
                                 </button>

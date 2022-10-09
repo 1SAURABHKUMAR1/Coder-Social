@@ -55,6 +55,7 @@ const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
                     onClick={NavHandle}
                     type="button"
                     className="sidenav-button"
+                    data-testid="profile-button"
                 >
                     <img
                         src={profilePhoto}
@@ -64,58 +65,61 @@ const SideInfoDesktop = ({ navbarOpen, setNavbarOpen }: HeaderShortProps) => {
                     />
                 </button>
 
-                <button
-                    tabIndex={-1}
-                    className="sidenav-handler"
-                    style={{ display: `${navbarOpen ? 'block' : 'none'}` }}
-                    onClick={NavHandle}
-                ></button>
-
-                <div
-                    className="sidenav-menu"
-                    style={{ display: `${navbarOpen ? 'block' : 'none'}` }}
-                >
-                    <NavLink
-                        to={`/user/profile/${username}`}
+                {navbarOpen && (
+                    <button
+                        tabIndex={-1}
+                        className="sidenav-handler"
                         onClick={NavHandle}
-                        className="sidenav-menu-items username-header"
-                    >
-                        <span>View Profile</span>
-                        <span>@{username}</span>
-                    </NavLink>
+                        data-testid="navbar-black-area"
+                    ></button>
+                )}
 
-                    <NavLink
-                        to="/user/profile/edit"
-                        onClick={NavHandle}
-                        className="sidenav-menu-items"
-                    >
-                        Edit Profile
-                    </NavLink>
+                {navbarOpen ? (
+                    <div className="sidenav-menu" data-testid="profile-wrapper">
+                        <NavLink
+                            to={`/user/profile/${username}`}
+                            onClick={NavHandle}
+                            className="sidenav-menu-items username-header"
+                        >
+                            <span>View Profile</span>
+                            <span>@{username}</span>
+                        </NavLink>
 
-                    <NavLink
-                        to="/user/profile/password"
-                        onClick={NavHandle}
-                        className="sidenav-menu-items"
-                    >
-                        Change Password
-                    </NavLink>
+                        <NavLink
+                            to="/user/profile/edit"
+                            onClick={NavHandle}
+                            className="sidenav-menu-items"
+                        >
+                            Edit Profile
+                        </NavLink>
 
-                    <NavLink
-                        to="/user/readinglist"
-                        onClick={NavHandle}
-                        className="sidenav-menu-items"
-                    >
-                        Reading List
-                    </NavLink>
+                        <NavLink
+                            to="/user/profile/password"
+                            onClick={NavHandle}
+                            className="sidenav-menu-items"
+                        >
+                            Change Password
+                        </NavLink>
 
-                    <NavLink
-                        to="/"
-                        className="sidenav-menu-items"
-                        onClick={logoutUser}
-                    >
-                        Logout
-                    </NavLink>
-                </div>
+                        <NavLink
+                            to="/user/readinglist"
+                            onClick={NavHandle}
+                            className="sidenav-menu-items"
+                        >
+                            Reading List
+                        </NavLink>
+
+                        <NavLink
+                            to="/"
+                            className="sidenav-menu-items"
+                            onClick={logoutUser}
+                        >
+                            Logout
+                        </NavLink>
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
         </>
     );

@@ -42,7 +42,7 @@ const LoginForm = () => {
     return (
         <div className="auth-form-component">
             <div className="auth-form-header">Log in</div>
-            <form className="auth-form-fields">
+            <form className="auth-form-fields" data-testid="login-form">
                 <TextField
                     htmlFor="email"
                     labelTitle="Email"
@@ -62,7 +62,11 @@ const LoginForm = () => {
                 {authState === 'PENDING' ? (
                     <LoaderButton />
                 ) : (
-                    <button className="button-primary" onClick={handleSubmit}>
+                    <button
+                        className="button-primary"
+                        data-testid="login-form-button-submit"
+                        onClick={handleSubmit}
+                    >
                         Continue
                     </button>
                 )}

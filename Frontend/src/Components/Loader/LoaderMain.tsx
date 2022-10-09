@@ -3,7 +3,7 @@ import './Loader.css';
 const Loader = () => {
     return (
         <>
-            <div className="preloader">
+            <div className="preloader" data-testid="loader-main">
                 <div className="sk-circle">
                     <div className="sk-circle1 sk-child"></div>
                     <div className="sk-circle2 sk-child"></div>

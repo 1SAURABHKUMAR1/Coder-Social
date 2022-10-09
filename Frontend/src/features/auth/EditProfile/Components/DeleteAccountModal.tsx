@@ -44,10 +44,14 @@ const DeleteAccountModal = ({
         <>
             {showModal && (
                 <div className="modal-wrapper">
-                    <div className="modal-box">
+                    <div
+                        className="modal-box"
+                        data-testid="delete-account-modal"
+                    >
                         <div className="modal-side">
                             <GrClose
                                 onClick={handleDeleteModal}
+                                data-testid="delete-account-modal-close"
                                 style={{ cursor: 'pointer' }}
                             />
                         </div>

@@ -53,7 +53,11 @@ const PostsActions = ({
     return (
         <>
             <div className="post-like-comment">
-                <Link to={`/post/${postId}`} className="post-like">
+                <Link
+                    to={`/post/${postId}`}
+                    className="post-like"
+                    data-testid="post-like"
+                >
                     <RiHeart2Line style={{ fontSize: '1.25rem' }} />
                     <div className="post-number">
                         {numberOfLikes ? numberOfLikes : '0'}
@@ -61,7 +65,11 @@ const PostsActions = ({
                     </div>
                 </Link>
 
-                <Link to={`/post/${postId}#comment`} className="post-comment">
+                <Link
+                    to={`/post/${postId}#comment`}
+                    className="post-comment"
+                    data-testid="post-comment"
+                >
                     <RiChat1Line style={{ fontSize: '1.25rem' }} />
                     <div className="post-number">
                         {numberOfComments ? numberOfComments : '0'}
@@ -70,7 +78,7 @@ const PostsActions = ({
                 </Link>
             </div>
 
-            <div className="post-read-save">
+            <div className="post-read-save" data-testid="post-bookmark">
                 <div className="post-read-time">
                     {timeToRead ? timeToRead : 0} min read
                 </div>

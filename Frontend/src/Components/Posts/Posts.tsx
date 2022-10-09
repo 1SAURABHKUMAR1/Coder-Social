@@ -33,7 +33,7 @@ const Posts = ({
 
     return (
         <>
-            <li className="post-single">
+            <li className="post-single" data-testid="single-post">
                 {image && (
                     <Link
                         to={`/post/${id}`}
@@ -54,7 +54,9 @@ const Posts = ({
                     </div>
                     <div className="post-about">
                         <div className="post-title">
-                            <Link to={`/post/${id}`}>{heading}</Link>
+                            <Link to={`/post/${id}`} data-testid="post-heading">
+                                {heading}
+                            </Link>
                         </div>
 
                         <TagList tagsArray={tagsArray} />

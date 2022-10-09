@@ -38,7 +38,10 @@ const EditProfileForm = () => {
 
     return (
         <>
-            <section className="profile-sub-component">
+            <section
+                className="profile-sub-component"
+                data-testid="edit-profile-component"
+            >
                 <div className="auth-form-fields">
                     <TextField
                         htmlFor="name"
@@ -78,7 +81,10 @@ const EditProfileForm = () => {
                     />
                 </div>
             </section>
-            <section className="profile-sub-component">
+            <section
+                className="profile-sub-component"
+                data-testid="edit-profile-component"
+            >
                 <div className="auth-form-fields">
                     <TextField
                         htmlFor="bio"
@@ -123,7 +129,10 @@ const EditProfileForm = () => {
                 </div>
             </section>
 
-            <section className="profile-sub-component">
+            <section
+                className="profile-sub-component"
+                data-testid="edit-profile-component"
+            >
                 <div className="auth-form-fields">
                     <TextField
                         htmlFor="education"

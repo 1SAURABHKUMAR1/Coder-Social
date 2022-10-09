@@ -95,11 +95,13 @@ const EditProfileButton = ({
                             <button
                                 className="button-primary profile-button"
                                 onClick={handleSubmit}
+                                data-testid="edit-profile-save-changes"
                             >
                                 Save Changes
                             </button>
                             <button
                                 className="button-primary delete-button profile-button"
+                                data-testid="edit-profile-delete-account"
                                 onClick={handleShowDeleteModal}
                             >
                                 Delete Account

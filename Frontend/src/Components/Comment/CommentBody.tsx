@@ -22,13 +22,19 @@ const CommentBody = ({
                     <Link
                         to={`/user/profile/${author_username}`}
                         className="post-author-name"
+                        data-testid="comment-user-name"
                     >
                         <div>{author_name}</div>
                     </Link>
 
                     <span className="font-m-bold">•</span>
 
-                    <div className="post-author-date">{dateOfComment}</div>
+                    <div
+                        className="post-author-date"
+                        data-testid="comment-user-date"
+                    >
+                        {dateOfComment}
+                    </div>
                 </div>
 
                 {showCommentEdit ? (
@@ -40,7 +46,12 @@ const CommentBody = ({
                         }
                     ></textarea>
                 ) : (
-                    <div className="padding-top-3">{comment_body}</div>
+                    <div
+                        className="padding-top-3"
+                        data-testid="comment-user-body"
+                    >
+                        {comment_body}
+                    </div>
                 )}
             </div>
         </>

@@ -10,7 +10,7 @@ import { SmallPost } from '../../Types';
 import { searchPost } from '../index';
 
 const Search = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const dispatch = useAppDispatch();
     const { searchPosts, searchPostState } = useAppSelector(
         (state) => state.search,
@@ -56,7 +56,7 @@ const Search = () => {
                     </div>
                     <div className="max-w-50 container container-post">
                         <ul>
-                            {searchPosts.length > 0 &&
+                            {searchPosts.length !== 0 &&
                                 searchPosts.map((post: SmallPost) => (
                                     <Posts
                                         image={post?.image?.secure_url}

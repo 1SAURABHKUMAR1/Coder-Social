@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { RiChat1Line } from 'react-icons/ri';
 
@@ -37,6 +37,7 @@ const SingleComment = ({
     const dispatch = useAppDispatch();
     const { postId } = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
     const { userId, login } = useAppSelector((state) => state.authenticate);
     const { createCommentStatus } = useAppSelector((state) => state.post);
 
@@ -50,16 +51,21 @@ const SingleComment = ({
     };
 
     const toggleReplyTextarea = () => {
+        if (!login) {
+            navigate('/login', { state: { from: location } });
+        }
+
         setReplyText(!replyText);
     };
 
     const handleReply = () => {
         if (!login) {
-            <Navigate to="/login" state={{ from: location }} />;
+            navigate('/login', { state: { from: location } });
         }
 
         if (!replyBody) {
             ErrorToast('Cannot be empty');
+            return;
         }
 
         dispatch(
@@ -75,7 +81,10 @@ const SingleComment = ({
 
     return (
         <>
-            <div className="post-author width-100 align-start">
+            <div
+                className="post-author width-100 align-start"
+                data-testid="post-user-comments"
+            >
                 <div className="post-author-image">
                     <Link
                         to={`/user/profile/${author_username}`}
@@ -84,6 +93,7 @@ const SingleComment = ({
                         <img
                             src={author_avatar}
                             alt="autor-single"
+                            data-testid="comment-user-avatar"
                             className="image image-round"
                         />
                     </Link>
@@ -110,6 +120,7 @@ const SingleComment = ({
                                 <div
                                     className="flex align-center gap-2 cursor-pointer"
                                     onClick={toggleReplyTextarea}
+                                    data-testid="comment-reply"
                                 >
                                     <RiChat1Line />
                                     <span className="font-sm post-author-date">
@@ -139,6 +150,7 @@ const SingleComment = ({
                                     className="width-100 comment-text-area scrollbar-hidden"
                                     value={replyBody}
                                     onChange={handleReplyBody}
+                                    data-testid="comment-reply-textarea"
                                 />
                                 <div className="flex gap-2 align-center color-mid-gray padding-top-2">
                                     {createCommentStatus === 'PENDING' ? (
@@ -148,6 +160,7 @@ const SingleComment = ({
                                             id="submit-primary-button"
                                             className="post-comment margin-0 border-2 font-85"
                                             onClick={handleReply}
+                                            data-testid="comment-reply-submit"
                                         >
                                             Submit
                                         </button>
@@ -155,6 +168,7 @@ const SingleComment = ({
                                     <div
                                         className="post-comment post-number"
                                         onClick={resetReplyBody}
+                                        data-testid="comment-reply-dismiss"
                                     >
                                         Dismiss
                                     </div>

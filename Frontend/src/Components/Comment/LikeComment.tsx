@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Navigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { RiHeart2Line } from 'react-icons/ri';
 
@@ -12,12 +12,14 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 const LikeComment = ({ likes_array, comment_id }: CommentLikeProps) => {
     const [liked, setLiked] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { login, id } = useAppSelector((state) => state.authenticate);
 
     const handleLike = async () => {
         if (!login) {
-            <Navigate to="/login" state={{ from: location }} />;
+            navigate('/login', { state: { from: location } });
+            return;
         }
 
         setLiked(!liked);
@@ -41,6 +43,7 @@ const LikeComment = ({ likes_array, comment_id }: CommentLikeProps) => {
                         liked ? 'var(--icon-like-background)' : 'transparent'
                     }`,
                 }}
+                data-testid="comment-like"
                 onClick={handleLike}
             >
                 <RiHeart2Line

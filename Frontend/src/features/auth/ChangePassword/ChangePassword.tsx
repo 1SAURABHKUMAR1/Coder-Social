@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import PasswordField from '../../../Components/InputField/PasswordField';
 import LoaderButton from '../../../Components/Loader/LoaderButton';
@@ -17,8 +17,9 @@ const ChangePassword = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const { authState } = useAppSelector((state) => state.authenticate);
+    const { authState, login } = useAppSelector((state) => state.authenticate);
 
     useScrollToTop();
 
@@ -27,6 +28,10 @@ const ChangePassword = () => {
     };
 
     const handleSubmit = (event: React.FormEvent) => {
+        if (!login) {
+            navigate('/login', { state: { from: location } });
+        }
+
         event.preventDefault();
 
         newPassword !== ''

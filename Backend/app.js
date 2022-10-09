@@ -6,8 +6,6 @@ const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const nocache = require('nocache');
-const passportConfig = require('./passport/passport');
-const passport = require('passport');
 const { Server } = require('socket.io');
 const httpsServer = require('http').createServer(app);
 const helmet = require('helmet');
@@ -34,8 +32,6 @@ app.use(
         tempFileDir: '/tmp/',
     }),
 );
-
-app.use(passport.initialize());
 
 app.set('view engine', 'ejs');
 

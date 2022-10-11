@@ -230,7 +230,7 @@ describe('User Profile', () => {
             cy.findByLabelText('Location').clear().type(newUser.location);
             cy.findByTestId('edit-profile-save-changes').click();
 
-            cy.wait(1500);
+            cy.wait(1000);
             cy.contains('Updated').should('exist');
 
             cy.visit(`${Cypress.env('userProfileUrl')}/${user.username}`);
@@ -278,7 +278,6 @@ describe('User Profile', () => {
 
         cy.visit(Cypress.env('changePasswordUrl'));
         cy.findByTestId('change-password-button').click();
-        cy.wait(200);
         cy.contains('Fill All Details!').should('exist');
     });
 });

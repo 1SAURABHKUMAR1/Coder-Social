@@ -348,7 +348,6 @@ describe('Post section', () => {
                                 }/edit`,
                             );
                             cy.go('back');
-                            cy.wait(200);
 
                             // delete post
                             cy.findByTestId('post-delete-button').should(
@@ -457,7 +456,6 @@ describe('Post section', () => {
         cy.visit(Cypress.env('createPostUrl'));
 
         cy.findByTestId('create-post-button').click();
-        cy.wait(200);
         cy.contains('Fill All Details').should('exist');
     });
 

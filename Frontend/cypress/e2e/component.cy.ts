@@ -120,8 +120,6 @@ describe('Component', () => {
         cy.findByTestId('header').findByTestId('home-logo').click();
         cy.url().should('eq', `${Cypress.config().baseUrl}/`);
 
-        cy.wait(200);
-
         // check search
         cy.findByTestId('header')
             .findAllByTestId('header-search')
@@ -166,8 +164,6 @@ describe('Component', () => {
             cy.checkLogo();
             cy.findByTestId('header').findByTestId('home-logo').click();
             cy.url().should('eq', `${Cypress.config().baseUrl}/`);
-
-            cy.wait(200);
 
             // check search
             cy.findByTestId('header')

@@ -41,3 +41,11 @@ export const createPost = (): {
         description: faker.lorem.sentences(1),
     };
 };
+
+export const generateComment = (): {
+    comment: string;
+} => {
+    return {
+        comment: faker.lorem.word(),
+    };
+};

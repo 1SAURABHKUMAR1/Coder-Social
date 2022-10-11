@@ -1,11 +1,7 @@
 describe('Reading List', () => {
     it('Check Reading List', () => {
         cy.login().then((user) => {
-            cy.wait(200);
-
             cy.visit(`${Cypress.env('readingListUrl')}`);
-
-            cy.wait(200);
 
             if (user.bookmarks.length === 0) {
                 cy.contains('Reading List is empty!').should('exist');

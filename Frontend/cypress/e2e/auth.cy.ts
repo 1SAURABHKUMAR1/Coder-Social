@@ -30,6 +30,7 @@ describe('Authenticated', () => {
             'Choose a different photo',
         );
         cy.findByLabelText('Choose a different photo').should('exist');
+        cy.get('#avatar-input').should('exist');
 
         cy.findByTestId('signup-form').contains('label', 'Password');
         cy.findByLabelText('Password').should('exist');
@@ -149,29 +150,38 @@ describe('Authenticated', () => {
     it.only('Signup', () => {
         cy.visit(Cypress.env('signupUrl'));
 
-        // const user = createRandomUser();
+        const user = createRandomUser();
 
-        // cy.findByLabelText('Full Name').type(user.name);
-        // cy.findByLabelText('Email').type(user.email);
-        // cy.findByTestId('signup-form').contains(
-        //     'label',
-        //     'Choose a different photo',
-        // );
-        // cy.findByLabelText('Password').type(user.password);
-        // cy.findByTestId('signup-form-button-submit').click();
-        // cy.contains('Login Success').should('exist');
+        cy.findByLabelText('Full Name').type(user.name);
+        cy.findByLabelText('Email').type(user.email);
+        cy.get('#avatar-input').attachFile('avatar.jpg');
 
-        // cy.url().should('eq', `${Cypress.config().baseUrl}/`);
+        cy.findByLabelText('Password').type(user.password);
+        cy.findByTestId('signup-form-button-submit').click();
 
-        // cy.visit(Cypress.env('loginUrl'));
+        cy.wait(4500);
 
-        // cy.findByLabelText('Email').type(user.email);
-        // cy.findByLabelText('Password').type(user.password);
+        cy.contains('Signup Success').should('exist');
+        cy.url().should('eq', `${Cypress.config().baseUrl}/`);
+        cy.findByTestId('profile-button').click();
+        cy.findByTestId('profile-wrapper').should(
+            'contain',
+            user.email.substring(0, user.email.lastIndexOf('@')),
+        );
+        cy.findByTestId('profile-wrapper').contains(`Logout`).click();
 
-        // cy.findByTestId('login-form-button-submit').click();
+        cy.wait(1000);
+        cy.contains('Logout Success').should('exist');
 
-        // cy.contains('Login Success').should('exist');
+        cy.visit(Cypress.env('loginUrl'));
+        cy.findByLabelText('Email').type(user.email);
+        cy.findByLabelText('Password').type(user.password);
+        cy.findByTestId('login-form-button-submit').click();
 
-        // cy.url().should('eq', `${Cypress.config().baseUrl}/`);
+        cy.wait(1500);
+
+        cy.contains('Login Success').should('exist');
+
+        cy.url().should('eq', `${Cypress.config().baseUrl}/`);
     });
 });

@@ -38,6 +38,6 @@ export const createPost = (): {
     return {
         title: faker.lorem.sentence(5),
         tag: faker.lorem.word(),
-        description: faker.lorem.sentences(3),
+        description: faker.lorem.sentences(1),
     };
 };

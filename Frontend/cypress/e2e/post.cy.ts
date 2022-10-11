@@ -550,4 +550,64 @@ describe('Post section', () => {
             }
         });
     });
+
+    it('Edit Post Form', () => {
+        cy.login().then((user) => {
+            cy.visit(`${Cypress.env('userProfileUrl')}/${user.username}`);
+
+            if (user.posts.length !== 0) {
+                // click post
+                cy.findAllByTestId('single-post')
+                    .first()
+                    .findByTestId('post-heading')
+                    .click();
+
+                cy.findByTestId('post-edit-button').click();
+
+                const newPost = createPost();
+
+                cy.findByLabelText('Title').clear().type(newPost.title);
+                cy.findByLabelText('Tags').type(`${newPost.tag}{enter}`);
+                cy.findAllByTestId('post-content', { timeout: 6000 }).type(
+                    `{enter}${newPost.description}`,
+                );
+
+                cy.findByTestId('edit-post-button').click();
+
+                cy.contains('Post Updated!').should('exist');
+
+                cy.url().should('contain', `${Cypress.config().baseUrl}/post`);
+
+                cy.visit(`${Cypress.config().baseUrl}`);
+
+                cy.findAllByTestId('single-post').should(
+                    'contain',
+                    newPost.title,
+                );
+
+                cy.visit(`${Cypress.env('userProfileUrl')}/${user.username}`);
+
+                cy.findAllByTestId('single-post').should(
+                    'contain',
+                    newPost.title,
+                );
+
+                cy.findAllByTestId('post-heading')
+                    .contains(newPost.title)
+                    .click();
+
+                cy.findByTestId('post-heading').should(
+                    'have.text',
+                    newPost.title,
+                );
+
+                cy.contains(newPost.tag).should('exist');
+
+                cy.findByTestId('post-content').should(
+                    'contain',
+                    newPost.description,
+                );
+            }
+        });
+    });
 });

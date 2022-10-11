@@ -83,10 +83,6 @@ describe('Post section', () => {
                             );
                         }
                         cy.findByTestId('post-content').should('exist');
-                        cy.findByTestId('post-content').should(
-                            'have.text',
-                            post.description,
-                        );
 
                         // check comment section
                         cy.contains(
@@ -453,11 +449,6 @@ describe('Post section', () => {
             cy.findByTestId('post-heading').should('have.text', newPost.title);
 
             cy.contains(newPost.tag).should('exist');
-
-            cy.findByTestId('post-content').should(
-                'have.text',
-                newPost.description,
-            );
         });
     });
 
@@ -607,6 +598,58 @@ describe('Post section', () => {
                     'contain',
                     newPost.description,
                 );
+            }
+        });
+    });
+
+    it('Delete Post', () => {
+        cy.login().then((user) => {
+            cy.visit(`${Cypress.env('userProfileUrl')}/${user.username}`);
+
+            if (user.posts.length > 0) {
+                // click post
+                cy.findAllByTestId('single-post')
+                    .first()
+                    .findByTestId('post-heading')
+                    .click();
+
+                cy.location().then((url) => {
+                    cy.post(url.pathname.split('/').at(-1) as string).then(
+                        (post) => {
+                            cy.findByTestId('post-delete-button').click();
+                            cy.findByTestId('post-delete-modal-button').click();
+
+                            cy.contains('Post Deleted').should('exist');
+
+                            cy.url().should(
+                                'eq',
+                                `${Cypress.config().baseUrl}/`,
+                            );
+
+                            cy.findAllByTestId('single-post').should(
+                                'not.contain',
+                                post.title,
+                            );
+
+                            cy.visit(
+                                `${Cypress.env('userProfileUrl')}/${
+                                    user.username
+                                }`,
+                            );
+
+                            if (user.posts.length > 1) {
+                                cy.findAllByTestId('single-post').should(
+                                    'not.contain',
+                                    post.title,
+                                );
+                            } else {
+                                cy.findAllByTestId('single-post').should(
+                                    'not.exist',
+                                );
+                            }
+                        },
+                    );
+                });
             }
         });
     });

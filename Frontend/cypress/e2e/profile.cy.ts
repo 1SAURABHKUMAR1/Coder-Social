@@ -1,5 +1,7 @@
+import { createRandomName } from '../support/generateRandomUser';
+
 describe('User Profile', () => {
-    it('Current User Profile', () => {
+    it('Current User Profile UI', () => {
         cy.login().then((user) => {
             cy.visit(`${Cypress.env('userProfileUrl')}/${user.username}`);
 
@@ -76,7 +78,7 @@ describe('User Profile', () => {
         });
     });
 
-    it('Edit Profile', () => {
+    it('Edit Profile UI', () => {
         cy.login().then((user) => {
             cy.visit(Cypress.env('editProfileUrl'));
 
@@ -212,7 +214,37 @@ describe('User Profile', () => {
         });
     });
 
-    it('Change Password', () => {
+    it('Edit Profile Form', () => {
+        const newUser = createRandomName();
+
+        cy.login().then((user) => {
+            cy.visit(Cypress.env('editProfileUrl'));
+
+            cy.findByLabelText('Name').clear().type(newUser.name);
+            cy.findByLabelText('Bio').clear().type(newUser.bio);
+            cy.findByLabelText('Portfolio Link')
+                .clear()
+                .type(newUser.portfolio);
+            cy.findByLabelText('Work').clear().type(newUser.work);
+            cy.findByLabelText('Education').clear().type(newUser.education);
+            cy.findByLabelText('Location').clear().type(newUser.location);
+            cy.findByTestId('edit-profile-save-changes').click();
+
+            cy.wait(1500);
+            cy.contains('Updated').should('exist');
+
+            cy.visit(`${Cypress.env('userProfileUrl')}/${user.username}`);
+        });
+
+        cy.findByTestId('user-name').should('contain', newUser.name);
+        cy.contains(newUser.bio).should('exist');
+        cy.contains(newUser.portfolio).should('exist');
+        cy.contains(newUser.work).should('exist');
+        cy.contains(newUser.education).should('exist');
+        cy.contains(newUser.location).should('exist');
+    });
+
+    it('Change Password UI', () => {
         cy.login();
 
         cy.visit(Cypress.env('changePasswordUrl'));
@@ -241,7 +273,7 @@ describe('User Profile', () => {
         cy.findByTestId('change-password-button').should('exist');
     });
 
-    it('Empty Change Password', () => {
+    it('Empty Change Password Form', () => {
         cy.login();
 
         cy.visit(Cypress.env('changePasswordUrl'));

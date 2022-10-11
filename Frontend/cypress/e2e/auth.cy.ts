@@ -147,7 +147,7 @@ describe('Authenticated', () => {
         cy.url().should('eq', `${Cypress.config().baseUrl}/`);
     });
 
-    it.only('Signup', () => {
+    it('Signup', () => {
         cy.visit(Cypress.env('signupUrl'));
 
         const user = createRandomUser();

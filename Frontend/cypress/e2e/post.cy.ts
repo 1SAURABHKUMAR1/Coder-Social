@@ -1,5 +1,7 @@
+import { createPost } from '../support/generateRandomUser';
+
 describe('Post section', () => {
-    it('Post Unauthenticated', () => {
+    it('Post Unauthenticated UI', () => {
         cy.visit('/');
         cy.clearCookies();
 
@@ -81,6 +83,10 @@ describe('Post section', () => {
                             );
                         }
                         cy.findByTestId('post-content').should('exist');
+                        cy.findByTestId('post-content').should(
+                            'have.text',
+                            post.description,
+                        );
 
                         // check comment section
                         cy.contains(
@@ -202,7 +208,7 @@ describe('Post section', () => {
         }
     });
 
-    it('Post Authenticated', () => {
+    it('Post Authenticated UI', () => {
         cy.login().then((user) => {
             cy.visit('/');
 
@@ -313,7 +319,7 @@ describe('Post section', () => {
         });
     });
 
-    it('Profile Post', () => {
+    it('Profile Post UI', () => {
         cy.login().then((user) => {
             cy.visit(`${Cypress.env('userProfileUrl')}/${user.username}`);
 
@@ -389,7 +395,7 @@ describe('Post section', () => {
         });
     });
 
-    it('Create Post', () => {
+    it('Create Post UI', () => {
         cy.login();
         cy.visit(Cypress.env('createPostUrl'));
 
@@ -418,7 +424,44 @@ describe('Post section', () => {
         cy.findByTestId('create-post-button').should('exist');
     });
 
-    it('Check Empty Post Create', () => {
+    it('Create Post Form ', () => {
+        cy.login().then((user) => {
+            cy.visit(Cypress.env('createPostUrl'));
+
+            const newPost = createPost();
+
+            cy.findByLabelText('Title').type(newPost.title);
+            cy.findByLabelText('Tags').type(`${newPost.tag}{enter}`);
+            cy.findAllByTestId('post-content', { timeout: 6000 }).type(
+                newPost.description,
+            );
+
+            cy.findByTestId('create-post-button').click();
+
+            cy.contains('Post Created!').should('exist');
+
+            cy.url().should('eq', `${Cypress.config().baseUrl}/`);
+
+            cy.findAllByTestId('single-post').should('contain', newPost.title);
+
+            cy.visit(`${Cypress.env('userProfileUrl')}/${user.username}`);
+
+            cy.findAllByTestId('single-post').should('contain', newPost.title);
+
+            cy.findAllByTestId('post-heading').contains(newPost.title).click();
+
+            cy.findByTestId('post-heading').should('have.text', newPost.title);
+
+            cy.contains(newPost.tag).should('exist');
+
+            cy.findByTestId('post-content').should(
+                'have.text',
+                newPost.description,
+            );
+        });
+    });
+
+    it('Check Empty Post Create Form', () => {
         cy.login();
         cy.visit(Cypress.env('createPostUrl'));
 
@@ -427,7 +470,7 @@ describe('Post section', () => {
         cy.contains('Fill All Details').should('exist');
     });
 
-    it('Edit Post', () => {
+    it('Edit Post UI', () => {
         cy.login().then((user) => {
             cy.visit(`${Cypress.env('userProfileUrl')}/${user.username}`);
 

@@ -5,6 +5,7 @@ import { store } from '../store/store';
 
 export interface SearchBarProps {
     showSearchBox: boolean;
+    viewPort: 'mobile' | 'desktop';
 }
 
 export interface TextFieldProps {

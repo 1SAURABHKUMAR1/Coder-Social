@@ -21,11 +21,13 @@ export default defineConfig({
         readingListUrl: '/user/readinglist',
         tagsUrl: '/tags',
         singleTagsUrl: '/tag',
+        searchUrl: '/post/search',
         userEmail: 'email@gmail.com',
         userPassword: 'Saurabh',
         loginUrlBackend: '/login',
         postUrlBackend: '/post',
         tagsUrlBackend: '/tags',
         singleTagUrlBackend: '/tag',
+        searchUrlBackend: '/post/filter?search=',
     },
 });

@@ -7,7 +7,7 @@ import { setStateNameSearch } from '../../../features/index';
 
 import { SearchBarProps } from '../../../Types';
 
-const SearchBar = ({ showSearchBox }: SearchBarProps) => {
+const SearchBar = ({ showSearchBox, viewPort }: SearchBarProps) => {
     const [searchValue, setSearchValue] = useState('');
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -35,9 +35,17 @@ const SearchBar = ({ showSearchBox }: SearchBarProps) => {
     return (
         <>
             <input
-                data-testid="header-search"
+                data-testid={`${
+                    viewPort === 'desktop'
+                        ? 'desktop-header-search'
+                        : 'mobile-header-search'
+                }`}
                 className={`search-bar ${
-                    showSearchBox ? 'mobile-search-bar' : 'desktop-search-bar'
+                    viewPort === 'desktop'
+                        ? 'desktop-search-bar'
+                        : showSearchBox
+                        ? 'mobile-search-bar'
+                        : 'hidden-search-bar'
                 }`}
                 name="searchBox"
                 value={searchValue}

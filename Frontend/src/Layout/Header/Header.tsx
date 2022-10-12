@@ -48,7 +48,7 @@ const Header = () => {
                             data-testid="home-logo"
                         />
                     </NavLink>
-                    <SearchBar showSearchBox={false} />
+                    <SearchBar showSearchBox={true} viewPort={'desktop'} />
                 </div>
 
                 {/* signup and search and user info icons  */}
@@ -60,7 +60,7 @@ const Header = () => {
             </div>
 
             <div className="search-mobile-container">
-                <SearchBar showSearchBox={searchMobile} />
+                <SearchBar showSearchBox={searchMobile} viewPort="mobile" />
             </div>
 
             <SideInfoMobile

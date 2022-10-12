@@ -122,7 +122,7 @@ describe('Component', () => {
 
         // check search
         cy.findByTestId('header')
-            .findAllByTestId('header-search')
+            .findAllByTestId('desktop-header-search')
             .should('exist');
         cy.findByTestId('header')
             .findAllByPlaceholderText('Search.....')
@@ -167,7 +167,7 @@ describe('Component', () => {
 
             // check search
             cy.findByTestId('header')
-                .findAllByTestId('header-search')
+                .findAllByTestId('desktop-header-search')
                 .should('exist');
             cy.findByTestId('header')
                 .findAllByPlaceholderText('Search.....')

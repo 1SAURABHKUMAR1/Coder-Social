@@ -140,6 +140,33 @@ declare namespace Cypress {
             tag_id: string;
             _id: string;
         }>;
+        searchPost(postTitleName: string): Cypress.Chainable<{
+            posts: Array<{
+                author: {
+                    profile_photo: {
+                        id: string;
+                        secure_url: string;
+                    };
+                    _id: string;
+                    name: string;
+                    username: string;
+                };
+                bookmarks: [];
+                comments: [];
+                createdAt: string;
+                description: string;
+                image: {
+                    id: string;
+                    secure_url: string;
+                };
+                likes: [];
+                post_id: string;
+                tags: Array<string>;
+                title: string;
+                unicorns: [];
+                _id: string;
+            }>;
+        }>;
     }
 }
 
@@ -205,5 +232,16 @@ Cypress.Commands.add('singleTag', (tag_id) => {
         method: 'GET',
     }).then((response) => ({
         ...response.body.tag,
+    }));
+});
+
+Cypress.Commands.add('searchPost', (postTitleName) => {
+    cy.request({
+        url: `${Cypress.env('apiUrl')}${Cypress.env(
+            'searchUrlBackend',
+        )}${postTitleName}`,
+        method: 'GET',
+    }).then((response) => ({
+        ...response.body,
     }));
 });

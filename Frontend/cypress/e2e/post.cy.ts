@@ -651,4 +651,71 @@ describe('Post section', () => {
             }
         });
     });
+
+    it('Like Unicorn Bookmark', () => {
+        cy.login().then((user) => {
+            cy.visit('/');
+
+            // click on post any
+            if (cy.findAllByTestId('single-post')) {
+                cy.findAllByTestId('single-post')
+                    .first()
+                    .findByTestId('post-heading')
+                    .click();
+
+                cy.location().then((url) => {
+                    cy.post(url.pathname.split('/').at(-1) as string).then(
+                        (post) => {
+                            cy.findByTestId('like-button').click();
+                            cy.findByTestId('unicorn-button').click();
+                            cy.findByTestId('bookmark-button').click();
+
+                            if (post.likes.includes(user._id)) {
+                                cy.findByTestId('like-button').should(
+                                    'have.text',
+                                    post.likes.length - 1,
+                                );
+                            } else {
+                                cy.findByTestId('like-button').should(
+                                    'have.text',
+                                    post.likes.length + 1,
+                                );
+                            }
+
+                            if (post.unicorns.includes(user._id)) {
+                                cy.findByTestId('unicorn-button').should(
+                                    'have.text',
+                                    post.unicorns.length - 1,
+                                );
+                            } else {
+                                cy.findByTestId('unicorn-button').should(
+                                    'have.text',
+                                    post.unicorns.length + 1,
+                                );
+                            }
+
+                            if (post.bookmarks.includes(user._id)) {
+                                cy.findByTestId('bookmark-button').should(
+                                    'have.text',
+                                    post.bookmarks.length - 1,
+                                );
+                            } else {
+                                cy.findByTestId('bookmark-button').should(
+                                    'have.text',
+                                    post.bookmarks.length + 1,
+                                );
+
+                                cy.visit(`${Cypress.env('readingListUrl')}`);
+
+                                cy.findAllByTestId('single-post').should(
+                                    'contain',
+                                    post.title,
+                                );
+                            }
+                        },
+                    );
+                });
+            }
+        });
+    });
 });

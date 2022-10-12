@@ -50,7 +50,7 @@ declare namespace Cypress {
                 user_id: string;
                 work: string;
             };
-            bookmarks: [];
+            bookmarks: Array<string>;
             comments: Array<{
                 body: string;
                 author: {
@@ -92,7 +92,7 @@ declare namespace Cypress {
                 _id: string;
             }>;
             title: string;
-            unicorns: [];
+            unicorns: string[];
             _id: string;
         }>;
         tags(): Cypress.Chainable<{

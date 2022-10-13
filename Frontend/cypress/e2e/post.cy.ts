@@ -670,29 +670,33 @@ describe('Post section', () => {
                             cy.findByTestId('unicorn-button').click();
                             cy.findByTestId('bookmark-button').click();
 
-                            if (post.likes.includes(user._id)) {
-                                cy.findByTestId('like-button').should(
-                                    'have.text',
-                                    post.likes.length - 1,
-                                );
-                            } else {
-                                cy.findByTestId('like-button').should(
-                                    'have.text',
-                                    post.likes.length + 1,
-                                );
-                            }
+                            post.likes.includes(user._id)
+                                ? cy
+                                      .findByTestId('like-button')
+                                      .should(
+                                          'have.text',
+                                          post.likes.length - 1,
+                                      )
+                                : cy
+                                      .findByTestId('like-button')
+                                      .should(
+                                          'have.text',
+                                          post.likes.length + 1,
+                                      );
 
-                            if (post.unicorns.includes(user._id)) {
-                                cy.findByTestId('unicorn-button').should(
-                                    'have.text',
-                                    post.unicorns.length - 1,
-                                );
-                            } else {
-                                cy.findByTestId('unicorn-button').should(
-                                    'have.text',
-                                    post.unicorns.length + 1,
-                                );
-                            }
+                            post.unicorns.includes(user._id)
+                                ? cy
+                                      .findByTestId('unicorn-button')
+                                      .should(
+                                          'have.text',
+                                          post.unicorns.length - 1,
+                                      )
+                                : cy
+                                      .findByTestId('unicorn-button')
+                                      .should(
+                                          'have.text',
+                                          post.unicorns.length + 1,
+                                      );
 
                             if (post.bookmarks.includes(user._id)) {
                                 cy.findByTestId('bookmark-button').should(

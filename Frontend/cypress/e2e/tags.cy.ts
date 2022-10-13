@@ -70,4 +70,30 @@ describe('Tags', () => {
             }
         });
     });
+
+    it.skip('Follow Unfollow Tag', () => {
+        cy.login().then((user) => {
+            cy.tags().then((body) => {
+                if (body.tags.length > 0) {
+                    cy.visit(
+                        `${Cypress.env('singleTagsUrl')}/${body.tags[0].name}`,
+                    );
+
+                    if (body.tags[0].followers.includes(user._id)) {
+                        cy.findByText('Unfollow').should('exist');
+
+                        cy.findByText('Unfollow').click();
+                        cy.findByText('Unfollow').should('not.exist');
+                        cy.findByText('Follow').should('exist');
+                    } else {
+                        cy.findByText('Follow').should('exist');
+
+                        cy.findByText('Follow').click();
+                        cy.findByText('Follow').should('not.exist');
+                        cy.findByText('Unfollow').should('exist');
+                    }
+                }
+            });
+        });
+    });
 });

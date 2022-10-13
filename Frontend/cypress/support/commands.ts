@@ -152,7 +152,34 @@ declare namespace Cypress {
                     username: string;
                 };
                 bookmarks: [];
-                comments: [];
+                comments: Array<{
+                    body: string;
+                    author: {
+                        profile_photo: {
+                            id: string;
+                            secure_url: string;
+                        };
+                        _id: string;
+                        name: string;
+                        username: string;
+                        user_id: string;
+                    };
+                    post: string;
+                    likes: Array<{
+                        profile_photo: {
+                            id: string;
+                            secure_url: string;
+                        };
+                        _id: string;
+                        name: string;
+                        username: string;
+                        user_id: string;
+                    }>;
+                    _id: string;
+                    comment_id: string;
+                    createdAt: string;
+                    parent_comment: string;
+                }>;
                 createdAt: string;
                 description: string;
                 image: {
@@ -217,7 +244,7 @@ Cypress.Commands.add('post', (postId) => {
 
 Cypress.Commands.add('tags', () => {
     cy.request({
-        url: `${Cypress.env('apiUrl')}/${Cypress.env('tagsUrlBackend')}`,
+        url: `${Cypress.env('apiUrl')}${Cypress.env('tagsUrlBackend')}`,
         method: 'GET',
     }).then((response) => ({
         ...response.body,
